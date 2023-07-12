@@ -1,0 +1,39 @@
+.pin-main-div {
+  position: absolute;
+  color: white;
+  max-width: fit-content;
+}
+
+.pin-main-div-active {
+  position: absolute;
+  color: white;
+  min-width: 30rem;
+}
+
+.pin-details-div-active {
+  max-width: 30rem;
+  margin-bottom: 1rem;
+  /* display: block; */
+  position: absolute;
+  transition: all 0.5s ease-in;
+  z-index: 2;
+  transform: translateY(-150px);
+}
+
+.pin-details-div {
+  max-width: 30rem;
+  margin-bottom: 1rem;
+  display: none;
+  transition: all 0.5s ease-in;
+  z-index: 2;
+}
+
+.pin-details-div-details-text {
+  text-align: left;
+  text-transform: none;
+}
+
+.pin-clicker-div {
+  cursor: pointer;
+  padding: 1rem;
+}
