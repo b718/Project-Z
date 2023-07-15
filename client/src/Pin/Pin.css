@@ -14,11 +14,19 @@
   max-width: 30rem;
   margin-bottom: 1rem;
   transition: all 0.5s ease-in;
-  opacity: 1;
   z-index: 2;
   padding: 1rem 1rem 1rem 1rem;
   background-color: white;
   border-radius: 20px;
+  opacity: 0.8;
+}
+
+.pin-hover-div {
+  z-index: 2;
+  padding: 1rem 1rem 1rem 1rem;
+  background-color: white;
+  border-radius: 20px;
+  transition: all 0.5s ease-in;
   opacity: 0.8;
 }
 
