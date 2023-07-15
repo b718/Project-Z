@@ -4,9 +4,15 @@ import { Flex, Text } from "@mantine/core";
 interface pinData {
   location: string;
   details: string;
-  people: string;
+  peopleGoing: string;
+  peopleTotal: string;
 }
-const Pin: FunctionComponent<pinData> = ({ location, details, people }) => {
+const Pin: FunctionComponent<pinData> = ({
+  location,
+  details,
+  peopleGoing,
+  peopleTotal,
+}) => {
   const [click, setClick] = useState<Boolean>(false);
   return (
     <>
@@ -14,10 +20,15 @@ const Pin: FunctionComponent<pinData> = ({ location, details, people }) => {
         {" "}
         <Flex direction="column" align="center" justify="center">
           <div className={`pin-details-div${click ? "-active" : ""}`}>
-            <Flex direction="column" align="center" justify="center">
+            {" "}
+            <Flex align="flex-start" className="pin-location-header">
               <Text>{location}</Text>
-              <Text className="pin-details-div-details-text">{details}</Text>
-              <Text>{people}</Text>
+            </Flex>
+            <Text className="pin-details-div-details-text">{details}</Text>
+            <Flex className="pin-people-flex" align="center" justify="center">
+              <Text>{peopleGoing}</Text>
+              <Text>/</Text>
+              <Text>{peopleTotal} people are going!</Text>
             </Flex>
           </div>
 
