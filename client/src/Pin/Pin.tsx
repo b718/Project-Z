@@ -33,16 +33,6 @@ const Pin: FunctionComponent<pinData> = ({
               <Text>{peopleTotal} people are going!</Text>
             </Flex>
           </div>
-
-          <div
-            className={`pin-clicker-div${click ? "-active" : ""}`}
-            onClick={() => setClick(!click)}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          >
-            <span className="material-symbols-outlined">location_on</span>
-          </div>
-
           <div
             className="pin-hover-div"
             style={{ opacity: `${hover ? "0.8" : "0"}`, zIndex: "2" }}
@@ -50,6 +40,14 @@ const Pin: FunctionComponent<pinData> = ({
             <Text>
               {location} - {peopleGoing}/{peopleTotal} people are going!
             </Text>
+          </div>
+          <div
+            className={`pin-clicker-div${click ? "-active" : ""}`}
+            onClick={() => setClick(!click)}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            <span className="material-symbols-outlined">location_on</span>
           </div>
         </Flex>
       </div>
