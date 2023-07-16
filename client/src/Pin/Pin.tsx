@@ -33,11 +33,24 @@ const Pin: FunctionComponent<pinData> = ({
               <Text>{peopleTotal} people are going!</Text>
             </Flex>
           </div>
+
+          {/* {click ? (
+            ""
+          ) : (
+            <div
+              className="pin-hover-div"
+              style={{ opacity: `${hover ? "0.8" : "0"}`, zIndex: "2" }}
+            >
+              <Text>
+                {location} - {peopleGoing}/{peopleTotal} people are going!
+              </Text>
+            </div>
+          )} */}
           <div
             className="pin-hover-div"
             style={{ opacity: `${hover ? "0.8" : "0"}`, zIndex: "2" }}
           >
-            <Text>
+            <Text style={{ fontStyle: "italic" }}>
               {location} - {peopleGoing}/{peopleTotal} people are going!
             </Text>
           </div>

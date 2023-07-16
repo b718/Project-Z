@@ -26,7 +26,9 @@ const SpawnPin = () => {
   return (
     <>
       {" "}
-      <button onClick={() => setMode(!mode)}>{mode ? "true" : "false"}</button>
+      <button onClick={() => setMode(!mode)} style={{ marginTop: "5rem" }}>
+        {mode ? "true" : "false"}
+      </button>
       <Text>Map Sample</Text>
       <div onClick={handleClick} className="spawn-pin-map-sample">
         {boxes!.map((box) => (
