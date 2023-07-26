@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Pin from "./Pin/Pin";
 import SpawnPin from "./Spawn-Pin/SpawnPin";
+import Map from "./Map/Map";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         peopleTotal="10"
         details="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet varius nunc et facilisis. Nunc ultrices maximus sollicitudin. Vestibulum gravida molestie metus in sodales. Cras lobortis lacus id sollicitudin ullamcorper. Vivamus id dui et odio viverra eleifend. Nullam ut sem vel arcu gravida laoreet eget semper turpis. Nullam ultricies vestibulum viverra."
       /> */}
-      <SpawnPin />
+      {/* <SpawnPin /> */}
+      <Map />
     </div>
   );
 }
