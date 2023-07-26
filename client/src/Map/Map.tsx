@@ -19,9 +19,17 @@ const Map = () => {
     iconSize: new L.Point(40, 47),
   });
 
+  // const createClusterCustomIcon = function (cluster: MarkerCluster) {
+  //   return L.divIcon({
+  //     html: `<span>${cluster.getChildCount()}</span>`,
+  //     className: "custom-marker-cluster",
+  //     iconSize: L.point(33, 33, true),
+  //   });
+  // };
+
   const createClusterCustomIcon = function (cluster: MarkerCluster) {
     return L.divIcon({
-      html: `<span>${cluster.getChildCount()}</span>`,
+      html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,
       className: "custom-marker-cluster",
       iconSize: L.point(33, 33, true),
     });
@@ -45,22 +53,12 @@ const Map = () => {
             </Popup>
           </Marker>
 
-          {/* <MarkerClusterGroup
+          <MarkerClusterGroup
             chunkedLoading
             iconCreateFunction={createClusterCustomIcon}
-            maxClusterRadius={150}
-            spiderfyOnMaxZoom={true}
-            polygonOptions={{
-              fillColor: "#ffffff",
-              color: "#f00800",
-              weight: 5,
-              opacity: 1,
-              fillOpacity: 0.8,
-            }}
-            showCoverageOnHover={true}
-          > */}
-          <Coordinates icon={customIcon} />
-          {/* </MarkerClusterGroup> */}
+          >
+            <Coordinates icon={customIcon} />
+          </MarkerClusterGroup>
         </MapContainer>
       </div>
     </>

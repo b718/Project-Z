@@ -10,7 +10,6 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
   icon,
 }) => {
   const map = useMap();
-  const [lat, setLat] = useState<L.LatLngExpression>([0, 0]);
   const [latArray, setLatArray] = useState<L.LatLngExpression[]>([]);
 
   useEffect(() => {
@@ -18,18 +17,16 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
     const info = L.DomUtil.create("div", "legend");
 
     map.on("click", (e) => {
-      info.textContent = JSON.stringify(e.latlng);
-      setLat([e.latlng.lat, e.latlng.lng]);
-      console.log(JSON.stringify(e.latlng));
       let tempArray;
+
       if (latArray) {
         console.log("hit here");
-
         tempArray = (latArray: L.LatLngExpression[]) => [
           ...latArray,
           [e.latlng.lat, e.latlng.lng],
         ];
       } else {
+        console.log("1st time");
         tempArray = [[e.latlng.lat, e.latlng.lng]];
       }
 
