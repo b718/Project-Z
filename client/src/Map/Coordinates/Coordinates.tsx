@@ -30,7 +30,16 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
       {latArray.map((lat: any, index: number) => {
         if (index % 2 == 0) {
           return (
-            <Marker position={lat} icon={icon}>
+            <Marker
+              position={lat}
+              icon={icon}
+              eventHandlers={{
+                click(e) {
+                  const location = e.target.getLatLng();
+                  map.flyToBounds([location]);
+                },
+              }}
+            >
               {" "}
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
