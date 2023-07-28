@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { MapContainer, useMap, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, useMap, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
 interface coordinateInterface {
@@ -13,27 +13,12 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
   const [latArray, setLatArray] = useState<L.LatLngExpression[]>([]);
 
   useEffect(() => {
-    if (!map) return;
-    const info = L.DomUtil.create("div", "legend");
+    // if (!map) return;
+    // const info = L.DomUtil.create("div", "legend");
 
     map.on("click", (e) => {
-      let tempArray;
-
-      if (latArray) {
-        console.log("hit here");
-        tempArray = (latArray: L.LatLngExpression[]) => [
-          ...latArray,
-          [e.latlng.lat, e.latlng.lng],
-        ];
-      } else {
-        console.log("1st time");
-        tempArray = [[e.latlng.lat, e.latlng.lng]];
-      }
-
-      setLatArray(tempArray as L.LatLngExpression[]);
+      setLatArray((latArray) => [...latArray, [e.latlng.lat, e.latlng.lng]]);
     });
-
-    // map.addControl(new positon());
   }, [map]);
 
   useEffect(() => {
@@ -42,8 +27,17 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
 
   return (
     <>
-      {latArray.map((lat: any) => {
-        return <Marker position={lat} icon={icon}></Marker>;
+      {latArray.map((lat: any, index: number) => {
+        if (index % 2 == 0) {
+          return (
+            <Marker position={lat} icon={icon}>
+              {" "}
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          );
+        }
       })}
     </>
   );
