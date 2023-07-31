@@ -51,7 +51,7 @@ const Map = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={[51.505, -0.09]} icon={customIcon}>
-            <Popup>
+            <Popup offset={L.point(0, -20)}>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>

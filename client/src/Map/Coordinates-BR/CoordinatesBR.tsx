@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "./CoordinatesBR.css";
 import { Text, Flex } from "@mantine/core";
 interface coordinatesBRInterface {
@@ -42,7 +43,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           },
         }}
       >
-        <Popup>
+        <Popup offset={L.point(0, -20)}>
           <Flex direction={"column"} justify={"center"} align={"center"}>
             <Text>Temporary Marker.</Text>
             <Text>@</Text>

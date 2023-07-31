@@ -27,3 +27,8 @@
   margin: 0 auto;
   margin-top: 0.5rem;
 }
+
+.eventmenu-input {
+  float: right;
+  clear: both;
+}

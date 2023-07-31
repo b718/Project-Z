@@ -37,7 +37,7 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
               }}
             >
               {" "}
-              <Popup>
+              <Popup offset={L.point(0, -20)}>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
