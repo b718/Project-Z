@@ -1,0 +1,24 @@
+.legendbl-div-for-click {
+  background-color: black;
+  opacity: 0.8;
+}
+
+.legendbl-div-for-click b {
+  display: block;
+  color: white;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.legendbl-div-for-click b:nth-child(1) {
+  padding-top: 0.5rem;
+}
+
+.legendbl-div-for-click b:nth-child(2) {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.leaflet-bottom div:nth-child(1) {
+  display: none;
+}

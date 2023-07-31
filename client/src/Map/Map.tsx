@@ -9,9 +9,12 @@ import {
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import Coordinates from "./Coordinates/Coordinates";
-import { MarkerCluster } from "leaflet";
+import { MarkerCluster, icon } from "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import LegendBL from "./Legend-BL/LegendBL";
+import CoordinatesBR from "./Coordinates-BR/CoordinatesBR";
+import EventMenu from "../EventMenu/EventMenu";
 
 const Map = () => {
   const customIcon = new L.Icon({
@@ -36,7 +39,7 @@ const Map = () => {
   };
   return (
     <>
-      <div>
+      <div className="map-flex-center">
         <MapContainer
           center={[51.505, -0.09]}
           zoom={13}
@@ -59,6 +62,9 @@ const Map = () => {
           >
             <Coordinates icon={customIcon} />
           </MarkerClusterGroup>
+          <LegendBL />
+          <CoordinatesBR icon={customIcon} />
+          <EventMenu icon={customIcon} />
         </MapContainer>
       </div>
     </>

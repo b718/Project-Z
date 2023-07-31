@@ -13,10 +13,7 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
   const [latArray, setLatArray] = useState<L.LatLngExpression[]>([]);
 
   useEffect(() => {
-    // if (!map) return;
-    // const info = L.DomUtil.create("div", "legend");
-
-    map.on("click", (e) => {
+    map.on("dblclick", (e) => {
       setLatArray((latArray) => [...latArray, [e.latlng.lat, e.latlng.lng]]);
     });
   }, [map]);
@@ -35,8 +32,7 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
               icon={icon}
               eventHandlers={{
                 click(e) {
-                  const location = e.target.getLatLng();
-                  map.flyToBounds([location]);
+                  map.setView(e.target.getLatLng());
                 },
               }}
             >

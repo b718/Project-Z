@@ -1,6 +1,11 @@
 .map-main-container {
   position: relative;
   height: 100vh;
+  max-width: 90vw;
+  margin: 0 auto;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+
   /* max-width: fit-content;
   margin: 0 auto; */
 }
@@ -17,3 +22,9 @@
   font-size: 1.2rem;
   box-shadow: 0 0 0px 5px #fff;
 }
+
+/* .map-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */

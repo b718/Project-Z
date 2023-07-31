@@ -1,0 +1,9 @@
+.coordinatesbr-text-location {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+  padding: 10px;
+  font-weight: 700;
+  background-color: #fff;
+}

@@ -1,0 +1,29 @@
+.eventmenu-main-menu {
+  position: absolute;
+  z-index: 999;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+.eventmenu-main-menu:last-child {
+  padding-bottom: 0.5rem;
+}
+
+.eventmenu-main-menu:first-child {
+  padding-top: 0.5rem;
+}
+
+.eventmenu-main-menu {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.eventmenu-submit-button {
+  max-width: fit-content;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+}
