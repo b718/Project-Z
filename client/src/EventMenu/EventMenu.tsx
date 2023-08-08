@@ -1,4 +1,4 @@
-import { Flex, Text } from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
@@ -61,7 +61,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
     <>
       <form
         className="eventmenu-main-menu"
-        onSubmit={eventMenuSubmit}
         onMouseEnter={() => {
           setMouseIn(true);
         }}
@@ -69,9 +68,27 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
           setMouseIn(false);
         }}
       >
-        <Flex direction={"column"} justify={"center"} align={"flex-start"}>
-          <label>
-            What is the Lat & Lng?{" "}
+        <Flex direction={"row"} justify={"center"} align={"flex-start"}>
+          <Flex direction={"column"} justify={"center"} align={"flex-start"}>
+            {" "}
+            <label>What is the Lat & Lng? </label>
+            <label style={{ marginTop: "1.5rem" }}>
+              What is the name of the place?{" "}
+            </label>
+            <label style={{ marginTop: "0.3rem" }}>
+              What is happening here?{" "}
+            </label>
+            <label style={{ marginTop: "0.3rem" }}>
+              How many people are going?{" "}
+            </label>
+            <label style={{ marginTop: "0.2rem" }}>What's the capacity? </label>
+          </Flex>
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align={"flex-start"}
+            style={{ marginLeft: "1rem" }}
+          >
             <input
               type="number"
               className="eventmenu-input"
@@ -90,10 +107,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
                 setLngState(e.target.valueAsNumber);
               }}
             ></input>
-          </label>
-
-          <label>
-            What is the name of the place?{" "}
             <input
               type="text"
               className="eventmenu-input"
@@ -102,9 +115,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
                 setNameState(e.target.value);
               }}
             ></input>
-          </label>
-          <label>
-            What is happening here?{" "}
             <input
               type="text"
               className="eventmenu-input"
@@ -113,9 +123,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
                 setDescState(e.target.value);
               }}
             ></input>
-          </label>
-          <label>
-            How many people are going?{" "}
             <input
               type="number"
               className="eventmenu-input"
@@ -124,9 +131,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
                 setPeopleGoing(e.target.valueAsNumber);
               }}
             ></input>
-          </label>
-          <label>
-            What's the capacity?{" "}
             <input
               type="number"
               className="eventmenu-input"
@@ -135,9 +139,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
                 setPeopleTotal(e.target.valueAsNumber);
               }}
             ></input>
-          </label>
-          <button className="eventmenu-submit-button">CREATE</button>
+          </Flex>
         </Flex>
+        <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
+          CREATE
+        </Button>
       </form>
 
       {userMade.map((event: any, index: number) => {
