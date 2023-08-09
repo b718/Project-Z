@@ -7,13 +7,16 @@
   opacity: 0.8;
   color: white;
   padding: 0rem 1rem 0rem 1rem;
-  transition: 0.2s;
+  display: block;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
 }
 
 .eventmenu-main-menu-off {
   /* opacity: 0; */
   display: none;
-  transition: 0.2s;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
 }
 
 .eventmenu-main-menu:last-child {
@@ -38,4 +41,21 @@
 .eventmenu-input {
   float: right;
   clear: both;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

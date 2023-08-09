@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBar.css";
-import { Button } from "@mantine/core";
+import { Button, Flex, Text } from "@mantine/core";
 import { SideBarContext } from "../Map/Map";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
@@ -30,12 +30,17 @@ const SideBar = () => {
         }}
       >
         <div className="side-bar-left-inner">
-          <Button
-            style={{ maxWidth: "3vw", marginTop: "1rem" }}
-            onClick={() => {
-              sideBarView.setView(!sideBarView.view);
-            }}
-          ></Button>
+          <Flex direction={"column"} justify="center" align="center">
+            <Button
+              style={{ maxWidth: "3vw", marginTop: "1rem" }}
+              onClick={() => {
+                sideBarView.setView(!sideBarView.view);
+              }}
+            ></Button>
+            <Text style={{ maxWidth: "3vw", marginTop: "0.5rem" }} fz={"xs"}>
+              Display
+            </Text>
+          </Flex>
         </div>
       </div>
     </>
