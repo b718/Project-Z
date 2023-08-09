@@ -1,0 +1,15 @@
+.side-bar-left {
+  min-width: 5vw;
+  background-color: white;
+  min-height: 100vh;
+  position: absolute;
+}
+
+.side-bar-left-inner {
+  max-width: 4vw;
+  min-height: 98vh;
+  border-radius: 12px;
+  background-color: rgb(180, 173, 173);
+  margin: 0 auto;
+  margin-top: 0.5rem;
+}

@@ -7,6 +7,13 @@
   opacity: 0.8;
   color: white;
   padding: 0rem 1rem 0rem 1rem;
+  transition: 0.2s;
+}
+
+.eventmenu-main-menu-off {
+  /* opacity: 0; */
+  display: none;
+  transition: 0.2s;
 }
 
 .eventmenu-main-menu:last-child {

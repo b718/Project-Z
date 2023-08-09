@@ -1,8 +1,9 @@
 import { Button, Flex, Text } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
+import { SideBarContext } from "../Map/Map";
 
 interface eventMenuInterface {
   icon: L.Icon;
@@ -26,7 +27,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
   const [peopleGoing, setPeopleGoing] = useState<number>(0);
   const [peopleTotal, setPeopleTotal] = useState<number>(0);
   const [mouseIn, setMouseIn] = useState<boolean>(false);
-
+  const currentView = useContext(SideBarContext);
   const eventMenuSubmit = (e: any) => {
     e.preventDefault();
     let userLatlng = [latState, lngState];
@@ -57,10 +58,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
       map.tap?.enable();
     }
   }, [mouseIn]);
+
   return (
     <>
       <form
-        className="eventmenu-main-menu"
+        className={`eventmenu-main-menu${currentView.view ? "" : "-off"}`}
         onMouseEnter={() => {
           setMouseIn(true);
         }}
