@@ -15,8 +15,8 @@ const LegendBL = () => {
         "div",
         "legendbl-div-for-click"
       );
-      const doubleClickText = "Single Click To Reveal Lng and Lat.";
-      const singleClickTest = "Double Click To Spawn a Marker.";
+      const doubleClickText = "When Add is On, Single Click to spawn a marker.";
+      const singleClickTest = "Double Click To Spawn a Test Marker.";
       let textArray = [singleClickTest, doubleClickText];
 
       for (let i = 0; i < textArray.length; i++) {

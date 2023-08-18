@@ -20,5 +20,5 @@
 }
 
 .leaflet-bottom div:nth-child(1) {
-  display: none;
+  display: block;
 }
