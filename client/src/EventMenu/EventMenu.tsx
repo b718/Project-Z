@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@mantine/core";
+import { Button, Center, Flex, Text, TextInput } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
@@ -7,6 +7,7 @@ import { SideBarContext } from "../Map/Map";
 
 interface eventMenuInterface {
   icon: L.Icon;
+  lat: L.LatLngExpression;
 }
 
 interface eventInterface {
@@ -16,7 +17,10 @@ interface eventInterface {
   going: number;
   total: number;
 }
-const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
+const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
+  icon,
+  lat,
+}) => {
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const [latLngState, setLatLngState] = useState<L.LatLngExpression>([0, 0]);
@@ -32,7 +36,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
     e.preventDefault();
     let userLatlng = [latState, lngState];
     let newUseMade: eventInterface = {
-      lat: userLatlng as L.LatLngExpression,
+      lat: lat as L.LatLngExpression,
       location: nameState,
       desc: descState,
       going: peopleGoing,
@@ -71,7 +75,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
         }}
       >
         <Flex direction={"row"} justify={"center"} align={"flex-start"}>
-          <Flex direction={"column"} justify={"center"} align={"flex-start"}>
+          {/* <Flex direction={"column"} justify={"center"} align={"flex-start"}>
             {" "}
             <label>What is the Lat & Lng? </label>
             <label style={{ marginTop: "1.5rem" }}>
@@ -84,14 +88,14 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
               How many people are going?{" "}
             </label>
             <label style={{ marginTop: "0.2rem" }}>What's the capacity? </label>
-          </Flex>
+          </Flex> */}
           <Flex
             direction={"column"}
             justify={"center"}
             align={"flex-start"}
             style={{ marginLeft: "1rem" }}
           >
-            <input
+            {/* <TextInput
               type="number"
               className="eventmenu-input"
               value={latState}
@@ -99,7 +103,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
               onChange={(e) => {
                 setLatState(e.target.valueAsNumber);
               }}
-            ></input>
+            ></TextInput>
             <input
               type="number"
               className="eventmenu-input"
@@ -108,44 +112,50 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({ icon }) => {
               onChange={(e) => {
                 setLngState(e.target.valueAsNumber);
               }}
-            ></input>
-            <input
+            ></input> */}
+            <TextInput
               type="text"
+              label="What is the name of the place?"
               className="eventmenu-input"
               value={nameState}
               onChange={(e) => {
                 setNameState(e.target.value);
               }}
-            ></input>
-            <input
+            ></TextInput>
+            <TextInput
               type="text"
+              label="What is happening here?"
               className="eventmenu-input"
               value={descState}
               onChange={(e) => {
                 setDescState(e.target.value);
               }}
-            ></input>
-            <input
+            ></TextInput>
+            <TextInput
               type="number"
+              label="How many people are going?"
               className="eventmenu-input"
               value={peopleGoing}
               onChange={(e) => {
                 setPeopleGoing(e.target.valueAsNumber);
               }}
-            ></input>
-            <input
+            ></TextInput>
+            <TextInput
+              label="What's the capacity?"
               type="number"
               className="eventmenu-input"
               value={peopleTotal}
               onChange={(e) => {
                 setPeopleTotal(e.target.valueAsNumber);
               }}
-            ></input>
+            ></TextInput>
           </Flex>
         </Flex>
-        <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
-          CREATE
-        </Button>
+        <Center>
+          <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
+            CREATE
+          </Button>
+        </Center>
       </form>
 
       {userMade.map((event: any, index: number) => {

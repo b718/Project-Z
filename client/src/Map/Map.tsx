@@ -81,7 +81,7 @@ const Map = () => {
             </MarkerClusterGroup>
             <LegendBL />
             <CoordinatesBR icon={customIcon} />
-            <EventMenu icon={customIcon} />
+            {/* <EventMenu icon={customIcon} /> */}
           </MapContainer>
         </div>
       </SideBarContext.Provider>

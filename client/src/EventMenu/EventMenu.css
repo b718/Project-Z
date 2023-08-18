@@ -1,13 +1,15 @@
 .eventmenu-main-menu {
-  position: absolute;
+  /* position: absolute;
   z-index: 999;
   top: 10px;
-  right: 10px;
+  right: 10px; */
+  display: block;
   background-color: black;
   opacity: 0.8;
   color: white;
   padding: 0rem 1rem 0rem 1rem;
   display: block;
+  border-radius: 12px;
   -webkit-animation: fadeIn 0.5s;
   animation: fadeIn 0.5s;
 }
@@ -17,6 +19,7 @@
   display: none;
   -webkit-animation: fadeIn 0.5s;
   animation: fadeIn 0.5s;
+  border-radius: 12px;
 }
 
 .eventmenu-main-menu:last-child {
@@ -35,12 +38,15 @@
 .eventmenu-submit-button {
   max-width: fit-content;
   margin: 0 auto;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
 
-.eventmenu-input {
-  float: right;
-  clear: both;
+.eventmenu-input label {
+  /* float: right;
+  clear: both; */
+  color: #0582c8;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
 @-webkit-keyframes fadeIn {

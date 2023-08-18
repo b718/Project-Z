@@ -3,6 +3,7 @@ import { useMap, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "./CoordinatesBR.css";
 import { Text, Flex } from "@mantine/core";
+import EventMenu from "../../EventMenu/EventMenu";
 interface coordinatesBRInterface {
   icon: L.Icon;
 }
@@ -48,6 +49,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
             <Text>Temporary Marker.</Text>
             <Text>@</Text>
             <Text> {JSON.stringify(tempLat)}</Text>
+            <EventMenu icon={icon} lat={tempLat} />
           </Flex>
         </Popup>
       </Marker>

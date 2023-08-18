@@ -38,7 +38,7 @@ const SideBar = () => {
               }}
             ></Button>
             <Text style={{ maxWidth: "3vw", marginTop: "0.5rem" }} fz={"xs"}>
-              Display
+              Add: {sideBarView.view ? "On" : "Off"}
             </Text>
           </Flex>
         </div>
