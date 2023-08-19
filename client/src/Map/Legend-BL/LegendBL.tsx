@@ -16,8 +16,7 @@ const LegendBL = () => {
         "legendbl-div-for-click"
       );
       const doubleClickText = "When Add is On, Single Click to spawn a marker.";
-      const singleClickTest = "Double Click To Spawn a Test Marker.";
-      let textArray = [singleClickTest, doubleClickText];
+      let textArray = [doubleClickText];
 
       for (let i = 0; i < textArray.length; i++) {
         divArray.push("<b>" + textArray[i] + "</b> ");

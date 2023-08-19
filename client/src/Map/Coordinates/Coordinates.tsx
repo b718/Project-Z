@@ -12,11 +12,11 @@ const Coordinates: React.FunctionComponent<coordinateInterface> = ({
   const map = useMap();
   const [latArray, setLatArray] = useState<L.LatLngExpression[]>([]);
 
-  useEffect(() => {
-    map.on("dblclick", (e) => {
-      setLatArray((latArray) => [...latArray, [e.latlng.lat, e.latlng.lng]]);
-    });
-  }, [map]);
+  // useEffect(() => {
+  //   map.on("dblclick", (e) => {
+  //     setLatArray((latArray) => [...latArray, [e.latlng.lat, e.latlng.lng]]);
+  //   });
+  // }, [map]);
 
   useEffect(() => {
     console.log(latArray);

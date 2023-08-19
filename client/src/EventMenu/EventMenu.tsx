@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
 import { SideBarContext } from "../Map/Map";
+import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
 
 interface eventMenuInterface {
   icon: L.Icon;
@@ -32,6 +33,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [peopleTotal, setPeopleTotal] = useState<number>(0);
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const currentView = useContext(SideBarContext);
+  const coordinatesMap = useContext(MapContext);
+
   const eventMenuSubmit = (e: any) => {
     e.preventDefault();
     let userLatlng = [latState, lngState];
@@ -43,6 +46,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       total: peopleTotal,
     };
     setUserMade((userMade) => [...userMade, newUseMade]);
+    coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
     setLatState(0);
     setLngState(0);
     setLatLngState([0, 0]);
@@ -158,7 +162,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
         </Center>
       </form>
 
-      {userMade.map((event: any, index: number) => {
+      {/* {userMade.map((event: any, index: number) => {
         if (index % 2 == 0) {
           return (
             <Marker
@@ -183,7 +187,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Marker>
           );
         }
-      })}
+      })} */}
     </>
   );
 };
