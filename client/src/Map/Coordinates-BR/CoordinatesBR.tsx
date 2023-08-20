@@ -4,7 +4,7 @@ import L from "leaflet";
 import "./CoordinatesBR.css";
 import { Text, Flex } from "@mantine/core";
 import EventMenu from "../../EventMenu/EventMenu";
-import { SideBarContext } from "../Map";
+import { FilterContext, FilterTextContext, SideBarContext } from "../Map";
 interface coordinatesBRInterface {
   icon: L.Icon;
 }
@@ -32,6 +32,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const [tempLat, setTempLat] = useState<L.LatLngExpression>([0, 0]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const sideBarContext = useContext(SideBarContext);
+  const FilterText = useContext(FilterTextContext);
   useEffect(() => {
     map.on("click", function (e) {
       const markerPlace = document.querySelector(
@@ -57,9 +58,9 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
     }
   }, [map, sideBarContext.view]);
 
-  useEffect(() => {
-    console.log(userMade);
-  }, [userMade]);
+  // useEffect(() => {
+  //   console.log(userMade);
+  // }, [userMade]);
 
   return (
     <MapContext.Provider value={{ userMade, setUserMade }}>
@@ -89,30 +90,41 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           <div></div>
         )}
 
-        {userMade.map((event: any, index: number) => {
-          return (
-            <Marker
-              position={event.lat}
-              icon={icon}
-              eventHandlers={{
-                click(e) {
-                  map.setView(e.target.getLatLng());
-                },
-              }}
-            >
-              {" "}
-              <Popup offset={L.point(0, -20)}>
-                <Flex direction={"column"} justify={"center"} align={"center"}>
-                  <Text>{event.location}</Text>
-                  <Text>{event.desc}</Text>
-                  <Text>
-                    {event.going} / {event.total} are going.
-                  </Text>
-                </Flex>
-              </Popup>
-            </Marker>
-          );
-        })}
+        {userMade
+          .filter((event: any) => {
+            return (
+              event.location.toLowerCase().includes(FilterText.filterText) ||
+              event.desc.toLowerCase().includes(FilterText.filterText)
+            );
+          })
+          .map((event: any, index: number) => {
+            return (
+              <Marker
+                position={event.lat}
+                icon={icon}
+                eventHandlers={{
+                  click(e) {
+                    map.setView(e.target.getLatLng());
+                  },
+                }}
+              >
+                {" "}
+                <Popup offset={L.point(0, -20)}>
+                  <Flex
+                    direction={"column"}
+                    justify={"center"}
+                    align={"center"}
+                  >
+                    <Text>{event.location}</Text>
+                    <Text>{event.desc}</Text>
+                    <Text>
+                      {event.going} / {event.total} are going.
+                    </Text>
+                  </Flex>
+                </Popup>
+              </Marker>
+            );
+          })}
       </>
     </MapContext.Provider>
   );
