@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "./CoordinatesBR.css";
-import { Text, Flex } from "@mantine/core";
+import { Text, Flex, Select } from "@mantine/core";
 import EventMenu from "../../EventMenu/EventMenu";
 import { FilterContext, FilterTextContext, SideBarContext } from "../Map";
 interface coordinatesBRInterface {

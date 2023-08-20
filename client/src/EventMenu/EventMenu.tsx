@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Text, TextInput } from "@mantine/core";
+import { Button, Center, Flex, Select, Text, TextInput } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
@@ -153,6 +153,24 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 setPeopleTotal(e.target.valueAsNumber);
               }}
             ></TextInput>
+            <Select
+              label="Type Of Event?"
+              placeholder="Pick one"
+              className="eventmenu-input"
+              transitionProps={{
+                transition: "pop-top-left",
+                duration: 80,
+                timingFunction: "ease",
+              }}
+              data={[
+                { value: "official", label: "Official UBC Events" },
+                { value: "company", label: "Company Info Sessions/Research" },
+                { value: "faculty", label: "Faculty Events/Imagine Day" },
+                { value: "club", label: "Clubs Events" },
+                { value: "ams", label: "AMS Events/Parties" },
+                { value: "frat", label: "Fraternity/Sorority Parties" },
+              ]}
+            />
           </Flex>
         </Flex>
         <Center>
