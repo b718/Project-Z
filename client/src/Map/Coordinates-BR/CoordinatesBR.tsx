@@ -92,16 +92,18 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
         {userMade
           .filter((event: any) => {
+            // console.log(event.icon);
             return (
               event.location.toLowerCase().includes(FilterText.filterText) ||
               event.desc.toLowerCase().includes(FilterText.filterText)
             );
           })
           .map((event: any, index: number) => {
+            // console.log(event.icon);
             return (
               <Marker
                 position={event.lat}
-                icon={icon}
+                icon={event.icon}
                 eventHandlers={{
                   click(e) {
                     map.setView(e.target.getLatLng());

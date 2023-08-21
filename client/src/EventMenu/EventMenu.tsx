@@ -1,10 +1,25 @@
-import { Button, Center, Flex, Select, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Flex,
+  Radio,
+  Select,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
-import { SideBarContext } from "../Map/Map";
+import { IconTextContext, SideBarContext } from "../Map/Map";
 import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
+import blueMarker from "../Images/blue_marker.png";
+import amsMarker from "../Images/pin-ams.png";
+import clubMarker from "../Images/pin-club.png";
+import companyMarker from "../Images/pin-company.png";
+import facultyMarker from "../Images/pin-faculty.png";
+import fratMarker from "../Images/pin-frat.png";
+import officialMarker from "../Images/pin-official.png";
 
 interface eventMenuInterface {
   icon: L.Icon;
@@ -17,11 +32,13 @@ interface eventInterface {
   desc: string;
   going: number;
   total: number;
+  icon: L.Icon;
 }
 const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   icon,
   lat,
 }) => {
+  let image: any;
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const [latLngState, setLatLngState] = useState<L.LatLngExpression>([0, 0]);
@@ -32,8 +49,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [peopleGoing, setPeopleGoing] = useState<number>(0);
   const [peopleTotal, setPeopleTotal] = useState<number>(0);
   const [mouseIn, setMouseIn] = useState<boolean>(false);
+  const [typeOfEvent, setTypeOfEvent] = useState("");
+  const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
+  const iconContext = useContext(IconTextContext);
 
   const eventMenuSubmit = (e: any) => {
     e.preventDefault();
@@ -44,6 +64,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       desc: descState,
       going: peopleGoing,
       total: peopleTotal,
+      icon: customIcon,
     };
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
@@ -54,6 +75,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     setDescState("");
     setPeopleGoing(0);
     setPeopleTotal(0);
+    setTypeOfEvent("");
   };
 
   useEffect(() => {
@@ -67,9 +89,34 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     }
   }, [mouseIn]);
 
+  let customIcon = new L.Icon({
+    iconUrl: image,
+    iconSize: [20, 30],
+  });
+
+  useEffect(() => {
+    if (typeOfEvent === "official") {
+      image = officialMarker;
+    } else if (typeOfEvent === "company") {
+      image = companyMarker;
+    } else if (typeOfEvent === "faculty") {
+      image = facultyMarker;
+    } else if (typeOfEvent === "club") {
+      image = clubMarker;
+    } else if (typeOfEvent === "ams") {
+      image = amsMarker;
+    } else if (typeOfEvent === "frat") {
+      image = fratMarker;
+    } else {
+      image = blueMarker;
+    }
+    customIcon.options.iconUrl = image;
+    console.log(customIcon.options.iconUrl);
+  }, [typeOfEvent]);
+
   return (
     <>
-      <form
+      <div
         className={`eventmenu-main-menu${currentView.view ? "" : "-off"}`}
         onMouseEnter={() => {
           setMouseIn(true);
@@ -78,8 +125,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
           setMouseIn(false);
         }}
       >
-        <Flex direction={"row"} justify={"center"} align={"flex-start"}>
-          {/* <Flex direction={"column"} justify={"center"} align={"flex-start"}>
+        {/* <Flex direction={"row"} justify={"center"} align={"flex-start"}> */}
+        {/* <Flex direction={"column"} justify={"center"} align={"flex-start"}>
             {" "}
             <label>What is the Lat & Lng? </label>
             <label style={{ marginTop: "1.5rem" }}>
@@ -93,92 +140,114 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </label>
             <label style={{ marginTop: "0.2rem" }}>What's the capacity? </label>
           </Flex> */}
-          <Flex
+        <Flex
+          direction={"column"}
+          justify={"center"}
+          align={"flex-start"}
+          style={{ marginLeft: "1rem" }}
+        >
+          <TextInput
+            type="text"
+            label="What is the name of the place?"
+            className="eventmenu-input"
+            value={nameState}
+            onChange={(e) => {
+              setNameState(e.target.value);
+            }}
+          ></TextInput>
+          <TextInput
+            type="text"
+            label="What is happening here?"
+            className="eventmenu-input"
+            value={descState}
+            onChange={(e) => {
+              setDescState(e.target.value);
+            }}
+          ></TextInput>
+          <TextInput
+            type="number"
+            label="How many people are going?"
+            className="eventmenu-input"
+            value={peopleGoing}
+            onChange={(e) => {
+              setPeopleGoing(e.target.valueAsNumber);
+            }}
+          ></TextInput>
+          <TextInput
+            label="What's the capacity?"
+            type="number"
+            className="eventmenu-input"
+            value={peopleTotal}
+            onChange={(e) => {
+              setPeopleTotal(e.target.valueAsNumber);
+            }}
+          ></TextInput>
+
+          <Radio.Group
+            value={typeOfEvent}
+            onChange={setTypeOfEvent}
+            label="Type Of Event?"
+            className="event-menu-radio"
+          >
+            <Radio value="official" label="Official UBC Events" />
+            <Radio value="company" label="Company Info Sessions/Research" />
+            <Radio value="faculty" label="Faculty Events/Imagine Day" />
+            <Radio value="club" label="Clubs Events" />
+            <Radio value="ams" label="AMS Events/Parties" />
+            <Radio value="frat" label="Fraternity/Sorority Parties" />
+          </Radio.Group>
+          {/* <Select
+            label="Type Of Event?"
+            // placeholder="Pick one"
+            allowDeselect
+            className="eventmenu-input"
+            transitionProps={{
+              transition: "pop-top-left",
+              duration: 80,
+              timingFunction: "ease",
+            }}
+            data={[
+              { value: "official", label: "Official UBC Events" },
+              { value: "company", label: "Company Info Sessions/Research" },
+              { value: "faculty", label: "Faculty Events/Imagine Day" },
+              { value: "club", label: "Clubs Events" },
+              { value: "ams", label: "AMS Events/Parties" },
+              { value: "frat", label: "Fraternity/Sorority Parties" },
+            ]}
+          /> */}
+
+          {/* <Flex
             direction={"column"}
             justify={"center"}
-            align={"flex-start"}
-            style={{ marginLeft: "1rem" }}
+            align={"center"}
+            gap={"sm"}
+            style={{ marginTop: "0.5rem" }}
           >
-            {/* <TextInput
-              type="number"
-              className="eventmenu-input"
-              value={latState}
-              pattern="^-?\d+$"
-              onChange={(e) => {
-                setLatState(e.target.valueAsNumber);
-              }}
-            ></TextInput>
-            <input
-              type="number"
-              className="eventmenu-input"
-              pattern="^-?\d+$"
-              value={lngState}
-              onChange={(e) => {
-                setLngState(e.target.valueAsNumber);
-              }}
-            ></input> */}
-            <TextInput
-              type="text"
-              label="What is the name of the place?"
-              className="eventmenu-input"
-              value={nameState}
-              onChange={(e) => {
-                setNameState(e.target.value);
-              }}
-            ></TextInput>
-            <TextInput
-              type="text"
-              label="What is happening here?"
-              className="eventmenu-input"
-              value={descState}
-              onChange={(e) => {
-                setDescState(e.target.value);
-              }}
-            ></TextInput>
-            <TextInput
-              type="number"
-              label="How many people are going?"
-              className="eventmenu-input"
-              value={peopleGoing}
-              onChange={(e) => {
-                setPeopleGoing(e.target.valueAsNumber);
-              }}
-            ></TextInput>
-            <TextInput
-              label="What's the capacity?"
-              type="number"
-              className="eventmenu-input"
-              value={peopleTotal}
-              onChange={(e) => {
-                setPeopleTotal(e.target.valueAsNumber);
-              }}
-            ></TextInput>
-            <Select
-              label="Type Of Event?"
-              placeholder="Pick one"
-              className="eventmenu-input"
-              transitionProps={{
-                transition: "pop-top-left",
-                duration: 80,
-                timingFunction: "ease",
-              }}
-              data={[
-                { value: "official", label: "Official UBC Events" },
-                { value: "company", label: "Company Info Sessions/Research" },
-                { value: "faculty", label: "Faculty Events/Imagine Day" },
-                { value: "club", label: "Clubs Events" },
-                { value: "ams", label: "AMS Events/Parties" },
-                { value: "frat", label: "Fraternity/Sorority Parties" },
-              ]}
-            />
-          </Flex>
+            <button className="event-menu-button-option">
+              Official UBC Events
+            </button>
+            <button className="event-menu-button-option">
+              Company Info Sessions/Research
+            </button>
+            <button className="event-menu-button-option">
+              Faculty Events/Imagine Day
+            </button>
+            <button className="event-menu-button-option">Clubs Events</button>
+            <button className="event-menu-button-option">
+              AMS Events/Parties
+            </button>
+            <button className="event-menu-button-option">
+              Fraternity/Sorority Parties
+            </button>
+          </Flex> */}
         </Flex>
+        {/* </Flex> */}
         <Center>
           <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
             CREATE
           </Button>
         </Center>
-      </form>
+      </div>
 
       {/* {userMade.map((event: any, index: number) => {
         if (index % 2 == 0) {

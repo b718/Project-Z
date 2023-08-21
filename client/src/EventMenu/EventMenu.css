@@ -49,8 +49,15 @@
   font-size: 0.8rem;
 }
 
-.eventmenu-input * {
+/* .eventmenu-input * {
   z-index: 999;
+} */
+
+.event-menu-radio div {
+  color: #0582c8;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
 }
 
 @-webkit-keyframes fadeIn {

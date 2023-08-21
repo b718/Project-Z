@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import "./Map.css";
 import {
   MapContainer,
@@ -20,6 +20,13 @@ import SideBar from "../SideBar/SideBar";
 import GreenIcon from "../Images/leaf-green.png";
 import ShadowIcon from "../Images/leaf-shadow.png";
 import Filter from "../Filter/Filter";
+import blueMarker from "../Images/blue_marker.png";
+import amsMarker from "../Images/pin-ams.png";
+import clubMarker from "../Images/pin-club.png";
+import companyMarker from "../Images/pin-company.png";
+import facultyMarker from "../Images/pin-faculty.png";
+import fratMarker from "../Images/pin-frat.png";
+import officialMarker from "../Images/pin-official.png";
 
 interface SideBarContext {
   view: boolean;
@@ -51,14 +58,44 @@ export const FilterTextContext = createContext<filterTextInterface>({
   setFilterText: () => {},
 });
 
+interface iconTextInterface {
+  iconText: String;
+  setIconText: Function;
+}
+
+export const IconTextContext = createContext<iconTextInterface>({
+  iconText: "",
+  setIconText: () => {},
+});
+
 const Map = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
   const [filterText, setFilterText] = useState("");
+  const [iconText, setIconText] = useState("");
+  let image = blueMarker;
+
+  useEffect(() => {
+    if (iconText === "official") {
+      image = officialMarker;
+    } else if (iconText === "company") {
+      image = companyMarker;
+    } else if (iconText === "faculty") {
+      image = facultyMarker;
+    } else if (iconText === "club") {
+      image = clubMarker;
+    } else if (iconText === "ams") {
+      image = amsMarker;
+    } else if (iconText === "frat") {
+      image = fratMarker;
+    } else {
+      image = blueMarker;
+    }
+  }, [iconText]);
 
   const customIcon = new L.Icon({
-    iconUrl: require("./Coordinates/Locationg.svg").default,
-    iconSize: [40, 47],
+    iconUrl: image,
+    iconSize: [20, 30],
   });
 
   const createClusterCustomIcon = function (cluster: MarkerCluster) {
@@ -80,44 +117,46 @@ const Map = () => {
   });
   return (
     <>
-      <FilterTextContext.Provider value={{ filterText, setFilterText }}>
-        <FilterContext.Provider value={{ filter, setFilter }}>
-          <SideBarContext.Provider value={{ view, setView }}>
-            <SideBar />
+      <IconTextContext.Provider value={{ iconText, setIconText }}>
+        <FilterTextContext.Provider value={{ filterText, setFilterText }}>
+          <FilterContext.Provider value={{ filter, setFilter }}>
+            <SideBarContext.Provider value={{ view, setView }}>
+              <SideBar />
 
-            <div className="map-flex-center">
-              <MapContainer
-                center={[49.2606, -123.246]}
-                zoom={16}
-                scrollWheelZoom={true}
-                className="map-main-container"
-              >
-                <TileLayer
-                  // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[49.2606, -123.246]} icon={greenIcon}>
-                  <Popup offset={L.point(0, -20)}>
-                    <Text className="map-main-pin">Welcome To Pinnit!</Text>
-                  </Popup>
-                </Marker>
-
-                <MarkerClusterGroup
-                  chunkedLoading
-                  iconCreateFunction={createClusterCustomIcon}
+              <div className="map-flex-center">
+                <MapContainer
+                  center={[49.2606, -123.246]}
+                  zoom={16}
+                  scrollWheelZoom={true}
+                  className="map-main-container"
                 >
-                  {/* <Coordinates icon={customIcon} /> */}
-                  <CoordinatesBR icon={customIcon} />
-                </MarkerClusterGroup>
+                  <TileLayer
+                    // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={[49.2606, -123.246]} icon={greenIcon}>
+                    <Popup offset={L.point(0, -20)}>
+                      <Text className="map-main-pin">Welcome To Pinnit!</Text>
+                    </Popup>
+                  </Marker>
 
-                {/* <EventMenu icon={customIcon} /> */}
-                <LegendBL />
-                <Filter />
-              </MapContainer>
-            </div>
-          </SideBarContext.Provider>
-        </FilterContext.Provider>
-      </FilterTextContext.Provider>
+                  <MarkerClusterGroup
+                    chunkedLoading
+                    iconCreateFunction={createClusterCustomIcon}
+                  >
+                    {/* <Coordinates icon={customIcon} /> */}
+                    <CoordinatesBR icon={customIcon} />
+                  </MarkerClusterGroup>
+
+                  {/* <EventMenu icon={customIcon} /> */}
+                  <LegendBL />
+                  <Filter />
+                </MapContainer>
+              </div>
+            </SideBarContext.Provider>
+          </FilterContext.Provider>
+        </FilterTextContext.Provider>
+      </IconTextContext.Provider>
     </>
   );
 };
