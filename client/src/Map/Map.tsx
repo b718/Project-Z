@@ -27,6 +27,8 @@ import companyMarker from "../Images/pin-company.png";
 import facultyMarker from "../Images/pin-faculty.png";
 import fratMarker from "../Images/pin-frat.png";
 import officialMarker from "../Images/pin-official.png";
+import Test from "../GeoLocation/GeoLocation";
+import GeoLocation from "../GeoLocation/GeoLocation";
 
 interface SideBarContext {
   view: boolean;
@@ -68,11 +70,22 @@ export const IconTextContext = createContext<iconTextInterface>({
   setIconText: () => {},
 });
 
+interface locateMeInterface {
+  locateMe: Boolean;
+  setLocateMe: Function;
+}
+
+export const LocateMeContext = createContext<locateMeInterface>({
+  locateMe: false,
+  setLocateMe: () => {},
+});
+
 const Map = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [iconText, setIconText] = useState("");
+  const [locateMe, setLocateMe] = useState(false);
   let image = blueMarker;
 
   useEffect(() => {
@@ -117,46 +130,49 @@ const Map = () => {
   });
   return (
     <>
-      <IconTextContext.Provider value={{ iconText, setIconText }}>
-        <FilterTextContext.Provider value={{ filterText, setFilterText }}>
-          <FilterContext.Provider value={{ filter, setFilter }}>
-            <SideBarContext.Provider value={{ view, setView }}>
-              <SideBar />
+      <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+        <IconTextContext.Provider value={{ iconText, setIconText }}>
+          <FilterTextContext.Provider value={{ filterText, setFilterText }}>
+            <FilterContext.Provider value={{ filter, setFilter }}>
+              <SideBarContext.Provider value={{ view, setView }}>
+                <SideBar />
 
-              <div className="map-flex-center">
-                <MapContainer
-                  center={[49.2606, -123.246]}
-                  zoom={16}
-                  scrollWheelZoom={true}
-                  className="map-main-container"
-                >
-                  <TileLayer
-                    // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={[49.2606, -123.246]} icon={greenIcon}>
-                    <Popup offset={L.point(0, -20)}>
-                      <Text className="map-main-pin">Welcome To Pinnit!</Text>
-                    </Popup>
-                  </Marker>
-
-                  <MarkerClusterGroup
-                    chunkedLoading
-                    iconCreateFunction={createClusterCustomIcon}
+                <div className="map-flex-center">
+                  <MapContainer
+                    center={[49.2606, -123.246]}
+                    zoom={16}
+                    scrollWheelZoom={true}
+                    className="map-main-container"
                   >
-                    {/* <Coordinates icon={customIcon} /> */}
-                    <CoordinatesBR icon={customIcon} />
-                  </MarkerClusterGroup>
+                    <TileLayer
+                      // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={[49.2606, -123.246]} icon={greenIcon}>
+                      <Popup offset={L.point(0, -20)}>
+                        <Text className="map-main-pin">Welcome To Pinnit!</Text>
+                      </Popup>
+                    </Marker>
 
-                  {/* <EventMenu icon={customIcon} /> */}
-                  <LegendBL />
-                  <Filter />
-                </MapContainer>
-              </div>
-            </SideBarContext.Provider>
-          </FilterContext.Provider>
-        </FilterTextContext.Provider>
-      </IconTextContext.Provider>
+                    <MarkerClusterGroup
+                      chunkedLoading
+                      iconCreateFunction={createClusterCustomIcon}
+                    >
+                      {/* <Coordinates icon={customIcon} /> */}
+                      <CoordinatesBR icon={customIcon} />
+                    </MarkerClusterGroup>
+
+                    {/* <EventMenu icon={customIcon} /> */}
+                    <LegendBL />
+                    <Filter />
+                    {locateMe ? <GeoLocation /> : <div></div>}
+                  </MapContainer>
+                </div>
+              </SideBarContext.Provider>
+            </FilterContext.Provider>
+          </FilterTextContext.Provider>
+        </IconTextContext.Provider>
+      </LocateMeContext.Provider>
     </>
   );
 };

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBar.css";
 import { Button, Flex, Text } from "@mantine/core";
-import { FilterContext, SideBarContext } from "../Map/Map";
+import { FilterContext, LocateMeContext, SideBarContext } from "../Map/Map";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
+import GeoLocation from "../GeoLocation/GeoLocation";
 const SideBar = () => {
   //   const map = useMap();
   //   useEffect(() => {
@@ -20,6 +21,7 @@ const SideBar = () => {
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const sideBarView = useContext(SideBarContext);
   const filterView = useContext(FilterContext);
+  const locateView = useContext(LocateMeContext);
 
   return (
     <>
@@ -54,6 +56,19 @@ const SideBar = () => {
               ></Button>
               <Text style={{ maxWidth: "3vw", marginTop: "0.5rem" }} fz={"xs"}>
                 Filter: {filterView.filter ? "On" : "Off"}
+              </Text>
+            </div>
+
+            <div>
+              <Button
+                style={{ maxWidth: "3vw", marginTop: "1rem" }}
+                onClick={() => {
+                  locateView.setLocateMe(!locateView.locateMe);
+                }}
+              ></Button>
+
+              <Text style={{ maxWidth: "3vw", marginTop: "0.5rem" }} fz={"xs"}>
+                Locate Me
               </Text>
             </div>
           </Flex>
