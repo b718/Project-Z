@@ -68,7 +68,7 @@ const SideBar = () => {
               ></Button>
 
               <Text style={{ maxWidth: "3vw", marginTop: "0.5rem" }} fz={"xs"}>
-                Locate Me
+                Locate Me: {locateView.locateMe ? "On" : "Off"}
               </Text>
             </div>
           </Flex>
