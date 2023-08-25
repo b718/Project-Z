@@ -1,0 +1,48 @@
+.side-bar-events-km-text {
+  margin-top: 0.2rem;
+  font-size: 0.5rem;
+}
+
+.side-bar-events-title {
+  text-align: left;
+}
+
+.side-bar-events-desc {
+  margin-top: 0.2rem;
+  text-align: left;
+  font-size: 0.8rem;
+  max-width: 10vw;
+}
+
+.side-bar-events-tags {
+  margin-top: 0.2rem;
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+.side-bar-events-main-flex {
+  border: 1px solid #228be6;
+  border-radius: 12px;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  margin-top: 1rem;
+}
+
+.side-bar-events-pin-color {
+  min-width: 5vw;
+  max-width: 5vw;
+}
+
+.side-bar-events-event-details {
+  min-width: 10vw;
+  max-width: 10vw;
+  word-wrap: break-word;
+}
+
+.side-bar-events-main-title {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.side-bar-events-main-flex-vertical:last-child {
+  margin-bottom: 0.5rem;
+}

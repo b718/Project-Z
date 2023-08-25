@@ -1,0 +1,16 @@
+.display-date-main-div {
+  position: absolute;
+  z-index: 999;
+  max-width: fit-content;
+  top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  font-size: 1rem;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border: 1px solid black;
+  opacity: 0.9;
+}

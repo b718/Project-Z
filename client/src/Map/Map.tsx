@@ -29,6 +29,7 @@ import fratMarker from "../Images/pin-frat.png";
 import officialMarker from "../Images/pin-official.png";
 import Test from "../GeoLocation/GeoLocation";
 import GeoLocation from "../GeoLocation/GeoLocation";
+import DisplayDate from "../DisplayDate/DisplayDate";
 
 interface SideBarContext {
   view: boolean;
@@ -80,31 +81,64 @@ export const LocateMeContext = createContext<locateMeInterface>({
   setLocateMe: () => {},
 });
 
+interface locateMePosInterface {
+  locateMePos: L.LatLngExpression;
+  setLocateMePos: Function;
+}
+
+export const LocateMePosContext = createContext<locateMePosInterface>({
+  locateMePos: [0, 0],
+  setLocateMePos: () => {},
+});
+
+interface eventInterface {
+  lat: L.LatLngExpression;
+  location: string;
+  desc: string;
+  going: number;
+  total: number;
+  tags: string[];
+  icon: L.Icon;
+}
+
+interface userMadeContextInterface {
+  userMade: eventInterface[];
+  setUserMade: Function;
+}
+
+export const UserMadeContext = createContext<userMadeContextInterface>({
+  userMade: [],
+  setUserMade: () => {},
+});
+
+interface checkBoxContextInterface {
+  checkBox: string[];
+  setCheckBox: Function;
+}
+
+export const CheckBoxContext = createContext<checkBoxContextInterface>({
+  checkBox: [],
+  setCheckBox: () => {},
+});
+
 const Map = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
   const [filterText, setFilterText] = useState("");
   const [iconText, setIconText] = useState("");
   const [locateMe, setLocateMe] = useState(false);
-  let image = blueMarker;
+  const [locateMePos, setLocateMePos] = useState<L.LatLngExpression>([0, 0]);
+  const [userMade, setUserMade] = useState<eventInterface[]>([]);
+  const [checkBox, setCheckBox] = useState<string[]>([
+    "official",
+    "company",
+    "faculty",
+    "club",
+    "ams",
+    "frat",
+  ]);
 
-  useEffect(() => {
-    if (iconText === "official") {
-      image = officialMarker;
-    } else if (iconText === "company") {
-      image = companyMarker;
-    } else if (iconText === "faculty") {
-      image = facultyMarker;
-    } else if (iconText === "club") {
-      image = clubMarker;
-    } else if (iconText === "ams") {
-      image = amsMarker;
-    } else if (iconText === "frat") {
-      image = fratMarker;
-    } else {
-      image = blueMarker;
-    }
-  }, [iconText]);
+  let image = blueMarker;
 
   const customIcon = new L.Icon({
     iconUrl: image,
@@ -130,49 +164,63 @@ const Map = () => {
   });
   return (
     <>
-      <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
-        <IconTextContext.Provider value={{ iconText, setIconText }}>
-          <FilterTextContext.Provider value={{ filterText, setFilterText }}>
-            <FilterContext.Provider value={{ filter, setFilter }}>
-              <SideBarContext.Provider value={{ view, setView }}>
-                <SideBar />
+      <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
+        <UserMadeContext.Provider value={{ userMade, setUserMade }}>
+          <LocateMePosContext.Provider value={{ locateMePos, setLocateMePos }}>
+            <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+              <IconTextContext.Provider value={{ iconText, setIconText }}>
+                <FilterTextContext.Provider
+                  value={{ filterText, setFilterText }}
+                >
+                  <FilterContext.Provider value={{ filter, setFilter }}>
+                    <SideBarContext.Provider value={{ view, setView }}>
+                      <SideBar />
 
-                <div className="map-flex-center">
-                  <MapContainer
-                    center={[49.2606, -123.246]}
-                    zoom={16}
-                    scrollWheelZoom={true}
-                    className="map-main-container"
-                  >
-                    <TileLayer
-                      // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={[49.2606, -123.246]} icon={greenIcon}>
-                      <Popup offset={L.point(0, -20)}>
-                        <Text className="map-main-pin">Welcome To Pinnit!</Text>
-                      </Popup>
-                    </Marker>
+                      <div className="map-flex-center">
+                        <MapContainer
+                          center={[49.2606, -123.246]}
+                          zoom={16}
+                          scrollWheelZoom={true}
+                          className="map-main-container"
+                        >
+                          <DisplayDate />
+                          <TileLayer
+                            // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+                          <Marker
+                            position={[49.2606, -123.246]}
+                            icon={greenIcon}
+                          >
+                            <Popup offset={L.point(0, -20)}>
+                              <Text className="map-main-pin">
+                                Welcome To Pinnit!
+                              </Text>
+                            </Popup>
+                          </Marker>
 
-                    <MarkerClusterGroup
-                      chunkedLoading
-                      iconCreateFunction={createClusterCustomIcon}
-                    >
-                      {/* <Coordinates icon={customIcon} /> */}
-                      <CoordinatesBR icon={customIcon} />
-                    </MarkerClusterGroup>
+                          <MarkerClusterGroup
+                            chunkedLoading
+                            iconCreateFunction={createClusterCustomIcon}
+                          >
+                            {/* <Coordinates icon={customIcon} /> */}
+                            <CoordinatesBR icon={customIcon} />
+                          </MarkerClusterGroup>
 
-                    {/* <EventMenu icon={customIcon} /> */}
-                    <LegendBL />
-                    <Filter />
-                    {locateMe ? <GeoLocation /> : <div></div>}
-                  </MapContainer>
-                </div>
-              </SideBarContext.Provider>
-            </FilterContext.Provider>
-          </FilterTextContext.Provider>
-        </IconTextContext.Provider>
-      </LocateMeContext.Provider>
+                          {/* <EventMenu icon={customIcon} /> */}
+                          <LegendBL />
+                          <Filter />
+                          <GeoLocation />
+                        </MapContainer>
+                      </div>
+                    </SideBarContext.Provider>
+                  </FilterContext.Provider>
+                </FilterTextContext.Provider>
+              </IconTextContext.Provider>
+            </LocateMeContext.Provider>
+          </LocateMePosContext.Provider>
+        </UserMadeContext.Provider>
+      </CheckBoxContext.Provider>
     </>
   );
 };

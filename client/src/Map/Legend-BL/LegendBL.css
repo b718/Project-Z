@@ -1,9 +1,16 @@
 .legendbl-div-for-click {
   background-color: black;
+  color: white;
   opacity: 0.8;
+  position: absolute;
+  z-index: 999;
+  bottom: 10px;
+  left: 10px;
+  font-weight: 700;
+  padding: 10px;
 }
 
-.legendbl-div-for-click b {
+/* .legendbl-div-for-click b {
   display: block;
   color: white;
   padding-left: 1rem;
@@ -21,4 +28,4 @@
 
 .leaflet-bottom div:nth-child(1) {
   display: block;
-}
+} */

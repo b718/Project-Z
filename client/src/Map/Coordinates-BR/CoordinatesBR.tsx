@@ -4,7 +4,13 @@ import L from "leaflet";
 import "./CoordinatesBR.css";
 import { Text, Flex, Select } from "@mantine/core";
 import EventMenu from "../../EventMenu/EventMenu";
-import { FilterContext, FilterTextContext, SideBarContext } from "../Map";
+import {
+  CheckBoxContext,
+  FilterContext,
+  FilterTextContext,
+  SideBarContext,
+  UserMadeContext,
+} from "../Map";
 interface coordinatesBRInterface {
   icon: L.Icon;
 }
@@ -14,6 +20,8 @@ interface eventInterface {
   desc: string;
   going: number;
   total: number;
+  tags: string[];
+  icon: L.Icon;
 }
 
 interface mapContextInterface {
@@ -31,8 +39,11 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const map = useMap();
   const [tempLat, setTempLat] = useState<L.LatLngExpression>([0, 0]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
+  const checkBoxArray = useContext(CheckBoxContext);
+
   const sideBarContext = useContext(SideBarContext);
   const FilterText = useContext(FilterTextContext);
+  const UserMade = useContext(UserMadeContext);
   useEffect(() => {
     map.on("click", function (e) {
       const markerPlace = document.querySelector(
@@ -58,6 +69,10 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
     }
   }, [map, sideBarContext.view]);
 
+  useEffect(() => {
+    UserMade.setUserMade(userMade);
+  }, [userMade]);
+
   // useEffect(() => {
   //   console.log(userMade);
   // }, [userMade]);
@@ -79,9 +94,9 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           >
             <Popup offset={L.point(0, -20)}>
               <Flex direction={"column"} justify={"center"} align={"center"}>
-                <Text>Temporary Marker.</Text>
+                {/* <Text>Temporary Marker.</Text>
                 <Text>@</Text>
-                <Text> {JSON.stringify(tempLat)}</Text>
+                <Text> {JSON.stringify(tempLat)}</Text> */}
                 <EventMenu icon={icon} lat={tempLat} />
               </Flex>
             </Popup>
@@ -94,8 +109,10 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           .filter((event: any) => {
             // console.log(event.icon);
             return (
-              event.location.toLowerCase().includes(FilterText.filterText) ||
-              event.desc.toLowerCase().includes(FilterText.filterText)
+              // event.location.toLowerCase().includes(FilterText.filterText) ||
+              // event.desc.toLowerCase().includes(FilterText.filterText) ||
+              // event.tags.includes(FilterText.filterText) ||
+              checkBoxArray.checkBox.includes(event.tags[0])
             );
           })
           .map((event: any, index: number) => {
@@ -122,6 +139,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
                     <Text>
                       {event.going} / {event.total} are going.
                     </Text>
+                    <Text>Tags: {event.tags}</Text>
                   </Flex>
                 </Popup>
               </Marker>

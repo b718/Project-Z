@@ -1,9 +1,9 @@
-import { TextInput } from "@mantine/core";
+import { Checkbox, MultiSelect, TextInput } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
 import "./Filter.css";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import { FilterContext, FilterTextContext } from "../Map/Map";
+import { CheckBoxContext, FilterContext, FilterTextContext } from "../Map/Map";
 
 const Filter = () => {
   const [mouseIn, setMouseIn] = useState<boolean>(false);
@@ -11,6 +11,9 @@ const Filter = () => {
   const FilterText = useContext(FilterTextContext);
   const [text, setText] = useState("");
   const SideBarFilter = useContext(FilterContext);
+  const [value, setValue] = useState<string[]>([]);
+  const checkBoxSet = useContext(CheckBoxContext);
+
   useEffect(() => {
     // console.log(mouseIn);
     if (mouseIn) {
@@ -26,10 +29,16 @@ const Filter = () => {
     if (!SideBarFilter.filter) {
       FilterText.setFilterText("");
       setText("");
+      setValue(["official", "company", "faculty", "club", "ams", "frat"]);
     } else {
       FilterText.setFilterText(text);
+      setValue(["official", "company", "faculty", "club", "ams", "frat"]);
     }
   }, [text, SideBarFilter.filter]);
+
+  useEffect(() => {
+    checkBoxSet.setCheckBox(value);
+  }, [value]);
   return (
     <>
       {SideBarFilter.filter ? (
@@ -47,6 +56,20 @@ const Filter = () => {
             value={text}
             onChange={(event) => setText(event.currentTarget.value)}
           ></TextInput>
+
+          <Checkbox.Group
+            value={value}
+            onChange={setValue}
+            className="filter-check-boxes"
+            label="Pin Color"
+          >
+            <Checkbox value="official" label="UBC AMS" />
+            <Checkbox value="company" label="Career" />
+            <Checkbox value="faculty" label="Faculty" />
+            <Checkbox value="club" label="Clubs" />
+            <Checkbox value="ams" label="Social" />
+            <Checkbox value="frat" label="Frat/Sorority" />
+          </Checkbox.Group>
         </div>
       ) : (
         <div></div>

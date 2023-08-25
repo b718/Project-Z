@@ -32,13 +32,13 @@ interface eventInterface {
   desc: string;
   going: number;
   total: number;
+  tags: string[];
   icon: L.Icon;
 }
 const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   icon,
   lat,
 }) => {
-  let image: any;
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const [latLngState, setLatLngState] = useState<L.LatLngExpression>([0, 0]);
@@ -50,22 +50,47 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [peopleTotal, setPeopleTotal] = useState<number>(0);
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const [typeOfEvent, setTypeOfEvent] = useState("");
-  const [userIcon, setUsericon] = useState<L.Icon>();
+  const [tags, setTags] = useState<string[]>([]);
+  // const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
   const iconContext = useContext(IconTextContext);
 
+  let image = blueMarker;
+  let customIcon = new L.Icon({
+    iconUrl: image,
+    iconSize: [20, 30],
+  });
+
   const eventMenuSubmit = (e: any) => {
     e.preventDefault();
-    let userLatlng = [latState, lngState];
+
+    if (typeOfEvent === "official") {
+      customIcon.options.iconUrl = officialMarker;
+    } else if (typeOfEvent === "company") {
+      customIcon.options.iconUrl = companyMarker;
+    } else if (typeOfEvent === "faculty") {
+      customIcon.options.iconUrl = facultyMarker;
+    } else if (typeOfEvent === "club") {
+      customIcon.options.iconUrl = clubMarker;
+    } else if (typeOfEvent === "ams") {
+      customIcon.options.iconUrl = amsMarker;
+    } else if (typeOfEvent === "frat") {
+      customIcon.options.iconUrl = fratMarker;
+    } else {
+      customIcon.options.iconUrl = blueMarker;
+    }
+
     let newUseMade: eventInterface = {
       lat: lat as L.LatLngExpression,
       location: nameState,
       desc: descState,
       going: peopleGoing,
       total: peopleTotal,
+      tags: tags,
       icon: customIcon,
     };
+    // console.log(newUseMade);
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
     setLatState(0);
@@ -75,6 +100,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     setDescState("");
     setPeopleGoing(0);
     setPeopleTotal(0);
+    setTags([]);
     setTypeOfEvent("");
   };
 
@@ -89,29 +115,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     }
   }, [mouseIn]);
 
-  let customIcon = new L.Icon({
-    iconUrl: image,
-    iconSize: [20, 30],
-  });
-
   useEffect(() => {
-    if (typeOfEvent === "official") {
-      image = officialMarker;
-    } else if (typeOfEvent === "company") {
-      image = companyMarker;
-    } else if (typeOfEvent === "faculty") {
-      image = facultyMarker;
-    } else if (typeOfEvent === "club") {
-      image = clubMarker;
-    } else if (typeOfEvent === "ams") {
-      image = amsMarker;
-    } else if (typeOfEvent === "frat") {
-      image = fratMarker;
-    } else {
-      image = blueMarker;
-    }
-    customIcon.options.iconUrl = image;
-    console.log(customIcon.options.iconUrl);
+    setTags([typeOfEvent]);
   }, [typeOfEvent]);
 
   return (
@@ -125,21 +130,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
           setMouseIn(false);
         }}
       >
-        {/* <Flex direction={"row"} justify={"center"} align={"flex-start"}> */}
-        {/* <Flex direction={"column"} justify={"center"} align={"flex-start"}>
-            {" "}
-            <label>What is the Lat & Lng? </label>
-            <label style={{ marginTop: "1.5rem" }}>
-              What is the name of the place?{" "}
-            </label>
-            <label style={{ marginTop: "0.3rem" }}>
-              What is happening here?{" "}
-            </label>
-            <label style={{ marginTop: "0.3rem" }}>
-              How many people are going?{" "}
-            </label>
-            <label style={{ marginTop: "0.2rem" }}>What's the capacity? </label>
-          </Flex> */}
         <Flex
           direction={"column"}
           justify={"center"}
@@ -196,7 +186,41 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             <Radio value="ams" label="AMS Events/Parties" />
             <Radio value="frat" label="Fraternity/Sorority Parties" />
           </Radio.Group>
-          {/* <Select
+        </Flex>
+        {/* </Flex> */}
+        <Center>
+          <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
+            CREATE
+          </Button>
+        </Center>
+      </div>
+    </>
+  );
+};
+
+export default EventMenu;
+
+{
+  /* <Flex direction={"row"} justify={"center"} align={"flex-start"}> */
+}
+{
+  /* <Flex direction={"column"} justify={"center"} align={"flex-start"}>
+            {" "}
+            <label>What is the Lat & Lng? </label>
+            <label style={{ marginTop: "1.5rem" }}>
+              What is the name of the place?{" "}
+            </label>
+            <label style={{ marginTop: "0.3rem" }}>
+              What is happening here?{" "}
+            </label>
+            <label style={{ marginTop: "0.3rem" }}>
+              How many people are going?{" "}
+            </label>
+            <label style={{ marginTop: "0.2rem" }}>What's the capacity? </label>
+          </Flex> */
+}
+{
+  /* <Select
             label="Type Of Event?"
             // placeholder="Pick one"
             allowDeselect
@@ -214,9 +238,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
               { value: "ams", label: "AMS Events/Parties" },
               { value: "frat", label: "Fraternity/Sorority Parties" },
             ]}
-          /> */}
+          /> */
+}
 
-          {/* <Flex
+{
+  /* <Flex
             direction={"column"}
             justify={"center"}
             align={"center"}
@@ -239,17 +265,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             <button className="event-menu-button-option">
               Fraternity/Sorority Parties
             </button>
-          </Flex> */}
-        </Flex>
-        {/* </Flex> */}
-        <Center>
-          <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
-            CREATE
-          </Button>
-        </Center>
-      </div>
+          </Flex> */
+}
 
-      {/* {userMade.map((event: any, index: number) => {
+{
+  /* {userMade.map((event: any, index: number) => {
         if (index % 2 == 0) {
           return (
             <Marker
@@ -274,9 +294,5 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Marker>
           );
         }
-      })} */}
-    </>
-  );
-};
-
-export default EventMenu;
+      })} */
+}
