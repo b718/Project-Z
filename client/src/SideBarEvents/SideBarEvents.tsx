@@ -48,7 +48,7 @@ const SideBarEvents = () => {
 
   return (
     <>
-      <Text className="side-bar-events-main-title">Happening Today</Text>
+      <Text className="side-bar-events-main-title">Upcoming Events</Text>
       <Flex
         direction={"column"}
         justify={"center"}
