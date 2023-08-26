@@ -9,7 +9,8 @@
 }
 
 .side-bar-left-inner {
-  max-width: 18vw;
+  max-width: 19vw;
+  min-width: 19vw;
   min-height: 98vh;
   max-height: 98vh;
   overflow-y: scroll;
