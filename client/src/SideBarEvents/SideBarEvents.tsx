@@ -13,6 +13,10 @@ interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
   desc: string;
+  title: string;
+  link: string;
+  endTime: string;
+  startTime: string;
   going: number;
   total: number;
   tags: string[];
@@ -90,7 +94,9 @@ const SideBarEvents = () => {
                 direction={"column"}
                 className="side-bar-events-event-details"
               >
-                <Text className="side-bar-events-title">{pin.location}</Text>
+                <Text className="side-bar-events-title">
+                  {pin.title} @ {pin.startTime}{" "}
+                </Text>
                 <Text className="side-bar-events-desc">{pin.desc}</Text>
                 <Text className="side-bar-events-tags">Tags: {pin.tags}</Text>
               </Flex>

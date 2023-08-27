@@ -1,12 +1,4 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Radio,
-  Select,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Button, Center, Flex, Radio, Text, TextInput } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
@@ -20,6 +12,7 @@ import companyMarker from "../Images/pin-company.png";
 import facultyMarker from "../Images/pin-faculty.png";
 import fratMarker from "../Images/pin-frat.png";
 import officialMarker from "../Images/pin-official.png";
+import { TimeInput } from "@mantine/dates";
 
 interface eventMenuInterface {
   icon: L.Icon;
@@ -30,6 +23,10 @@ interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
   desc: string;
+  title: string;
+  link: string;
+  endTime: string;
+  startTime: string;
   going: number;
   total: number;
   tags: string[];
@@ -41,16 +38,18 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 }) => {
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
-  const [latLngState, setLatLngState] = useState<L.LatLngExpression>([0, 0]);
-  const [latState, setLatState] = useState<number>(0);
-  const [lngState, setLngState] = useState<number>(0);
   const [nameState, setNameState] = useState<string>("");
+  const [titleState, setTitleState] = useState<string>("");
   const [descState, setDescState] = useState<string>("");
+  const [linkState, setLinkState] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
   const [peopleGoing, setPeopleGoing] = useState<number>(0);
   const [peopleTotal, setPeopleTotal] = useState<number>(0);
   const [mouseIn, setMouseIn] = useState<boolean>(false);
-  const [typeOfEvent, setTypeOfEvent] = useState("");
+  const [typeOfEvent, setTypeOfEvent] = useState("other");
   const [tags, setTags] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(0);
   // const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
@@ -85,6 +84,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       lat: lat as L.LatLngExpression,
       location: nameState,
       desc: descState,
+      title: titleState,
+      link: linkState,
+      endTime: endTime,
+      startTime: startTime,
       going: peopleGoing,
       total: peopleTotal,
       tags: tags,
@@ -93,16 +96,22 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     // console.log(newUseMade);
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
-    setLatState(0);
-    setLngState(0);
-    setLatLngState([0, 0]);
     setNameState("");
     setDescState("");
+    setLinkState("");
+    setTitleState("");
+    setStartTime("");
+    setEndTime("");
     setPeopleGoing(0);
     setPeopleTotal(0);
+    setPage(0);
     setTags([]);
     setTypeOfEvent("");
   };
+
+  useEffect(() => {
+    console.log(endTime, startTime);
+  }, [endTime, startTime]);
 
   useEffect(() => {
     console.log(mouseIn);
@@ -121,7 +130,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
   return (
     <>
-      <div
+      <form
         className={`eventmenu-main-menu${currentView.view ? "" : "-off"}`}
         onMouseEnter={() => {
           setMouseIn(true);
@@ -129,71 +138,180 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
         onMouseLeave={() => {
           setMouseIn(false);
         }}
+        onSubmit={eventMenuSubmit}
       >
-        <Flex
-          direction={"column"}
-          justify={"center"}
-          align={"flex-start"}
-          style={{ marginLeft: "1rem" }}
-        >
-          <TextInput
-            type="text"
-            label="What is the name of the place?"
-            className="eventmenu-input"
-            value={nameState}
-            onChange={(e) => {
-              setNameState(e.target.value);
-            }}
-          ></TextInput>
-          <TextInput
-            type="text"
-            label="What is happening here?"
-            className="eventmenu-input"
-            value={descState}
-            onChange={(e) => {
-              setDescState(e.target.value);
-            }}
-          ></TextInput>
-          <TextInput
-            type="number"
-            label="How many people are going?"
-            className="eventmenu-input"
-            value={peopleGoing}
-            onChange={(e) => {
-              setPeopleGoing(e.target.valueAsNumber);
-            }}
-          ></TextInput>
-          <TextInput
-            label="What's the capacity?"
-            type="number"
-            className="eventmenu-input"
-            value={peopleTotal}
-            onChange={(e) => {
-              setPeopleTotal(e.target.valueAsNumber);
-            }}
-          ></TextInput>
+        {
+          {
+            0: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                <TextInput
+                  type="text"
+                  label="Location/Building"
+                  className="eventmenu-input"
+                  value={nameState}
+                  required={true}
+                  onChange={(e) => {
+                    setNameState(e.target.value);
+                  }}
+                ></TextInput>
+                <TextInput
+                  type="text"
+                  label="Activity Title"
+                  className="eventmenu-input"
+                  value={titleState}
+                  required={true}
+                  onChange={(e) => {
+                    setTitleState(e.target.value);
+                  }}
+                ></TextInput>
+                <TextInput
+                  type="text"
+                  label="Activity Description"
+                  className="eventmenu-input"
+                  value={descState}
+                  required={true}
+                  onChange={(e) => {
+                    setDescState(e.target.value);
+                  }}
+                ></TextInput>
+                <TextInput
+                  type="text"
+                  label="Referece Link/Page"
+                  className="eventmenu-input"
+                  value={linkState}
+                  onChange={(e) => {
+                    setLinkState(e.target.value);
+                  }}
+                ></TextInput>
+              </Flex>
+            ),
+            1: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                <Text className="event-menu-time-title">
+                  Note Times Are 24 Hour Format.
+                </Text>
+                <TimeInput
+                  label="Start Time"
+                  value={startTime}
+                  required={true}
+                  className="event-menu-time"
+                  onChange={(startTime) => {
+                    setStartTime(startTime.target.value);
+                  }}
+                />
+                <TimeInput
+                  label="End Time"
+                  className="event-menu-time"
+                  value={endTime}
+                  required={true}
+                  onChange={(endTime) => {
+                    setEndTime(endTime.target.value);
+                  }}
+                />
+              </Flex>
+            ),
+            2: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                {" "}
+                <TextInput
+                  type="number"
+                  label="How many people are going?"
+                  className="eventmenu-input"
+                  value={peopleGoing}
+                  required={true}
+                  onChange={(e) => {
+                    setPeopleGoing(e.target.valueAsNumber);
+                  }}
+                ></TextInput>
+                <TextInput
+                  label="What's the capacity?"
+                  type="number"
+                  className="eventmenu-input"
+                  value={peopleTotal}
+                  required={true}
+                  onChange={(e) => {
+                    setPeopleTotal(e.target.valueAsNumber);
+                  }}
+                ></TextInput>
+              </Flex>
+            ),
+            3: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                {" "}
+                <Radio.Group
+                  value={typeOfEvent}
+                  onChange={setTypeOfEvent}
+                  label="Type Of Event?"
+                  className="event-menu-radio"
+                  required={true}
+                >
+                  <Radio value="official" label="Official UBC Events" />
+                  <Radio
+                    value="company"
+                    label="Company Info Sessions/Research"
+                  />
+                  <Radio value="faculty" label="Faculty Events/Imagine Day" />
+                  <Radio value="club" label="Clubs Events" />
+                  <Radio value="ams" label="AMS Events/Parties" />
+                  <Radio value="frat" label="Fraternity/Sorority Parties" />
+                  <Radio value="other" label="Other" />
+                </Radio.Group>
+              </Flex>
+            ),
+          }[page]
+        }
 
-          <Radio.Group
-            value={typeOfEvent}
-            onChange={setTypeOfEvent}
-            label="Type Of Event?"
-            className="event-menu-radio"
-          >
-            <Radio value="official" label="Official UBC Events" />
-            <Radio value="company" label="Company Info Sessions/Research" />
-            <Radio value="faculty" label="Faculty Events/Imagine Day" />
-            <Radio value="club" label="Clubs Events" />
-            <Radio value="ams" label="AMS Events/Parties" />
-            <Radio value="frat" label="Fraternity/Sorority Parties" />
-          </Radio.Group>
-        </Flex>
         {/* </Flex> */}
         <Center>
-          <Button className="eventmenu-submit-button" onClick={eventMenuSubmit}>
-            CREATE
-          </Button>
+          <Flex gap={"sm"}>
+            <Button
+              className="eventmenu-submit-button"
+              disabled={page == 0}
+              onClick={() => {
+                setPage(page - 1);
+              }}
+            >
+              PREV
+            </Button>
+            <Button
+              className="eventmenu-submit-button"
+              disabled={page == 3}
+              onClick={() => {
+                setPage(page + 1);
+              }}
+            >
+              NEXT
+            </Button>
+            <Button
+              className="eventmenu-submit-button"
+              disabled={page != 3}
+              onClick={eventMenuSubmit}
+            >
+              CREATE
+            </Button>
+          </Flex>
         </Center>
-      </div>
+      </form>
     </>
   );
 };

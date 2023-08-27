@@ -29,10 +29,26 @@ const Filter = () => {
     if (!SideBarFilter.filter) {
       FilterText.setFilterText("");
       setText("");
-      setValue(["official", "company", "faculty", "club", "ams", "frat"]);
+      setValue([
+        "official",
+        "company",
+        "faculty",
+        "club",
+        "ams",
+        "frat",
+        "other",
+      ]);
     } else {
       FilterText.setFilterText(text);
-      setValue(["official", "company", "faculty", "club", "ams", "frat"]);
+      setValue([
+        "official",
+        "company",
+        "faculty",
+        "club",
+        "ams",
+        "frat",
+        "other",
+      ]);
     }
   }, [text, SideBarFilter.filter]);
 
@@ -69,6 +85,7 @@ const Filter = () => {
             <Checkbox value="club" label="Clubs" />
             <Checkbox value="ams" label="Social" />
             <Checkbox value="frat" label="Frat/Sorority" />
+            <Checkbox value="other" label="Other" />
           </Checkbox.Group>
         </div>
       ) : (

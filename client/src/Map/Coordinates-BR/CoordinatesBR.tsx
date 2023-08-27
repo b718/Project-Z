@@ -88,11 +88,12 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
             icon={icon}
             eventHandlers={{
               click(e) {
-                map.setView(e.target.getLatLng());
+                map.flyTo(e.target.getLatLng());
+                map.panTo(e.target.getLatLng());
               },
             }}
           >
-            <Popup offset={L.point(0, -20)}>
+            <Popup offset={L.point(0, -15)}>
               <Flex direction={"column"} justify={"center"} align={"center"}>
                 {/* <Text>Temporary Marker.</Text>
                 <Text>@</Text>
@@ -123,7 +124,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
                 icon={event.icon}
                 eventHandlers={{
                   click(e) {
-                    map.setView(e.target.getLatLng());
+                    map.flyTo(e.target.getLatLng());
                   },
                 }}
               >

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Auger-Mono-Bold;
+  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-regular.woff2");
+}
+
 .eventmenu-main-menu {
   /* position: absolute;
   z-index: 999;
@@ -44,6 +49,7 @@
 .eventmenu-input label {
   /* float: right;
   clear: both; */
+  font-family: Auger-Mono-Bold;
   color: #0582c8;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -54,10 +60,27 @@
 } */
 
 .event-menu-radio div {
+  font-family: Auger-Mono-Bold;
   color: #0582c8;
   text-transform: uppercase;
   font-size: 0.8rem;
   margin-top: 0.5rem;
+}
+
+.event-menu-time label {
+  font-family: Auger-Mono-Bold;
+  color: #0582c8;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.event-menu-time-title {
+  font-family: Auger-Mono-Bold;
+  color: #0582c8;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-bottom: 0.3rem;
 }
 
 @-webkit-keyframes fadeIn {

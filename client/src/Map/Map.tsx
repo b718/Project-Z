@@ -95,12 +95,15 @@ interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
   desc: string;
+  title: string;
+  link: string;
+  endTime: string;
+  startTime: string;
   going: number;
   total: number;
   tags: string[];
   icon: L.Icon;
 }
-
 interface userMadeContextInterface {
   userMade: eventInterface[];
   setUserMade: Function;
