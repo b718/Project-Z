@@ -137,10 +137,11 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
                   >
                     <Text>{event.location}</Text>
                     <Text>{event.desc}</Text>
-                    <Text>
+                    {/* <Text>
                       {event.going} / {event.total} are going.
-                    </Text>
-                    <Text>Tags: {event.tags}</Text>
+                    </Text> */}
+                    {/* <Text>Tags: {event.tags}</Text> */}
+                    <Text>{event.link}</Text>
                   </Flex>
                 </Popup>
               </Marker>

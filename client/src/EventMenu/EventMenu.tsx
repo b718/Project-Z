@@ -220,37 +220,37 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 />
               </Flex>
             ),
+            // 2: (
+            //   <Flex
+            //     direction={"column"}
+            //     justify={"center"}
+            //     align={"flex-start"}
+            //     style={{ marginLeft: "1rem" }}
+            //   >
+            //     {" "}
+            //     <TextInput
+            //       type="number"
+            //       label="How many people are going?"
+            //       className="eventmenu-input"
+            //       value={peopleGoing}
+            //       required={true}
+            //       onChange={(e) => {
+            //         setPeopleGoing(e.target.valueAsNumber);
+            //       }}
+            //     ></TextInput>
+            //     <TextInput
+            //       label="What's the capacity?"
+            //       type="number"
+            //       className="eventmenu-input"
+            //       value={peopleTotal}
+            //       required={true}
+            //       onChange={(e) => {
+            //         setPeopleTotal(e.target.valueAsNumber);
+            //       }}
+            //     ></TextInput>
+            //   </Flex>
+
             2: (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"flex-start"}
-                style={{ marginLeft: "1rem" }}
-              >
-                {" "}
-                <TextInput
-                  type="number"
-                  label="How many people are going?"
-                  className="eventmenu-input"
-                  value={peopleGoing}
-                  required={true}
-                  onChange={(e) => {
-                    setPeopleGoing(e.target.valueAsNumber);
-                  }}
-                ></TextInput>
-                <TextInput
-                  label="What's the capacity?"
-                  type="number"
-                  className="eventmenu-input"
-                  value={peopleTotal}
-                  required={true}
-                  onChange={(e) => {
-                    setPeopleTotal(e.target.valueAsNumber);
-                  }}
-                ></TextInput>
-              </Flex>
-            ),
-            3: (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -272,8 +272,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   />
                   <Radio value="faculty" label="Faculty Events/Imagine Day" />
                   <Radio value="club" label="Clubs Events" />
-                  <Radio value="ams" label="AMS Events/Parties" />
-                  <Radio value="frat" label="Fraternity/Sorority Parties" />
+                  {/* <Radio value="ams" label="AMS Events/Parties" /> */}
+                  <Radio value="frat" label="Social" />
                   <Radio value="other" label="Other" />
                 </Radio.Group>
               </Flex>
@@ -295,7 +295,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Button>
             <Button
               className="eventmenu-submit-button"
-              disabled={page == 3}
+              disabled={page == 2}
               onClick={() => {
                 setPage(page + 1);
               }}
@@ -304,7 +304,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Button>
             <Button
               className="eventmenu-submit-button"
-              disabled={page != 3}
+              disabled={page != 2}
               onClick={eventMenuSubmit}
             >
               CREATE

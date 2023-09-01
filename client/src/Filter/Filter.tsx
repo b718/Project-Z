@@ -67,24 +67,24 @@ const Filter = () => {
             setMouseIn(false);
           }}
         >
-          <TextInput
+          {/* <TextInput
             label="Filter by?"
             value={text}
             onChange={(event) => setText(event.currentTarget.value)}
-          ></TextInput>
+          ></TextInput> */}
 
           <Checkbox.Group
             value={value}
             onChange={setValue}
             className="filter-check-boxes"
-            label="Pin Color"
+            label="Event Type?"
           >
             <Checkbox value="official" label="UBC AMS" />
             <Checkbox value="company" label="Career" />
             <Checkbox value="faculty" label="Faculty" />
             <Checkbox value="club" label="Clubs" />
-            <Checkbox value="ams" label="Social" />
-            <Checkbox value="frat" label="Frat/Sorority" />
+            {/* <Checkbox value="ams" label="Social" /> */}
+            <Checkbox value="frat" label="Social" />
             <Checkbox value="other" label="Other" />
           </Checkbox.Group>
         </div>
