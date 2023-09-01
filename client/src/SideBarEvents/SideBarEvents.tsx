@@ -49,7 +49,7 @@ const SideBarEvents = () => {
     let c = 2 * Math.asin(Math.sqrt(a));
     let r = 6371;
 
-    return Math.trunc(c * r);
+    return (c * r).toFixed(2);
   };
 
   //   useEffect(() => {
@@ -103,7 +103,7 @@ const SideBarEvents = () => {
                 className="side-bar-events-event-details"
               >
                 <Text className="side-bar-events-title">
-                  {pin.title} @ {pin.startTime}{" "}
+                  {pin.title} @ {pin.startTime} to {pin.endTime}{" "}
                 </Text>
                 <Text className="side-bar-events-desc">{pin.desc}</Text>
                 <Text className="side-bar-events-tags">Link: {pin.link}</Text>

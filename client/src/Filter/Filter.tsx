@@ -77,7 +77,7 @@ const Filter = () => {
             value={value}
             onChange={setValue}
             className="filter-check-boxes"
-            label="Event Type?"
+            label="Event Type"
           >
             <Checkbox value="official" label="UBC AMS" />
             <Checkbox value="company" label="Career" />
