@@ -1,0 +1,28 @@
+.filter-map-component {
+  position: absolute;
+  z-index: 999;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  font-size: 22px;
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  /* background-image: url("../../Images/locate_me_button_two.jpg");
+    background-size: contain, cover;
+    background-repeat: no-repeat; */
+
+  left: 0;
+  top: 120px;
+}
+
+.filter-map-component:hover {
+  background-color: #dcdada;
+}

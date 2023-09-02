@@ -1,3 +1,8 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
+
 .map-main-container {
   position: relative;
   height: 100vh;
@@ -9,19 +14,22 @@
 }
 
 .cluster-icon {
-  background-color: #333;
+  background-color: black;
   height: 2em;
   width: 2em;
-  color: #fff;
+  color: #238be6;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  box-shadow: 0 0 0px 5px #fff;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  /* box-shadow: 0 0 0px 5px #fff; */
+  border: none;
+  font-family: AugerMB;
 }
 
 .map-main-pin {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: capitalize;
+  font-family: AugerMB;
 }

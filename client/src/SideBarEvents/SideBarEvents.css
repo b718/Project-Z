@@ -1,3 +1,7 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
 .side-bar-events-km-text {
   margin-top: 0.2rem;
   font-size: 0.5rem;
@@ -7,7 +11,7 @@
   text-align: left;
 }
 
-.side-bar-events-desc {
+.side-bar-events-location {
   margin-top: 0.2rem;
   text-align: left;
   font-size: 0.8rem;
@@ -21,10 +25,15 @@
 }
 
 .side-bar-events-main-flex {
-  border: 1px solid #228be6;
+  border: 2px solid #228be6;
   border-radius: 12px;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   margin-top: 1rem;
+  cursor: pointer;
+}
+
+.side-bar-events-main-flex:hover {
+  border: 2px solid #1267b2;
 }
 
 .side-bar-events-pin-color {
@@ -41,8 +50,28 @@
 .side-bar-events-main-title {
   margin-top: 1rem;
   text-align: left;
+  font-family: AugerMB;
 }
 
 .side-bar-events-main-flex-vertical:last-child {
   margin-bottom: 0.5rem;
+}
+
+.side-bar-events-text-font {
+  font-family: AugerMB;
+}
+
+.side-bar-events-time-to {
+  font-family: AugerMB;
+  text-align: left;
+}
+
+.side-bar-events-button-text {
+  font-family: AugerMB;
+}
+
+.side-var-events-add-button-flex {
+  min-width: 10vw;
+  max-width: 10vw;
+  margin-top: 1rem;
 }

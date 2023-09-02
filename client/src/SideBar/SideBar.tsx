@@ -6,6 +6,8 @@ import { useMap } from "react-leaflet";
 import L from "leaflet";
 import GeoLocation from "../GeoLocation/GeoLocation";
 import SideBarEvents from "../SideBarEvents/SideBarEvents";
+import Clock from "react-live-clock";
+
 const SideBar = () => {
   //   const map = useMap();
   //   useEffect(() => {
@@ -37,7 +39,17 @@ const SideBar = () => {
       >
         <div className="side-bar-left-inner">
           <Flex direction={"column"} justify="center" align="center">
-            <div>
+            <Clock
+              format={"dddd, MMMM Mo"}
+              ticking={true}
+              className="side-bar-clock"
+            />
+            <Clock
+              format={"YYYY, h:mm:ss A"}
+              ticking={true}
+              className="side-bar-clock"
+            />
+            {/* <div>
               <Button
                 style={{ maxWidth: "6vw", marginTop: "1rem" }}
                 onClick={() => {
@@ -47,8 +59,8 @@ const SideBar = () => {
               <Text style={{ maxWidth: "6vw", marginTop: "0.5rem" }} fz={"xs"}>
                 Add: {sideBarView.view ? "On" : "Off"}
               </Text>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <Button
                 style={{ maxWidth: "6vw", marginTop: "1rem" }}
                 onClick={() => {
@@ -58,9 +70,9 @@ const SideBar = () => {
               <Text style={{ maxWidth: "6vw", marginTop: "0.5rem" }} fz={"xs"}>
                 Filter: {filterView.filter ? "On" : "Off"}
               </Text>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <Button
                 style={{ maxWidth: "6vw", marginTop: "1rem" }}
                 onClick={() => {
@@ -71,7 +83,7 @@ const SideBar = () => {
               <Text style={{ maxWidth: "6vw", marginTop: "0.5rem" }} fz={"xs"}>
                 Locate Me: {locateView.locateMe ? "On" : "Off"}
               </Text>
-            </div>
+            </div> */}
 
             <SideBarEvents />
           </Flex>

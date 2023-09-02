@@ -1,3 +1,8 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
+
 .filter-main-input {
   position: absolute;
   z-index: 999;
@@ -18,4 +23,8 @@
 .filter-check-boxes div {
   margin-top: 0.2rem;
   color: #0582c8;
+}
+
+.filter-check-boxes * {
+  font-family: AugerMB;
 }

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
 .coordinatesbr-text-location {
   position: absolute;
   bottom: 10px;
@@ -6,4 +10,14 @@
   padding: 10px;
   font-weight: 700;
   background-color: #fff;
+}
+.coordinates-br-text {
+  font-family: AugerMB;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  outline: 1px solid gray;
+  border-radius: 12px;
+}
+
+.coordinates-br-text:not(:first-child) {
+  margin-top: 0.5rem;
 }

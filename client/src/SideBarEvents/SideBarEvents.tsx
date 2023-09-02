@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBarEvents.css";
 import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
-import { Center, Flex, Image, Text } from "@mantine/core";
+import { Button, Center, Flex, Image, Text } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import {
   LocateMeContext,
   LocateMePosContext,
+  SideBarContext,
+  SideBarMoveContext,
   UserMadeContext,
 } from "../Map/Map";
 
@@ -27,6 +29,8 @@ const SideBarEvents = () => {
   const locateMePos = useContext(LocateMePosContext);
   const locateMe = useContext(LocateMeContext);
   const userMadeContext = useContext(UserMadeContext);
+  const sideBarMoveContext = useContext(SideBarMoveContext);
+  const sideBarView = useContext(SideBarContext);
 
   const calculateKM = (
     lat1: number,
@@ -62,6 +66,22 @@ const SideBarEvents = () => {
     <>
       <Text className="side-bar-events-main-title">Upcoming Events</Text>
       <Flex
+        justify={"center"}
+        align={"center"}
+        gap={"md"}
+        className="side-var-events-add-button-flex"
+      >
+        {" "}
+        <Button
+          onClick={() => {
+            sideBarView.setView(!sideBarView.view);
+          }}
+        ></Button>
+        <Text className="side-bar-events-button-text" fz={"xs"}>
+          Add: {sideBarView.view ? "On" : "Off"}
+        </Text>
+      </Flex>
+      <Flex
         direction={"column"}
         justify={"center"}
         align={"center"}
@@ -71,13 +91,14 @@ const SideBarEvents = () => {
           const PinLatLng: Array<number> = pin.lat as Array<number>;
           const PersonLatLng: Array<number> =
             locateMePos.locateMePos as Array<number>;
-          //   console.log(PinLatLng, PersonLatLng);
-
           return (
             <Flex
               direction={"row"}
               className="side-bar-events-main-flex"
               gap={"md"}
+              onClick={() => {
+                sideBarMoveContext.setSideBarMoveLocation(pin.lat);
+              }}
             >
               <Flex
                 direction={"column"}
@@ -88,7 +109,7 @@ const SideBarEvents = () => {
                 <Center>
                   <Image src={pin.icon.options.iconUrl} width={30} />
                 </Center>
-                <Text className="side-bar-events-km-text">
+                <Text className="side-bar-events-km-text side-bar-events-text-font">
                   {calculateKM(
                     PinLatLng[0],
                     PinLatLng[1],
@@ -100,13 +121,21 @@ const SideBarEvents = () => {
               </Flex>
               <Flex
                 direction={"column"}
-                className="side-bar-events-event-details"
+                className="side-bar-events-event-details side-bar-events-text-font"
               >
-                <Text className="side-bar-events-title">
-                  {pin.title} @ {pin.startTime} to {pin.endTime}{" "}
+                <Text className="side-bar-events-title side-bar-events-text-font">
+                  {pin.title}{" "}
                 </Text>
-                <Text className="side-bar-events-desc">{pin.desc}</Text>
-                <Text className="side-bar-events-tags">Link: {pin.link}</Text>
+
+                <Text className="side-bar-events-time-to">
+                  {pin.startTime} to {pin.endTime}
+                </Text>
+                <Text className="side-bar-events-location side-bar-events-text-font">
+                  Location: {pin.location}
+                </Text>
+                <Text className="side-bar-events-tags side-bar-events-text-font">
+                  Link: {pin.link}
+                </Text>
               </Flex>
             </Flex>
           );

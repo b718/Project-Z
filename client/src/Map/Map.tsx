@@ -17,8 +17,6 @@ import CoordinatesBR from "./Coordinates-BR/CoordinatesBR";
 import EventMenu from "../EventMenu/EventMenu";
 import { Flex, Text } from "@mantine/core";
 import SideBar from "../SideBar/SideBar";
-import GreenIcon from "../Images/leaf-green.png";
-import ShadowIcon from "../Images/leaf-shadow.png";
 import Filter from "../Filter/Filter";
 import blueMarker from "../Images/blue_marker.png";
 import amsMarker from "../Images/pin-ams.png";
@@ -30,6 +28,9 @@ import officialMarker from "../Images/pin-official.png";
 import Test from "../GeoLocation/GeoLocation";
 import GeoLocation from "../GeoLocation/GeoLocation";
 import DisplayDate from "../DisplayDate/DisplayDate";
+import SideBarMover from "../SideBarEvents/SideBarMover";
+import LocateMeMapComponent from "./LocateMeMapComponent/LocateMeMapComponent";
+import FilterMapComponent from "./FilterMapComponent/FilterMapComponent";
 
 interface SideBarContext {
   view: boolean;
@@ -124,6 +125,16 @@ export const CheckBoxContext = createContext<checkBoxContextInterface>({
   setCheckBox: () => {},
 });
 
+interface sideBarMoveInterface {
+  sideBarMoveLocation: L.LatLngExpression;
+  setSideBarMoveLocation: Function;
+}
+
+export const SideBarMoveContext = createContext<sideBarMoveInterface>({
+  sideBarMoveLocation: [0, 0],
+  setSideBarMoveLocation: () => {},
+});
+
 const Map = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
@@ -131,6 +142,8 @@ const Map = () => {
   const [iconText, setIconText] = useState("");
   const [locateMe, setLocateMe] = useState(false);
   const [locateMePos, setLocateMePos] = useState<L.LatLngExpression>([0, 0]);
+  const [sideBarMoveLocation, setSideBarMoveLocation] =
+    useState<L.LatLngExpression>([49.2606, -123.246]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const [checkBox, setCheckBox] = useState<string[]>([
     "official",
@@ -156,74 +169,65 @@ const Map = () => {
     });
   };
 
-  var greenIcon = L.icon({
-    iconUrl: GreenIcon,
-    shadowUrl: ShadowIcon,
-    iconSize: [38, 95], // size of the icon
-    shadowSize: [50, 64], // size of the shadow
-    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4, 62], // the same for the shadow
-    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-  });
   return (
     <>
-      <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
-        <UserMadeContext.Provider value={{ userMade, setUserMade }}>
-          <LocateMePosContext.Provider value={{ locateMePos, setLocateMePos }}>
-            <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
-              <IconTextContext.Provider value={{ iconText, setIconText }}>
-                <FilterTextContext.Provider
-                  value={{ filterText, setFilterText }}
-                >
-                  <FilterContext.Provider value={{ filter, setFilter }}>
-                    <SideBarContext.Provider value={{ view, setView }}>
-                      <SideBar />
+      <SideBarMoveContext.Provider
+        value={{ sideBarMoveLocation, setSideBarMoveLocation }}
+      >
+        <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
+          <UserMadeContext.Provider value={{ userMade, setUserMade }}>
+            <LocateMePosContext.Provider
+              value={{ locateMePos, setLocateMePos }}
+            >
+              <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+                <IconTextContext.Provider value={{ iconText, setIconText }}>
+                  <FilterTextContext.Provider
+                    value={{ filterText, setFilterText }}
+                  >
+                    <FilterContext.Provider value={{ filter, setFilter }}>
+                      <SideBarContext.Provider value={{ view, setView }}>
+                        <SideBar />
 
-                      <div className="map-flex-center">
-                        <MapContainer
-                          center={[49.2606, -123.246]}
-                          zoom={16}
-                          scrollWheelZoom={true}
-                          className="map-main-container"
-                        >
-                          <DisplayDate />
-                          <TileLayer
-                            // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          />
-                          <Marker
-                            position={[49.2606, -123.246]}
-                            icon={greenIcon}
+                        <div className="map-flex-center">
+                          <MapContainer
+                            center={[49.2606, -123.246]}
+                            zoom={16}
+                            scrollWheelZoom={true}
+                            className="map-main-container"
                           >
-                            <Popup offset={L.point(0, -20)}>
-                              <Text className="map-main-pin">
-                                Welcome To Pinnit!
-                              </Text>
-                            </Popup>
-                          </Marker>
+                            <TileLayer
+                              // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
 
-                          <MarkerClusterGroup
-                            chunkedLoading
-                            iconCreateFunction={createClusterCustomIcon}
-                          >
-                            {/* <Coordinates icon={customIcon} /> */}
-                            <CoordinatesBR icon={customIcon} />
-                          </MarkerClusterGroup>
+                            <MarkerClusterGroup
+                              chunkedLoading
+                              iconCreateFunction={createClusterCustomIcon}
+                            >
+                              {/* <Coordinates icon={customIcon} /> */}
+                              <CoordinatesBR icon={customIcon} />
+                            </MarkerClusterGroup>
 
-                          {/* <EventMenu icon={customIcon} /> */}
-                          <LegendBL />
-                          <Filter />
-                          <GeoLocation />
-                        </MapContainer>
-                      </div>
-                    </SideBarContext.Provider>
-                  </FilterContext.Provider>
-                </FilterTextContext.Provider>
-              </IconTextContext.Provider>
-            </LocateMeContext.Provider>
-          </LocateMePosContext.Provider>
-        </UserMadeContext.Provider>
-      </CheckBoxContext.Provider>
+                            {/* <EventMenu icon={customIcon} /> */}
+                            <div className="map-components-div">
+                              <SideBarMover />
+                              <LegendBL />
+                              <Filter />
+                              <GeoLocation />
+                              <LocateMeMapComponent />
+                              <FilterMapComponent />
+                            </div>
+                          </MapContainer>
+                        </div>
+                      </SideBarContext.Provider>
+                    </FilterContext.Provider>
+                  </FilterTextContext.Provider>
+                </IconTextContext.Provider>
+              </LocateMeContext.Provider>
+            </LocateMePosContext.Provider>
+          </UserMadeContext.Provider>
+        </CheckBoxContext.Provider>
+      </SideBarMoveContext.Provider>
     </>
   );
 };

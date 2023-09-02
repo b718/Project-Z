@@ -1,4 +1,12 @@
-import { Button, Center, Flex, Radio, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Flex,
+  Radio,
+  Text,
+  TextInput,
+  Textarea,
+} from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
@@ -102,11 +110,21 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     setTitleState("");
     setStartTime("");
     setEndTime("");
-    setPeopleGoing(0);
-    setPeopleTotal(0);
     setPage(0);
     setTags([]);
     setTypeOfEvent("");
+  };
+
+  const createButtonChecker = () => {
+    return (
+      nameState.length > 0 &&
+      descState.length > 0 &&
+      titleState.length > 0 &&
+      startTime.length > 0 &&
+      endTime.length > 0 &&
+      typeOfEvent.length > 0 &&
+      page == 2
+    );
   };
 
   useEffect(() => {
@@ -142,7 +160,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       >
         {
           {
-            0: (
+            2: (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -169,8 +187,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                     setTitleState(e.target.value);
                   }}
                 ></TextInput>
-                <TextInput
-                  type="text"
+                <Textarea
+                  autosize
+                  minRows={2}
                   label="Activity Description"
                   className="eventmenu-input"
                   value={descState}
@@ -178,7 +197,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   onChange={(e) => {
                     setDescState(e.target.value);
                   }}
-                ></TextInput>
+                ></Textarea>
                 <TextInput
                   type="text"
                   label="Referece Link/Page"
@@ -220,37 +239,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 />
               </Flex>
             ),
-            // 2: (
-            //   <Flex
-            //     direction={"column"}
-            //     justify={"center"}
-            //     align={"flex-start"}
-            //     style={{ marginLeft: "1rem" }}
-            //   >
-            //     {" "}
-            //     <TextInput
-            //       type="number"
-            //       label="How many people are going?"
-            //       className="eventmenu-input"
-            //       value={peopleGoing}
-            //       required={true}
-            //       onChange={(e) => {
-            //         setPeopleGoing(e.target.valueAsNumber);
-            //       }}
-            //     ></TextInput>
-            //     <TextInput
-            //       label="What's the capacity?"
-            //       type="number"
-            //       className="eventmenu-input"
-            //       value={peopleTotal}
-            //       required={true}
-            //       onChange={(e) => {
-            //         setPeopleTotal(e.target.valueAsNumber);
-            //       }}
-            //     ></TextInput>
-            //   </Flex>
 
-            2: (
+            0: (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -304,7 +294,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Button>
             <Button
               className="eventmenu-submit-button"
-              disabled={page != 2}
+              disabled={!createButtonChecker()}
+              type={"submit"}
               onClick={eventMenuSubmit}
             >
               CREATE
@@ -414,3 +405,33 @@ export default EventMenu;
         }
       })} */
 }
+
+// 2: (
+//   <Flex
+//     direction={"column"}
+//     justify={"center"}
+//     align={"flex-start"}
+//     style={{ marginLeft: "1rem" }}
+//   >
+//     {" "}
+//     <TextInput
+//       type="number"
+//       label="How many people are going?"
+//       className="eventmenu-input"
+//       value={peopleGoing}
+//       required={true}
+//       onChange={(e) => {
+//         setPeopleGoing(e.target.valueAsNumber);
+//       }}
+//     ></TextInput>
+//     <TextInput
+//       label="What's the capacity?"
+//       type="number"
+//       className="eventmenu-input"
+//       value={peopleTotal}
+//       required={true}
+//       onChange={(e) => {
+//         setPeopleTotal(e.target.valueAsNumber);
+//       }}
+//     ></TextInput>
+//   </Flex>
