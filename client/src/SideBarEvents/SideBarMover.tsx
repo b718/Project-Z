@@ -22,6 +22,8 @@ const SideBarMover = () => {
     });
     map.panTo(sideBarMoveContext.sideBarMoveLocation);
     map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
+    //time it out and then go back 1 zoom level.
+    // map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
   }, [sideBarMoveContext.sideBarMoveLocation]);
   return <div></div>;
 };
