@@ -11,7 +11,7 @@ import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
-import { IconTextContext, SideBarContext } from "../Map/Map";
+import { IconTextContext, SideBarContext } from "../Map/MapLeaflet";
 import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
 import blueMarker from "../Images/blue_marker.png";
 import amsMarker from "../Images/pin-ams.png";

@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBar.css";
 import { Button, Flex, MultiSelect, Text } from "@mantine/core";
-import { FilterContext, LocateMeContext, SideBarContext } from "../Map/Map";
+import {
+  FilterContext,
+  LocateMeContext,
+  SideBarContext,
+} from "../Map/MapLeaflet";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import GeoLocation from "../GeoLocation/GeoLocation";

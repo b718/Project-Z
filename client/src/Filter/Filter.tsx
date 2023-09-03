@@ -3,7 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Filter.css";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import { CheckBoxContext, FilterContext, FilterTextContext } from "../Map/Map";
+import {
+  CheckBoxContext,
+  FilterContext,
+  FilterTextContext,
+} from "../Map/MapLeaflet";
 
 const Filter = () => {
   const [mouseIn, setMouseIn] = useState<boolean>(false);

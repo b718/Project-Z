@@ -135,7 +135,21 @@ export const SideBarMoveContext = createContext<sideBarMoveInterface>({
   setSideBarMoveLocation: () => {},
 });
 
-const Map = () => {
+interface markerArrayInterface {
+  LatLng: L.LatLngExpression;
+  MarkerRef: any;
+}
+interface markerCreationInterface {
+  markerArray: markerArrayInterface[];
+  setMarkerArray: Function;
+}
+
+export const MarkerCreationContext = createContext<markerCreationInterface>({
+  markerArray: [],
+  setMarkerArray: () => {},
+});
+
+const MapLeaflet = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
   const [filterText, setFilterText] = useState("");
@@ -153,9 +167,12 @@ const Map = () => {
     "ams",
     "frat",
   ]);
+  const [markerArray, setMarkerArray] = useState<markerArrayInterface[]>([]);
+  // useEffect(() => {
+  //   console.log(markerArray);
+  // }, [markerArray]);
 
   let image = blueMarker;
-
   const customIcon = new L.Icon({
     iconUrl: image,
     iconSize: [20, 30],
@@ -171,65 +188,67 @@ const Map = () => {
 
   return (
     <>
-      <SideBarMoveContext.Provider
-        value={{ sideBarMoveLocation, setSideBarMoveLocation }}
-      >
-        <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
-          <UserMadeContext.Provider value={{ userMade, setUserMade }}>
-            <LocateMePosContext.Provider
-              value={{ locateMePos, setLocateMePos }}
-            >
-              <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
-                <IconTextContext.Provider value={{ iconText, setIconText }}>
-                  <FilterTextContext.Provider
-                    value={{ filterText, setFilterText }}
-                  >
-                    <FilterContext.Provider value={{ filter, setFilter }}>
-                      <SideBarContext.Provider value={{ view, setView }}>
-                        <SideBar />
+      <MarkerCreationContext.Provider value={{ markerArray, setMarkerArray }}>
+        <SideBarMoveContext.Provider
+          value={{ sideBarMoveLocation, setSideBarMoveLocation }}
+        >
+          <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
+            <UserMadeContext.Provider value={{ userMade, setUserMade }}>
+              <LocateMePosContext.Provider
+                value={{ locateMePos, setLocateMePos }}
+              >
+                <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+                  <IconTextContext.Provider value={{ iconText, setIconText }}>
+                    <FilterTextContext.Provider
+                      value={{ filterText, setFilterText }}
+                    >
+                      <FilterContext.Provider value={{ filter, setFilter }}>
+                        <SideBarContext.Provider value={{ view, setView }}>
+                          <SideBar />
 
-                        <div className="map-flex-center">
-                          <MapContainer
-                            center={[49.2606, -123.246]}
-                            zoom={16}
-                            scrollWheelZoom={true}
-                            className="map-main-container"
-                          >
-                            <TileLayer
-                              // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-
-                            <MarkerClusterGroup
-                              chunkedLoading
-                              iconCreateFunction={createClusterCustomIcon}
+                          <div className="map-flex-center">
+                            <MapContainer
+                              center={[49.2606, -123.246]}
+                              zoom={16}
+                              scrollWheelZoom={true}
+                              className="map-main-container"
                             >
-                              {/* <Coordinates icon={customIcon} /> */}
-                              <CoordinatesBR icon={customIcon} />
-                            </MarkerClusterGroup>
+                              <TileLayer
+                                // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              />
 
-                            {/* <EventMenu icon={customIcon} /> */}
-                            <div className="map-components-div">
-                              <SideBarMover />
-                              <LegendBL />
-                              <Filter />
-                              <GeoLocation />
-                              <LocateMeMapComponent />
-                              <FilterMapComponent />
-                            </div>
-                          </MapContainer>
-                        </div>
-                      </SideBarContext.Provider>
-                    </FilterContext.Provider>
-                  </FilterTextContext.Provider>
-                </IconTextContext.Provider>
-              </LocateMeContext.Provider>
-            </LocateMePosContext.Provider>
-          </UserMadeContext.Provider>
-        </CheckBoxContext.Provider>
-      </SideBarMoveContext.Provider>
+                              <MarkerClusterGroup
+                                chunkedLoading
+                                iconCreateFunction={createClusterCustomIcon}
+                              >
+                                {/* <Coordinates icon={customIcon} /> */}
+                                <CoordinatesBR icon={customIcon} />
+                              </MarkerClusterGroup>
+
+                              {/* <EventMenu icon={customIcon} /> */}
+                              <div className="map-components-div">
+                                <SideBarMover />
+                                <LegendBL />
+                                <Filter />
+                                <GeoLocation />
+                                <LocateMeMapComponent />
+                                <FilterMapComponent />
+                              </div>
+                            </MapContainer>
+                          </div>
+                        </SideBarContext.Provider>
+                      </FilterContext.Provider>
+                    </FilterTextContext.Provider>
+                  </IconTextContext.Provider>
+                </LocateMeContext.Provider>
+              </LocateMePosContext.Provider>
+            </UserMadeContext.Provider>
+          </CheckBoxContext.Provider>
+        </SideBarMoveContext.Provider>
+      </MarkerCreationContext.Provider>
     </>
   );
 };
 
-export default Map;
+export default MapLeaflet;

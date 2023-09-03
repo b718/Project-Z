@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./LocateMeMapComponent.css";
-import { LocateMeContext } from "../Map";
+import { LocateMeContext } from "../MapLeaflet";
 import { Center, Image } from "@mantine/core";
 import LocateButtonImage from "../../Images/locate_me_button_two.jpg";
+import LocateButtonImageThree from "../../Images/locate_me_button_three.png";
+
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 const LocateMeMapComponent = () => {
@@ -38,9 +40,9 @@ const LocateMeMapComponent = () => {
     >
       <Center>
         <Image
-          src={LocateButtonImage}
-          width={28}
-          style={{ marginTop: "0.1rem" }}
+          src={LocateButtonImageThree}
+          width={25}
+          style={{ marginTop: "0.2rem" }}
         />
       </Center>
     </div>

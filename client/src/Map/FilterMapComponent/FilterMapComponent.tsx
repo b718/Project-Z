@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./FilterMapComponent.css";
-import { FilterContext } from "../Map";
+import { FilterContext } from "../MapLeaflet";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
+import { Center, Image } from "@mantine/core";
+import FilterButtonImage from "../../Images/filter_logo.png";
 
 const FilterMapComponent = () => {
   const filterView = useContext(FilterContext);
@@ -31,7 +33,13 @@ const FilterMapComponent = () => {
         setMouseIn(false);
       }}
     >
-      F
+      <Center>
+        <Image
+          src={FilterButtonImage}
+          width={25}
+          style={{ marginTop: "0.2rem" }}
+        />
+      </Center>
     </div>
   );
 };

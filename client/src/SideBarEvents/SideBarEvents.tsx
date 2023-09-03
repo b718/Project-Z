@@ -9,7 +9,7 @@ import {
   SideBarContext,
   SideBarMoveContext,
   UserMadeContext,
-} from "../Map/Map";
+} from "../Map/MapLeaflet";
 
 interface eventInterface {
   lat: L.LatLngExpression;

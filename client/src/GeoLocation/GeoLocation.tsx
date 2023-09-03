@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Circle, Marker, Popup, useMap } from "react-leaflet";
 import PersonIcon from "../Images/person.png";
 import BlueDotPerson from "../Images/blue_dot_person.png";
-import { LocateMeContext, LocateMePosContext } from "../Map/Map";
+import { LocateMeContext, LocateMePosContext } from "../Map/MapLeaflet";
 import "./GeoLocation.css";
 
 const GeoLocation = () => {

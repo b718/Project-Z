@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "./CoordinatesBR.css";
@@ -13,10 +19,12 @@ import {
   FilterTextContext,
   SideBarContext,
   UserMadeContext,
-} from "../Map";
+} from "../MapLeaflet";
+import MarkerCreation from "./MarkerCreation";
 interface coordinatesBRInterface {
   icon: L.Icon;
 }
+
 interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
@@ -25,6 +33,7 @@ interface eventInterface {
   total: number;
   tags: string[];
   icon: L.Icon;
+  link: string;
 }
 
 interface mapContextInterface {
@@ -42,8 +51,8 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const map = useMap();
   const [tempLat, setTempLat] = useState<L.LatLngExpression>([0, 0]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
-  const checkBoxArray = useContext(CheckBoxContext);
 
+  const checkBoxArray = useContext(CheckBoxContext);
   const sideBarContext = useContext(SideBarContext);
   const FilterText = useContext(FilterTextContext);
   const UserMade = useContext(UserMadeContext);
@@ -146,31 +155,33 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           .map((event: any, index: number) => {
             // console.log(event.icon);
             return (
-              <Marker
-                position={event.lat}
-                icon={event.icon}
-                eventHandlers={{
-                  click(e) {
-                    map.panTo(e.target.getLatLng());
-                    map.flyTo(e.target.getLatLng(), 16);
-                  },
-                }}
-              >
-                {" "}
-                <Popup offset={L.point(0, -20)}>
-                  <Flex
-                    direction={"column"}
-                    justify={"center"}
-                    align={"center"}
-                  >
-                    <Text className="coordinates-br-text">
-                      {event.location}
-                    </Text>
-                    <Text className="coordinates-br-text">{event.desc}</Text>
-                    <Text className="coordinates-br-text">{event.link}</Text>
-                  </Flex>
-                </Popup>
-              </Marker>
+              <MarkerCreation event={event} index={index} />
+              // <Marker
+              //   key={index}
+              //   position={event.lat}
+              //   icon={event.icon}
+              //   eventHandlers={{
+              //     click(e) {
+              //       map.panTo(e.target.getLatLng());
+              //       map.flyTo(e.target.getLatLng(), 16);
+              //     },
+              //   }}
+              // >
+              //   {" "}
+              //   <Popup offset={L.point(0, -20)}>
+              //     <Flex
+              //       direction={"column"}
+              //       justify={"center"}
+              //       align={"center"}
+              //     >
+              //       <Text className="coordinates-br-text">
+              //         {event.location}
+              //       </Text>
+              //       <Text className="coordinates-br-text">{event.desc}</Text>
+              //       <Text className="coordinates-br-text">{event.link}</Text>
+              //     </Flex>
+              //   </Popup>
+              // </Marker>
             );
           })}
       </>
