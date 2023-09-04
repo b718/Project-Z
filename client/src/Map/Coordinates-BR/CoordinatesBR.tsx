@@ -76,6 +76,33 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   }, [map, sideBarContext.view]);
 
   useEffect(() => {
+    //https://pinnit-backend.onrender.com/events
+    // [
+    //   {
+    //     "_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //     "title": "string",
+    //     "description": "string",
+    //     "reference_link": "string",
+    //     "host": "string",
+    //     "latitude": 0,
+    //     "longitude": 0,
+    //     "tags": [
+    //       "string"
+    //     ],
+    //     "start_datetime": "2023-09-04T11:36:39.454Z",
+    //     "end_datetime": "2023-09-04T11:36:39.454Z"
+    //   }
+    // ]
+    async function fetchEvents() {
+      const response = await fetch(
+        "https://pinnit-backend.onrender.com/events"
+      );
+      const currentProducts = await response.json();
+      UserMade.setUserMade(currentProducts);
+    }
+    fetchEvents();
+  }, []);
+  useEffect(() => {
     UserMade.setUserMade(userMade);
   }, [userMade]);
 
@@ -128,12 +155,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
         {userMade
           .filter((event: any) => {
-            return (
-              // event.location.toLowerCase().includes(FilterText.filterText) ||
-              // event.desc.toLowerCase().includes(FilterText.filterText) ||
-              // event.tags.includes(FilterText.filterText) ||
-              checkBoxArray.checkBox.includes(event.tags[0])
-            );
+            return checkBoxArray.checkBox.includes(event.tags[0]);
           })
           .map((event: any, index: number) => {
             console.log(event);

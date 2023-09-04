@@ -28,7 +28,7 @@
   border: 2px solid #228be6;
   border-radius: 12px;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   cursor: pointer;
 }
 
@@ -64,6 +64,7 @@
 .side-bar-events-time-to {
   font-family: AugerMB;
   text-align: left;
+  font-size: 0.8rem;
 }
 
 .side-bar-events-button-text {

@@ -41,6 +41,8 @@ interface eventInterface {
   startTime: string;
   startDate: string;
   endDate: string;
+  endDateAPI: string;
+  startDateAPI: string;
   tags: string[];
   icon: L.Icon;
 }
@@ -91,9 +93,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       customIcon.options.iconUrl = facultyMarker;
     } else if (typeOfEvent === "club") {
       customIcon.options.iconUrl = clubMarker;
-    } else if (typeOfEvent === "ams") {
-      customIcon.options.iconUrl = amsMarker;
-    } else if (typeOfEvent === "frat") {
+    } else if (typeOfEvent === "social") {
       customIcon.options.iconUrl = fratMarker;
     } else {
       customIcon.options.iconUrl = blueMarker;
@@ -120,7 +120,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       }
     };
 
-    const convertToDate = (date: any, time: any) => {
+    const convertToDateAPI = (date: any, time: any) => {
       //YYYY-MM-DDTHH:MM:SS
       let month = date.$M;
       if (date.$M.toString().length == 1) {
@@ -139,6 +139,13 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       return `${date.$y}-${month}-${day}T${time.$H}:${minute}:00`;
     };
 
+    const convertToDate = (data: any) => {
+      let dateString = data.$d.toString().substring(0, 15);
+      // console.log(data.$d.toString().substring(0, 15));
+      return dateString.substring(0, 3) + "," + dateString.substring(4, 10);
+      //Mon Sep 04 2023
+    };
+
     let newUseMade: eventInterface = {
       lat: lat as L.LatLngExpression,
       location: nameState,
@@ -147,8 +154,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       link: linkState,
       startTime: convertToTwelve(startTime),
       endTime: convertToTwelve(endTime),
-      startDate: convertToDate(startDate, startTime),
-      endDate: convertToDate(endDate, endTime),
+      startDate: convertToDate(startDate),
+      endDate: convertToDate(endDate),
+      startDateAPI: convertToDateAPI(startDate, startTime),
+      endDateAPI: convertToDateAPI(endDate, endTime),
       tags: [typeOfEvent],
       host: host,
       icon: customIcon,
@@ -228,8 +237,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   }, [mouseIn]);
 
   useEffect(() => {
-    console.log("start time " + startDate);
-    console.log("end time " + endDate);
+    console.log(startDate);
+    console.log(endDate);
   }, [startDate, endDate]);
 
   // useEffect(() => {
@@ -269,7 +278,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   <Radio value="company" label="Career" />
                   <Radio value="faculty" label="Faculty Events" />
                   <Radio value="club" label="Clubs Events" />
-                  <Radio value="frat" label="Social" />
+                  <Radio value="social" label="Social" />
                   <Radio value="other" label="Other" />
                 </Radio.Group>
               </Flex>
@@ -278,11 +287,16 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
               <Flex
                 direction={"column"}
                 justify={"center"}
-                align={"flex-start"}
+                align={"center"}
                 style={{ marginLeft: "1rem" }}
               >
                 <Text className="event-menu-text-for-inputs">Start Date</Text>
                 <DatePicker
+                  slotProps={{
+                    textField: {
+                      error: false,
+                    },
+                  }}
                   format="YYYY-MM-DD"
                   className="event-menu-date-picker-mui-start"
                   value={startDate}
@@ -312,6 +326,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 {" "}
                 <Text className="event-menu-text-for-inputs">End Date</Text>
                 <DatePicker
+                  slotProps={{
+                    textField: {
+                      error: false,
+                    },
+                  }}
                   format="YYYY-MM-DD"
                   className="event-menu-date-picker-mui-start"
                   value={endDate}
@@ -359,9 +378,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 ></TextInput>
                 <Textarea
                   autosize
-                  minRows={2}
                   label="Activity Description"
                   className="eventmenu-input"
+                  minRows={2}
+                  maxRows={2}
                   value={descState}
                   required={true}
                   onChange={(e) => {

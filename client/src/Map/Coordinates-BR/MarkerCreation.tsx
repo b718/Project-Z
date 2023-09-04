@@ -54,10 +54,22 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
       >
         {" "}
         <Popup offset={L.point(0, -20)}>
-          <Flex direction={"column"} justify={"center"} align={"center"}>
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align={"center"}
+            className="coordinates-br-flex"
+          >
+            <Text className="coordinates-br-title">{event.title}</Text>
             <Text className="coordinates-br-text">{event.location}</Text>
             <Text className="coordinates-br-text">{event.desc}</Text>
-            <Text className="coordinates-br-text">{event.link}</Text>
+            <a
+              className="coordinates-br-a"
+              target="_blank"
+              href={`${event.link}`}
+            >
+              Link
+            </a>
           </Flex>
         </Popup>
       </Marker>

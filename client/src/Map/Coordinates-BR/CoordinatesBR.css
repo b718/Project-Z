@@ -13,11 +13,41 @@
 }
 .coordinates-br-text {
   font-family: AugerMB;
+  /* padding: 0.5rem 0.5rem 0.5rem 0.5rem; */
+  /* outline: 1px solid gray; */
+  /* border-radius: 12px; */
+  font-size: 0.9rem;
+}
+
+.coordinates-br-text:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.coordinates-br-title {
+  font-family: AugerMB;
+  /* padding: 0.5rem 0.5rem 0.5rem 0.5rem; */
+  /* outline: 1px solid gray; */
+  font-size: 1.3rem;
+  /* border-radius: 12px; */
+}
+
+.coordinates-br-flex {
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   outline: 1px solid gray;
   border-radius: 12px;
 }
 
-.coordinates-br-text:not(:first-child) {
+.coordinates-br-a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: AugerMB;
+  text-decoration: underline transparent;
+  transition: 0.2s;
+  cursor: pointer;
   margin-top: 0.5rem;
+}
+
+.coordinates-br-a:hover {
+  color: black;
+  text-decoration: underline rgb(92, 91, 91);
 }

@@ -160,8 +160,8 @@ const MapLeaflet = () => {
     "company",
     "faculty",
     "club",
-    "ams",
-    "frat",
+    "other",
+    "social",
   ]);
   const [markerArray, setMarkerArray] = useState<markerArrayInterface[]>([]);
   // useEffect(() => {

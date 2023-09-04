@@ -33,26 +33,10 @@ const Filter = () => {
     if (!SideBarFilter.filter) {
       FilterText.setFilterText("");
       setText("");
-      setValue([
-        "official",
-        "company",
-        "faculty",
-        "club",
-        "ams",
-        "frat",
-        "other",
-      ]);
+      setValue(["official", "company", "faculty", "club", "other", "social"]);
     } else {
       FilterText.setFilterText(text);
-      setValue([
-        "official",
-        "company",
-        "faculty",
-        "club",
-        "ams",
-        "frat",
-        "other",
-      ]);
+      setValue(["official", "company", "faculty", "club", "other", "social"]);
     }
   }, [text, SideBarFilter.filter]);
 
@@ -83,13 +67,36 @@ const Filter = () => {
             className="filter-check-boxes"
             label="Event Type"
           >
-            <Checkbox value="official" label="UBC AMS" />
-            <Checkbox value="company" label="Career" />
-            <Checkbox value="faculty" label="Faculty" />
-            <Checkbox value="club" label="Clubs" />
-            {/* <Checkbox value="ams" label="Social" /> */}
-            <Checkbox value="frat" label="Social" />
-            <Checkbox value="other" label="Other" />
+            <Checkbox
+              value="official"
+              label="UBC"
+              className="filter-check-box-official"
+            />
+            <Checkbox
+              value="company"
+              label="Career"
+              className="filter-check-box-company"
+            />
+            <Checkbox
+              value="faculty"
+              label="Faculty"
+              className="filter-check-box-faculty"
+            />
+            <Checkbox
+              value="club"
+              label="Clubs"
+              className="filter-check-box-club"
+            />
+            <Checkbox
+              value="social"
+              label="Social"
+              className="filter-check-box-social"
+            />
+            <Checkbox
+              value="other"
+              label="Other"
+              className="filter-check-box-other"
+            />
           </Checkbox.Group>
         </div>
       ) : (

@@ -3,6 +3,14 @@
   src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
 }
 
+:root {
+  --official-color: #001e96;
+  --social-color: #770062;
+  --company-color: #03ffff;
+  --club-color: #fa9401;
+  --other-color: #00b0f0;
+  --faculty-color: #09ab01;
+}
 .filter-main-input {
   position: absolute;
   z-index: 999;
@@ -27,4 +35,28 @@
 
 .filter-check-boxes * {
   font-family: AugerMB;
+}
+
+.filter-check-box-official label {
+  color: var(--official-color);
+}
+
+.filter-check-box-company label {
+  color: var(--company-color);
+}
+
+.filter-check-box-faculty label {
+  color: var(--faculty-color);
+}
+
+.filter-check-box-club label {
+  color: var(--club-color);
+}
+
+.filter-check-box-social label {
+  color: var(--social-color);
+}
+
+.filter-check-box-other label {
+  color: var(--other-color);
 }

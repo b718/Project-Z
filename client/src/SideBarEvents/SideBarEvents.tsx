@@ -4,6 +4,7 @@ import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
 import { Button, Center, Flex, Image, Text } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import {
+  CheckBoxContext,
   LocateMeContext,
   LocateMePosContext,
   SideBarContext,
@@ -17,6 +18,7 @@ const SideBarEvents = () => {
   const userMadeContext = useContext(UserMadeContext);
   const sideBarMoveContext = useContext(SideBarMoveContext);
   const sideBarView = useContext(SideBarContext);
+  const checkBoxArray = useContext(CheckBoxContext);
 
   const calculateKM = (
     lat1: number,
@@ -73,59 +75,70 @@ const SideBarEvents = () => {
         align={"center"}
         className="side-bar-events-main-flex-vertical"
       >
-        {userMadeContext.userMade.map((pin) => {
-          const PinLatLng: Array<number> = pin.lat as Array<number>;
-          const PersonLatLng: Array<number> =
-            locateMePos.locateMePos as Array<number>;
-          return (
-            <Flex
-              direction={"row"}
-              className="side-bar-events-main-flex"
-              gap={"md"}
-              onClick={() => {
-                sideBarMoveContext.setSideBarMoveLocation(pin.lat);
-              }}
-            >
-              <Flex
-                direction={"column"}
-                className="side-bar-events-pin-color"
-                align={"center"}
-                justify={"center"}
-              >
-                <Center>
-                  <Image src={pin.icon.options.iconUrl} width={30} />
-                </Center>
-                <Text className="side-bar-events-km-text side-bar-events-text-font">
-                  {calculateKM(
-                    PinLatLng[0],
-                    PinLatLng[1],
-                    PersonLatLng[0],
-                    PersonLatLng[1]
-                  )}
-                  km away!
-                </Text>
-              </Flex>
-              <Flex
-                direction={"column"}
-                className="side-bar-events-event-details side-bar-events-text-font"
-              >
-                <Text className="side-bar-events-title side-bar-events-text-font">
-                  {pin.title}{" "}
-                </Text>
+        {userMadeContext.userMade
+          .filter((pin) => {
+            return checkBoxArray.checkBox.includes(pin.tags[0]);
+          })
 
-                <Text className="side-bar-events-time-to">
-                  {pin.startTime} to {pin.endTime}
-                </Text>
-                <Text className="side-bar-events-location side-bar-events-text-font">
-                  Location: {pin.location}
-                </Text>
-                <Text className="side-bar-events-tags side-bar-events-text-font">
-                  Link: {pin.link}
-                </Text>
+          .map((pin) => {
+            const PinLatLng: Array<number> = pin.lat as Array<number>;
+            const PersonLatLng: Array<number> =
+              locateMePos.locateMePos as Array<number>;
+            return (
+              <Flex
+                direction={"row"}
+                className="side-bar-events-main-flex"
+                gap={"md"}
+                onClick={() => {
+                  sideBarMoveContext.setSideBarMoveLocation(pin.lat);
+                }}
+              >
+                <Flex
+                  direction={"column"}
+                  className="side-bar-events-pin-color"
+                  align={"center"}
+                  justify={"center"}
+                >
+                  <Center>
+                    <Image src={pin.icon.options.iconUrl} width={30} />
+                  </Center>
+                  <Text className="side-bar-events-km-text side-bar-events-text-font">
+                    event: {pin.tags}
+                  </Text>
+                  <Text className="side-bar-events-km-text side-bar-events-text-font">
+                    {calculateKM(
+                      PinLatLng[0],
+                      PinLatLng[1],
+                      PersonLatLng[0],
+                      PersonLatLng[1]
+                    )}
+                    km away!
+                  </Text>
+                </Flex>
+                <Flex
+                  direction={"column"}
+                  className="side-bar-events-event-details side-bar-events-text-font"
+                >
+                  <Text className="side-bar-events-title side-bar-events-text-font">
+                    {pin.title}{" "}
+                  </Text>
+
+                  <Text className="side-bar-events-time-to">
+                    {pin.startTime} to {pin.endTime}
+                  </Text>
+                  <Text className="side-bar-events-time-to">
+                    {pin.startDate} to {pin.endDate}
+                  </Text>
+                  <Text className="side-bar-events-location side-bar-events-text-font">
+                    {pin.location}
+                  </Text>
+                  <Text className="side-bar-events-tags side-bar-events-text-font">
+                    {pin.host}
+                  </Text>
+                </Flex>
               </Flex>
-            </Flex>
-          );
-        })}
+            );
+          })}
       </Flex>
     </>
   );
