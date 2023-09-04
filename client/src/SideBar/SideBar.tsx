@@ -47,11 +47,13 @@ const SideBar = () => {
               format={"dddd, MMMM Mo"}
               ticking={true}
               className="side-bar-clock"
+              timezone={"US/Pacific"}
             />
             <Clock
               format={"YYYY, h:mm:ss A"}
               ticking={true}
               className="side-bar-clock"
+              timezone={"US/Pacific"}
             />
             {/* <div>
               <Button

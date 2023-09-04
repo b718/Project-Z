@@ -84,6 +84,33 @@
   margin-bottom: 0.3rem;
 }
 
+.event-menu-date-picker-mui-start label,
+.event-menu-date-picker-mui-start input,
+.event-menu-date-picker-mui-start div,
+.event-menu-date-picker-mui-start button {
+  font-family: Auger-Mono-Bold;
+  color: #0582c8;
+}
+
+.event-menu-time-picker-mui-start label,
+.event-menu-time-picker-mui-start input,
+.event-menu-time-picker-mui-start div,
+.event-menu-time-picker-mui-start button {
+  font-family: Auger-Mono-Bold;
+  color: #0582c8;
+  /* margin-top: 1rem; */
+}
+
+.event-menu-time-picker-mui-start > div,
+.event-menu-date-picker-mui-start > div {
+  border: 1px solid #0582c8;
+}
+
+.event-menu-text-for-inputs {
+  font-family: Auger-Mono-Bold;
+  color: #0582c8;
+  margin-top: 1rem;
+}
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

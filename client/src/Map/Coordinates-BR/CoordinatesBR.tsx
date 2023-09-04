@@ -56,18 +56,18 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const sideBarContext = useContext(SideBarContext);
   const FilterText = useContext(FilterTextContext);
   const UserMade = useContext(UserMadeContext);
-  useEffect(() => {
-    map.on("click", function (e) {
-      const markerPlace = document.querySelector(
-        ".coordinatesbr-text-location"
-      );
-      markerPlace!.textContent =
-        "Lat: " +
-        e.latlng.lat.toFixed(3) +
-        ", Lang: " +
-        e.latlng.lng.toFixed(3);
-    });
-  }, []);
+  // useEffect(() => {
+  //   map.on("click", function (e) {
+  //     const markerPlace = document.querySelector(
+  //       ".coordinatesbr-text-location"
+  //     );
+  //     markerPlace!.textContent =
+  //       "Lat: " +
+  //       e.latlng.lat.toFixed(3) +
+  //       ", Lang: " +
+  //       e.latlng.lng.toFixed(3);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (sideBarContext.view) {
@@ -104,7 +104,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   return (
     <MapContext.Provider value={{ userMade, setUserMade }}>
       <>
-        <div className="coordinatesbr-text-location">Click on Map!</div>
+        {/* <div className="coordinatesbr-text-location">Click on Map!</div> */}
 
         <Marker
           position={[49.2606, -123.246]}
