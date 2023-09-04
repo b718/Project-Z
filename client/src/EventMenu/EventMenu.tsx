@@ -2,6 +2,7 @@ import {
   Button,
   Center,
   Flex,
+  Loader,
   NumberInput,
   Radio,
   Text,
@@ -35,10 +36,11 @@ interface eventInterface {
   desc: string;
   title: string;
   link: string;
+  host: string;
   endTime: string;
   startTime: string;
-  going: number;
-  total: number;
+  startDate: string;
+  endDate: string;
   tags: string[];
   icon: L.Icon;
 }
@@ -47,7 +49,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   lat,
 }) => {
   const map = useMap();
-  const thisYear = 2023;
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const [nameState, setNameState] = useState<string>("");
   const [titleState, setTitleState] = useState<string>("");
@@ -55,32 +56,19 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [linkState, setLinkState] = useState<string>("");
 
   const [startTime, setStartTime] = useState<string | null | undefined>("");
-  const [endTime, setEndTime] = useState<any>("");
+  const [endTime, setEndTime] = useState<string | null | undefined>("");
 
   const [startDate, setStartDate] = useState<number | "" | null | undefined>();
   const [endDate, setEndDate] = useState<number | "" | null | undefined>();
 
-  // const [startMonth, setStartMonth] = useState<number | "">();
-  // const [endMonth, setEndMonth] = useState<number | "">();
-
-  // const [startHour, setStartHour] = useState<number | "">();
-  // const [endHour, setEndHour] = useState<number | "">();
-
-  // const [startMinute, setStartMinute] = useState<number | "">();
-  // const [endMinute, setEndMinute] = useState<number | "">();
-
-  // const [startAmPm, setStartAmPm] = useState<string>("am");
-  // const [endAmPm, setEndAmPm] = useState<string>("am");
-
   const [host, setHost] = useState<string>("");
-
-  const [peopleGoing, setPeopleGoing] = useState<number>(0);
-  const [peopleTotal, setPeopleTotal] = useState<number>(0);
 
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const [typeOfEvent, setTypeOfEvent] = useState("other");
   const [tags, setTags] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
+  const [loading, setLoading] = useState("start");
+
   // const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
@@ -92,7 +80,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     iconSize: [20, 30],
   });
 
-  const eventMenuSubmit = (e: any) => {
+  const eventMenuSubmit = async (e: any) => {
     e.preventDefault();
 
     if (typeOfEvent === "official") {
@@ -132,19 +120,69 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       }
     };
 
+    const convertToDate = (date: any, time: any) => {
+      //YYYY-MM-DDTHH:MM:SS
+      let month = date.$M;
+      if (date.$M.toString().length == 1) {
+        month = `0${date.$M}`;
+      }
+
+      let day = date.$;
+      if (date.$M.toString().length == 1) {
+        day = `0${time.$M}`;
+      }
+
+      let minute = time.$M;
+      if (time.$M.toString().length == 1) {
+        minute = `0${time.$M}`;
+      }
+      return `${date.$y}-${month}-${day}T${time.$H}:${minute}:00`;
+    };
+
     let newUseMade: eventInterface = {
       lat: lat as L.LatLngExpression,
       location: nameState,
       desc: descState,
       title: titleState,
       link: linkState,
-      endTime: convertToTwelve(endTime),
       startTime: convertToTwelve(startTime),
-      going: peopleGoing,
-      total: peopleTotal,
+      endTime: convertToTwelve(endTime),
+      startDate: convertToDate(startDate, startTime),
+      endDate: convertToDate(endDate, endTime),
       tags: tags,
+      host: host,
       icon: customIcon,
     };
+
+    // let userMadeObject = {
+    //   title: titleState,
+    //   description: descState,
+    //   reference_link: linkState,
+    //   host: host,
+    //   // latitude: lat[0],
+    //   // longitude: lat[1],
+    //   tags: tags,
+    //   start_datetime: convertToDate(startDate, startTime),
+    //   end_datetime: convertToDate(endDate, endTime),
+    // };
+
+    // setLoading("loading");
+    // const postMessage = await fetch(
+    //   "https://pinnit-backend.onrender.com/events",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       userMadeObject,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // ).then(() => {
+    //   setLoading("start");
+    // });
+
+    // console.log("postMessage: " + postMessage);
     console.log(newUseMade);
 
     setUserMade((userMade) => [...userMade, newUseMade]);
@@ -155,8 +193,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     setTitleState("");
     setStartTime("");
     setEndTime("");
+    setStartDate("");
+    setEndDate("");
     setPage(0);
     setTags([]);
+    setHost("");
     setTypeOfEvent("");
   };
 
@@ -167,6 +208,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       titleState.length > 0 &&
       startTime &&
       endTime &&
+      startDate &&
+      endDate &&
       typeOfEvent.length > 0 &&
       host.length > 0 &&
       page == 4
@@ -174,11 +217,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   };
 
   useEffect(() => {
-    console.log(startDate, startTime);
-  }, [startDate, startTime]);
-
-  useEffect(() => {
-    console.log(mouseIn);
+    // console.log(mouseIn);
     if (mouseIn) {
       L.DomEvent.disableClickPropagation(
         document.querySelector(".eventmenu-main-menu")!
@@ -187,6 +226,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       map.tap?.enable();
     }
   }, [mouseIn]);
+
+  useEffect(() => {
+    console.log("start time " + startDate);
+    console.log("end time " + endDate);
+  }, [startDate, endDate]);
 
   // useEffect(() => {
   //   setTags([typeOfEvent]);
@@ -206,6 +250,86 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       >
         {
           {
+            0: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                {" "}
+                <Radio.Group
+                  value={typeOfEvent}
+                  onChange={setTypeOfEvent}
+                  label="Event?"
+                  className="event-menu-radio"
+                  required={true}
+                >
+                  <Radio value="official" label="Official UBC Events" />
+                  <Radio value="company" label="Career" />
+                  <Radio value="faculty" label="Faculty Events" />
+                  <Radio value="club" label="Clubs Events" />
+                  <Radio value="frat" label="Social" />
+                  <Radio value="other" label="Other" />
+                </Radio.Group>
+              </Flex>
+            ),
+            1: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                <Text className="event-menu-text-for-inputs">Start Date</Text>
+                <DatePicker
+                  format="YYYY-MM-DD"
+                  className="event-menu-date-picker-mui-start"
+                  value={startDate}
+                  onChange={(newValue) => setStartDate(newValue)}
+                />
+
+                <Text className="event-menu-text-for-inputs">Start Time</Text>
+                <TimePicker
+                  slotProps={{
+                    textField: {
+                      error: false,
+                    },
+                  }}
+                  className="event-menu-time-picker-mui-start"
+                  value={startTime}
+                  onChange={(newValue) => setStartTime(newValue)}
+                />
+              </Flex>
+            ),
+            2: (
+              <Flex
+                direction={"column"}
+                justify={"center"}
+                align={"flex-start"}
+                style={{ marginLeft: "1rem" }}
+              >
+                {" "}
+                <Text className="event-menu-text-for-inputs">End Date</Text>
+                <DatePicker
+                  format="YYYY-MM-DD"
+                  className="event-menu-date-picker-mui-start"
+                  value={endDate}
+                  onChange={(newValue) => setEndDate(newValue)}
+                />
+                <Text className="event-menu-text-for-inputs">End Time</Text>
+                <TimePicker
+                  slotProps={{
+                    textField: {
+                      error: false,
+                    },
+                  }}
+                  className="event-menu-time-picker-mui-start"
+                  value={endTime}
+                  onChange={(newValue) => setEndTime(newValue)}
+                />
+              </Flex>
+            ),
             3: (
               <Flex
                 direction={"column"}
@@ -246,53 +370,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 ></Textarea>
               </Flex>
             ),
-            1: (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"flex-start"}
-                style={{ marginLeft: "1rem" }}
-              >
-                <Text className="event-menu-text-for-inputs">Start Date</Text>
-                <DatePicker
-                  format="YYYY-MM-DD"
-                  className="event-menu-date-picker-mui-start"
-                  value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
-                />
-
-                <Text className="event-menu-text-for-inputs">Start Time</Text>
-                <TimePicker
-                  className="event-menu-time-picker-mui-start"
-                  value={startTime}
-                  onChange={(newValue) => setStartTime(newValue)}
-                />
-              </Flex>
-            ),
-            0: (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"flex-start"}
-                style={{ marginLeft: "1rem" }}
-              >
-                {" "}
-                <Radio.Group
-                  value={typeOfEvent}
-                  onChange={setTypeOfEvent}
-                  label="Event?"
-                  className="event-menu-radio"
-                  required={true}
-                >
-                  <Radio value="official" label="Official UBC Events" />
-                  <Radio value="company" label="Career" />
-                  <Radio value="faculty" label="Faculty Events" />
-                  <Radio value="club" label="Clubs Events" />
-                  <Radio value="frat" label="Social" />
-                  <Radio value="other" label="Other" />
-                </Radio.Group>
-              </Flex>
-            ),
             4: (
               <Flex
                 direction={"column"}
@@ -321,29 +398,6 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 ></TextInput>
               </Flex>
             ),
-            2: (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"flex-start"}
-                style={{ marginLeft: "1rem" }}
-              >
-                {" "}
-                <Text className="event-menu-text-for-inputs">End Date</Text>
-                <DatePicker
-                  format="YYYY-MM-DD"
-                  className="event-menu-date-picker-mui-start"
-                  value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
-                />
-                <Text className="event-menu-text-for-inputs">End Time</Text>
-                <TimePicker
-                  className="event-menu-time-picker-mui-start"
-                  value={endTime}
-                  onChange={(newValue) => setEndTime(newValue)}
-                />
-              </Flex>
-            ),
           }[page]
         }
 
@@ -370,11 +424,27 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Button>
             <Button
               className="eventmenu-submit-button"
-              disabled={!createButtonChecker()}
+              disabled={
+                !createButtonChecker()
+
+                // && loading == "loading"
+              }
               type={"submit"}
               onClick={eventMenuSubmit}
             >
               CREATE
+              {loading === "loading" ? (
+                <Loader
+                  color="gray"
+                  size="0.8rem"
+                  style={{
+                    marginLeft: "0.5rem",
+                    maxWidth: "fit-content",
+                  }}
+                />
+              ) : (
+                <div></div>
+              )}
             </Button>
           </Flex>
         </Center>

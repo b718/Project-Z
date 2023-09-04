@@ -98,13 +98,15 @@ interface eventInterface {
   desc: string;
   title: string;
   link: string;
+  host: string;
   endTime: string;
   startTime: string;
-  going: number;
-  total: number;
+  startDate: string;
+  endDate: string;
   tags: string[];
   icon: L.Icon;
 }
+
 interface userMadeContextInterface {
   userMade: eventInterface[];
   setUserMade: Function;

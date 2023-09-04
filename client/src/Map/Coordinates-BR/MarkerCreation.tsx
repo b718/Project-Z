@@ -8,11 +8,15 @@ interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
   desc: string;
-  going: number;
-  total: number;
+  title: string;
+  link: string;
+  host: string;
+  endTime: string;
+  startTime: string;
+  startDate: string;
+  endDate: string;
   tags: string[];
   icon: L.Icon;
-  link: string;
 }
 
 interface markerCreationInterface {
@@ -28,12 +32,9 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   const markerArray = useContext(MarkerCreationContext);
 
   useEffect(() => {
-    // console.log(markerRef);
-    // console.log(event.lat);
     markerArray.setMarkerArray(() => {
       return [...markerArray.markerArray, [event.lat, markerRef]];
     });
-    // console.log(markerArray.markerArray);
   }, [markerRef]);
 
   return (

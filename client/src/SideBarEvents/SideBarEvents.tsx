@@ -11,20 +11,6 @@ import {
   UserMadeContext,
 } from "../Map/MapLeaflet";
 
-interface eventInterface {
-  lat: L.LatLngExpression;
-  location: string;
-  desc: string;
-  title: string;
-  link: string;
-  endTime: string;
-  startTime: string;
-  going: number;
-  total: number;
-  tags: string[];
-  icon: L.Icon;
-}
-
 const SideBarEvents = () => {
   const locateMePos = useContext(LocateMePosContext);
   const locateMe = useContext(LocateMeContext);

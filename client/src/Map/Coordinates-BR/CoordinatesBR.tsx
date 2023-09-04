@@ -29,11 +29,15 @@ interface eventInterface {
   lat: L.LatLngExpression;
   location: string;
   desc: string;
-  going: number;
-  total: number;
+  title: string;
+  link: string;
+  host: string;
+  endTime: string;
+  startTime: string;
+  startDate: string;
+  endDate: string;
   tags: string[];
   icon: L.Icon;
-  link: string;
 }
 
 interface mapContextInterface {
@@ -56,18 +60,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const sideBarContext = useContext(SideBarContext);
   const FilterText = useContext(FilterTextContext);
   const UserMade = useContext(UserMadeContext);
-  // useEffect(() => {
-  //   map.on("click", function (e) {
-  //     const markerPlace = document.querySelector(
-  //       ".coordinatesbr-text-location"
-  //     );
-  //     markerPlace!.textContent =
-  //       "Lat: " +
-  //       e.latlng.lat.toFixed(3) +
-  //       ", Lang: " +
-  //       e.latlng.lng.toFixed(3);
-  //   });
-  // }, []);
 
   useEffect(() => {
     if (sideBarContext.view) {
@@ -154,35 +146,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           })
           .map((event: any, index: number) => {
             // console.log(event.icon);
-            return (
-              <MarkerCreation event={event} index={index} />
-              // <Marker
-              //   key={index}
-              //   position={event.lat}
-              //   icon={event.icon}
-              //   eventHandlers={{
-              //     click(e) {
-              //       map.panTo(e.target.getLatLng());
-              //       map.flyTo(e.target.getLatLng(), 16);
-              //     },
-              //   }}
-              // >
-              //   {" "}
-              //   <Popup offset={L.point(0, -20)}>
-              //     <Flex
-              //       direction={"column"}
-              //       justify={"center"}
-              //       align={"center"}
-              //     >
-              //       <Text className="coordinates-br-text">
-              //         {event.location}
-              //       </Text>
-              //       <Text className="coordinates-br-text">{event.desc}</Text>
-              //       <Text className="coordinates-br-text">{event.link}</Text>
-              //     </Flex>
-              //   </Popup>
-              // </Marker>
-            );
+            return <MarkerCreation event={event} index={index} />;
           })}
       </>
     </MapContext.Provider>
@@ -190,3 +154,30 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 };
 
 export default CoordinatesBR;
+
+// <Marker
+//   key={index}
+//   position={event.lat}
+//   icon={event.icon}
+//   eventHandlers={{
+//     click(e) {
+//       map.panTo(e.target.getLatLng());
+//       map.flyTo(e.target.getLatLng(), 16);
+//     },
+//   }}
+// >
+//   {" "}
+//   <Popup offset={L.point(0, -20)}>
+//     <Flex
+//       direction={"column"}
+//       justify={"center"}
+//       align={"center"}
+//     >
+//       <Text className="coordinates-br-text">
+//         {event.location}
+//       </Text>
+//       <Text className="coordinates-br-text">{event.desc}</Text>
+//       <Text className="coordinates-br-text">{event.link}</Text>
+//     </Flex>
+//   </Popup>
+// </Marker>
