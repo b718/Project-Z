@@ -21,6 +21,7 @@ import {
   UserMadeContext,
 } from "../MapLeaflet";
 import MarkerCreation from "./MarkerCreation";
+
 interface coordinatesBRInterface {
   icon: L.Icon;
 }
@@ -114,16 +115,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
         </Marker>
 
         {sideBarContext.view ? (
-          <Marker
-            position={tempLat as L.LatLngExpression}
-            icon={icon}
-            // eventHandlers={{
-            //   click(e) {
-            //     map.panTo(e.target.getLatLng());
-            //     map.flyTo(e.target.getLatLng(), 16);
-            //   },
-            // }}
-          >
+          <Marker position={tempLat as L.LatLngExpression} icon={icon}>
             <Popup offset={L.point(0, -15)}>
               <Flex direction={"column"} justify={"center"} align={"center"}>
                 <EventMenu icon={icon} lat={tempLat} />
@@ -136,7 +128,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
         {userMade
           .filter((event: any) => {
-            // console.log(event.icon);
             return (
               // event.location.toLowerCase().includes(FilterText.filterText) ||
               // event.desc.toLowerCase().includes(FilterText.filterText) ||
@@ -145,7 +136,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
             );
           })
           .map((event: any, index: number) => {
-            // console.log(event.icon);
+            console.log(event);
             return <MarkerCreation event={event} index={index} />;
           })}
       </>

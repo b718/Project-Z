@@ -149,7 +149,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       endTime: convertToTwelve(endTime),
       startDate: convertToDate(startDate, startTime),
       endDate: convertToDate(endDate, endTime),
-      tags: tags,
+      tags: [typeOfEvent],
       host: host,
       icon: customIcon,
     };
