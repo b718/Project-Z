@@ -17,10 +17,13 @@
   /* outline: 1px solid gray; */
   /* border-radius: 12px; */
   font-size: 0.9rem;
+  max-width: fit-content;
+  word-break: break-all;
+  text-align: left;
 }
 
-.coordinates-br-text:not(:first-child) {
-  margin-top: 0.5rem;
+.coordinates-br-location {
+  font-size: 0.7rem;
 }
 
 .coordinates-br-title {
@@ -35,11 +38,12 @@
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   outline: 1px solid gray;
   border-radius: 12px;
+  max-width: fit-content;
 }
 
 .coordinates-br-a {
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-family: AugerMB;
   text-decoration: underline transparent;
   transition: 0.2s;

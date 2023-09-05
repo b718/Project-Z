@@ -61,15 +61,21 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
             className="coordinates-br-flex"
           >
             <Text className="coordinates-br-title">{event.title}</Text>
-            <Text className="coordinates-br-text">{event.location}</Text>
+            <Text className="coordinates-br-location">{event.location}</Text>
             <Text className="coordinates-br-text">{event.desc}</Text>
-            <a
-              className="coordinates-br-a"
-              target="_blank"
-              href={`${event.link}`}
-            >
-              Link
-            </a>
+
+            {event.link.length > 0 ? (
+              <a
+                className="coordinates-br-a"
+                target="_blank"
+                href={`${event.link}`}
+                // Link
+              >
+                {event.link}
+              </a>
+            ) : (
+              <Text className="coordinates-br-a">No Link</Text>
+            )}
           </Flex>
         </Popup>
       </Marker>

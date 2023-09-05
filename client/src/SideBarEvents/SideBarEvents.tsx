@@ -79,7 +79,6 @@ const SideBarEvents = () => {
           .filter((pin) => {
             return checkBoxArray.checkBox.includes(pin.tags[0]);
           })
-
           .map((pin) => {
             const PinLatLng: Array<number> = pin.lat as Array<number>;
             const PersonLatLng: Array<number> =
@@ -102,7 +101,7 @@ const SideBarEvents = () => {
                   <Center>
                     <Image src={pin.icon.options.iconUrl} width={30} />
                   </Center>
-                  <Text className="side-bar-events-km-text side-bar-events-text-font">
+                  {/* <Text className="side-bar-events-km-text side-bar-events-text-font">
                     event: {pin.tags}
                   </Text>
                   <Text className="side-bar-events-km-text side-bar-events-text-font">
@@ -113,7 +112,7 @@ const SideBarEvents = () => {
                       PersonLatLng[1]
                     )}
                     km away!
-                  </Text>
+                  </Text> */}
                 </Flex>
                 <Flex
                   direction={"column"}
@@ -126,9 +125,9 @@ const SideBarEvents = () => {
                   <Text className="side-bar-events-time-to">
                     {pin.startTime} to {pin.endTime}
                   </Text>
-                  <Text className="side-bar-events-time-to">
+                  {/* <Text className="side-bar-events-time-to">
                     {pin.startDate} to {pin.endDate}
-                  </Text>
+                  </Text> */}
                   <Text className="side-bar-events-location side-bar-events-text-font">
                     {pin.location}
                   </Text>

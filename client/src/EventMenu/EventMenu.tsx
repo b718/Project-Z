@@ -15,13 +15,13 @@ import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
 import { IconTextContext, SideBarContext } from "../Map/MapLeaflet";
 import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
-import blueMarker from "../Images/blue_marker.png";
-import amsMarker from "../Images/pin-ams.png";
-import clubMarker from "../Images/pin-club.png";
-import companyMarker from "../Images/pin-company.png";
-import facultyMarker from "../Images/pin-faculty.png";
-import fratMarker from "../Images/pin-frat.png";
-import officialMarker from "../Images/pin-official.png";
+import otherMarker from "../Images/pin-other-new.png";
+import careerMarker from "../Images/pin-career-new.png";
+import facultyMarker from "../Images/pin-faculty-new.png";
+import clubMarker from "../Images/pin-club-new.png";
+import socialMarker from "../Images/pin-social-new.png";
+import officialMarker from "../Images/pin-official-new.png";
+
 import { DateInput, TimeInput } from "@mantine/dates";
 import { DatePicker, TimeField, TimePicker } from "@mui/x-date-pickers";
 
@@ -52,7 +52,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 }) => {
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
-  const [nameState, setNameState] = useState<string>("");
+  const [locationState, setLocationState] = useState<string>("");
   const [titleState, setTitleState] = useState<string>("");
   const [descState, setDescState] = useState<string>("");
   const [linkState, setLinkState] = useState<string>("");
@@ -60,8 +60,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [startTime, setStartTime] = useState<string | null | undefined>("");
   const [endTime, setEndTime] = useState<string | null | undefined>("");
 
-  const [startDate, setStartDate] = useState<number | "" | null | undefined>();
-  const [endDate, setEndDate] = useState<number | "" | null | undefined>();
+  const [startDate, setStartDate] = useState<number | "" | null | undefined>(
+    ""
+  );
+  const [endDate, setEndDate] = useState<number | "" | null | undefined>("");
 
   const [host, setHost] = useState<string>("");
 
@@ -74,48 +76,45 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   // const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
-  const iconContext = useContext(IconTextContext);
 
-  let image = blueMarker;
+  let image = otherMarker;
   let customIcon = new L.Icon({
     iconUrl: image,
-    iconSize: [20, 30],
+    iconSize: [20, 25],
   });
 
   const eventMenuSubmit = async (e: any) => {
     e.preventDefault();
-
     if (typeOfEvent === "official") {
       customIcon.options.iconUrl = officialMarker;
     } else if (typeOfEvent === "company") {
-      customIcon.options.iconUrl = companyMarker;
+      customIcon.options.iconUrl = careerMarker;
     } else if (typeOfEvent === "faculty") {
       customIcon.options.iconUrl = facultyMarker;
     } else if (typeOfEvent === "club") {
       customIcon.options.iconUrl = clubMarker;
     } else if (typeOfEvent === "social") {
-      customIcon.options.iconUrl = fratMarker;
+      customIcon.options.iconUrl = socialMarker;
     } else {
-      customIcon.options.iconUrl = blueMarker;
+      customIcon.options.iconUrl = otherMarker;
     }
 
     const convertToTwelve = (time: any) => {
-      let minute = time.$M;
-      console.log(minute);
-      if (time.$M.toString().length == 1) {
-        minute = `0${time.$M}`;
+      let minute = time.$m;
+      if (time.$m.toString().length == 1) {
+        minute = `0${time.$m}`;
       }
       if (time.$H >= 12) {
         if (time.$H == 12) {
-          return `${time.$H}:${minute} PM`;
+          return `${time.$H}:${minute}PM`;
         } else {
-          return `${time.$H - 12}:${minute} PM`;
+          return `0${time.$H - 12}:${minute}PM`;
         }
       } else {
-        if (time.$SH == 0) {
-          return `12:${minute} AM`;
+        if (time.$H == 0) {
+          return `12:${minute}AM`;
         } else {
-          return `${time.$H}:${minute} AM`;
+          return `0${time.$H}:${minute}AM`;
         }
       }
     };
@@ -148,55 +147,58 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     let newUseMade: eventInterface = {
       lat: lat as L.LatLngExpression,
-      location: nameState,
+      location: locationState,
       desc: descState,
       title: titleState,
       link: linkState,
       startTime: convertToTwelve(startTime),
       endTime: convertToTwelve(endTime),
       startDate: convertToDate(startDate),
-      endDate: convertToDate(endDate),
+      endDate: "convertToDate(endDate)",
       startDateAPI: convertToDateAPI(startDate, startTime),
-      endDateAPI: convertToDateAPI(endDate, endTime),
+      endDateAPI: "convertToDateAPI(endDate, endTime)",
       tags: [typeOfEvent],
       host: host,
       icon: customIcon,
     };
 
-    // let userMadeObject = {
-    //   title: titleState,
-    //   description: descState,
-    //   reference_link: linkState,
-    //   host: host,
-    //   // latitude: lat[0],
-    //   // longitude: lat[1],
-    //   tags: tags,
-    //   start_datetime: convertToDate(startDate, startTime),
-    //   end_datetime: convertToDate(endDate, endTime),
-    // };
+    const apiLat = lat as Array<number>;
 
-    // setLoading("loading");
-    // const postMessage = await fetch(
-    //   "https://pinnit-backend.onrender.com/events",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       userMadeObject,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // ).then(() => {
-    //   setLoading("start");
-    // });
+    let userMadeObject = {
+      title: titleState,
+      description: descState,
+      location: locationState,
+      reference_link: linkState,
+      latlng: apiLat,
+      tags: [],
+      start_datetime: convertToDateAPI(startDate, startTime),
+      end_datetime: convertToDateAPI(startDate, endTime),
+      timezone: "-8:00",
+      host: host,
+    };
 
-    // console.log("postMessage: " + postMessage);
+    setLoading("loading");
+    const postMessage = await fetch(
+      "https://pinnit-backend.onrender.com/events",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userMadeObject,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(() => {
+      setLoading("start");
+    });
+
+    console.log("postMessage: " + postMessage);
     console.log(newUseMade);
 
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
-    setNameState("");
+    setLocationState("");
     setDescState("");
     setLinkState("");
     setTitleState("");
@@ -212,16 +214,16 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
   const createButtonChecker = () => {
     return (
-      nameState.length > 0 &&
+      locationState.length > 0 &&
       descState.length > 0 &&
       titleState.length > 0 &&
       startTime &&
-      endTime &&
+      // endTime &&
       startDate &&
-      endDate &&
+      // endDate &&
       typeOfEvent.length > 0 &&
       host.length > 0 &&
-      page == 4
+      page == 3
     );
   };
 
@@ -229,7 +231,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     // console.log(mouseIn);
     if (mouseIn) {
       L.DomEvent.disableClickPropagation(
-        document.querySelector(".eventmenu-main-menu")!
+        document.querySelector(
+          ".eventmenu-main-menu, .eventmenu-submit-button"
+        )!
       );
     } else {
       map.tap?.enable();
@@ -237,13 +241,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   }, [mouseIn]);
 
   useEffect(() => {
-    console.log(startDate);
-    console.log(endDate);
-  }, [startDate, endDate]);
-
-  // useEffect(() => {
-  //   setTags([typeOfEvent]);
-  // }, [typeOfEvent]);
+    console.log("start time");
+    console.log(startTime);
+    console.log("end time");
+    console.log(endTime);
+  }, [startTime, endTime]);
 
   return (
     <>
@@ -314,28 +316,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   value={startTime}
                   onChange={(newValue) => setStartTime(newValue)}
                 />
-              </Flex>
-            ),
-            2: (
-              <Flex
-                direction={"column"}
-                justify={"center"}
-                align={"flex-start"}
-                style={{ marginLeft: "1rem" }}
-              >
-                {" "}
-                <Text className="event-menu-text-for-inputs">End Date</Text>
-                <DatePicker
-                  slotProps={{
-                    textField: {
-                      error: false,
-                    },
-                  }}
-                  format="YYYY-MM-DD"
-                  className="event-menu-date-picker-mui-start"
-                  value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
-                />
+
                 <Text className="event-menu-text-for-inputs">End Time</Text>
                 <TimePicker
                   slotProps={{
@@ -349,7 +330,40 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 />
               </Flex>
             ),
-            3: (
+            // 2: (
+            //   <Flex
+            //     direction={"column"}
+            //     justify={"center"}
+            //     align={"flex-start"}
+            //     style={{ marginLeft: "1rem" }}
+            //   >
+            //     {" "}
+            //     <Text className="event-menu-text-for-inputs">End Date</Text>
+            //     <DatePicker
+            //       slotProps={{
+            //         textField: {
+            //           error: false,
+            //         },
+            //       }}
+            //       format="YYYY-MM-DD"
+            //       className="event-menu-date-picker-mui-start"
+            //       value={endDate}
+            //       onChange={(newValue) => setEndDate(newValue)}
+            //     />
+            //     <Text className="event-menu-text-for-inputs">End Time</Text>
+            //     <TimePicker
+            //       slotProps={{
+            //         textField: {
+            //           error: false,
+            //         },
+            //       }}
+            //       className="event-menu-time-picker-mui-start"
+            //       value={endTime}
+            //       onChange={(newValue) => setEndTime(newValue)}
+            //     />
+            //   </Flex>
+            // ),
+            2: (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -370,10 +384,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   type="text"
                   label="Location/Building"
                   className="eventmenu-input"
-                  value={nameState}
+                  value={locationState}
                   required={true}
                   onChange={(e) => {
-                    setNameState(e.target.value);
+                    setLocationState(e.target.value);
                   }}
                 ></TextInput>
                 <Textarea
@@ -390,7 +404,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 ></Textarea>
               </Flex>
             ),
-            4: (
+            3: (
               <Flex
                 direction={"column"}
                 justify={"center"}
@@ -435,7 +449,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             </Button>
             <Button
               className="eventmenu-submit-button"
-              disabled={page == 4}
+              disabled={page == 3}
               onClick={() => {
                 setPage(page + 1);
               }}
@@ -452,18 +466,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
               type={"submit"}
               onClick={eventMenuSubmit}
             >
-              CREATE
               {loading === "loading" ? (
-                <Loader
-                  color="gray"
-                  size="0.8rem"
-                  style={{
-                    marginLeft: "0.5rem",
-                    maxWidth: "fit-content",
-                  }}
-                />
+                <Loader color="gray" size="0.8rem" />
               ) : (
-                <div></div>
+                <div>CREATE</div>
               )}
             </Button>
           </Flex>

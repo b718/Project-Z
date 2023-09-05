@@ -12,7 +12,6 @@
 }
 
 .side-bar-events-location {
-  margin-top: 0.2rem;
   text-align: left;
   font-size: 0.8rem;
   max-width: 10vw;
@@ -21,19 +20,20 @@
 .side-bar-events-tags {
   margin-top: 0.2rem;
   text-align: left;
-  font-size: 0.7rem;
+  font-size: 0.5rem;
+  font-style: italic;
 }
 
 .side-bar-events-main-flex {
-  border: 2px solid #228be6;
+  border: 1px solid black;
   border-radius: 12px;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  margin-top: 0.8rem;
+  margin-top: 0.3rem;
   cursor: pointer;
 }
 
 .side-bar-events-main-flex:hover {
-  border: 2px solid #1267b2;
+  border: 1px solid #1267b2;
 }
 
 .side-bar-events-pin-color {
@@ -64,7 +64,7 @@
 .side-bar-events-time-to {
   font-family: AugerMB;
   text-align: left;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .side-bar-events-button-text {
@@ -75,4 +75,5 @@
   min-width: 10vw;
   max-width: 10vw;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
