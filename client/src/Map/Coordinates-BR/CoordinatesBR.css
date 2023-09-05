@@ -12,22 +12,27 @@
   background-color: #fff;
 }
 .coordinates-br-text {
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
   /* padding: 0.5rem 0.5rem 0.5rem 0.5rem; */
   /* outline: 1px solid gray; */
   /* border-radius: 12px; */
   font-size: 0.9rem;
   max-width: fit-content;
-  word-break: break-all;
+  word-break: break-word;
   text-align: left;
+  line-height: normal;
 }
 
 .coordinates-br-location {
   font-size: 0.7rem;
+  line-height: normal;
+  margin-bottom: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 .coordinates-br-title {
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
+  line-height: normal;
   /* padding: 0.5rem 0.5rem 0.5rem 0.5rem; */
   /* outline: 1px solid gray; */
   font-size: 1.3rem;
@@ -44,7 +49,7 @@
 .coordinates-br-a {
   text-decoration: none;
   font-size: 0.7rem;
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
   text-decoration: underline transparent;
   transition: 0.2s;
   cursor: pointer;

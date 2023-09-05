@@ -22,7 +22,7 @@ import otherMarker from "../Images/pin-other-new.png";
 import Test from "../GeoLocation/GeoLocation";
 import GeoLocation from "../GeoLocation/GeoLocation";
 import DisplayDate from "../DisplayDate/DisplayDate";
-import SideBarMover from "../SideBarEvents/SideBarMover";
+import SideBarMover from "../SideBar/SideBarEvents/SideBarMover";
 import LocateMeMapComponent from "./LocateMeMapComponent/LocateMeMapComponent";
 import FilterMapComponent from "./FilterMapComponent/FilterMapComponent";
 

@@ -4,12 +4,12 @@
 }
 
 :root {
-  --official-color: #001e96;
-  --social-color: #770062;
+  --official-color: #2134e0;
+  --social-color: #db191a;
   --company-color: #03ffff;
-  --club-color: #fa9401;
-  --other-color: #00b0f0;
-  --faculty-color: #09ab01;
+  --club-color: #ed9a1e;
+  --other-color: #9220ed;
+  --faculty-color: #3be71e;
 }
 .filter-main-input {
   position: absolute;

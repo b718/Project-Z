@@ -6,10 +6,8 @@ import {
   LocateMeContext,
   SideBarContext,
 } from "../Map/MapLeaflet";
-import { useMap } from "react-leaflet";
-import L from "leaflet";
-import GeoLocation from "../GeoLocation/GeoLocation";
-import SideBarEvents from "../SideBarEvents/SideBarEvents";
+
+import SideBarEvents from "./SideBarEvents/SideBarEvents";
 import Clock from "react-live-clock";
 
 const SideBar = () => {
@@ -44,16 +42,16 @@ const SideBar = () => {
         <div className="side-bar-left-inner">
           <Flex direction={"column"} justify="center" align="center">
             <Clock
-              format={"dddd, MMMM Mo"}
+              format={"dddd, MMMM Do"}
               ticking={true}
               className="side-bar-clock"
-              timezone={"US/Pacific"}
+              timezone={"Canada/Pacific"}
             />
             <Clock
               format={"YYYY, h:mm:ss A"}
               ticking={true}
               className="side-bar-clock"
-              timezone={"US/Pacific"}
+              timezone={"Canada/Pacific"}
             />
             {/* <div>
               <Button

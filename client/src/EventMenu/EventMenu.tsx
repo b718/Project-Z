@@ -3,7 +3,6 @@ import {
   Center,
   Flex,
   Loader,
-  NumberInput,
   Radio,
   Text,
   TextInput,
@@ -83,6 +82,21 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     iconSize: [20, 25],
   });
 
+  const sentBlank = () => {
+    setLocationState("");
+    setDescState("");
+    setLinkState("");
+    setTitleState("");
+    setStartTime("");
+    setEndTime("");
+    setStartDate("");
+    setEndDate("");
+    setPage(0);
+    setTags([]);
+    setHost("");
+    setTypeOfEvent("");
+  };
+
   const eventMenuSubmit = async (e: any) => {
     e.preventDefault();
     if (typeOfEvent === "official") {
@@ -108,13 +122,21 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
         if (time.$H == 12) {
           return `${time.$H}:${minute}PM`;
         } else {
-          return `0${time.$H - 12}:${minute}PM`;
+          if (time.$H == 22 || time.$H == 23) {
+            return `${time.$H - 12}:${minute}AM`;
+          } else {
+            return `0${time.$H - 12}:${minute}PM`;
+          }
         }
       } else {
         if (time.$H == 0) {
           return `12:${minute}AM`;
         } else {
-          return `0${time.$H}:${minute}AM`;
+          if (time.$H == 10 || time.$H == 11) {
+            return `${time.$H}:${minute}AM`;
+          } else {
+            return `0${time.$H}:${minute}AM`;
+          }
         }
       }
     };
@@ -177,39 +199,29 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       host: host,
     };
 
-    setLoading("loading");
-    const postMessage = await fetch(
-      "https://pinnit-backend.onrender.com/events",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          userMadeObject,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then(() => {
-      setLoading("start");
-    });
+    // setLoading("loading");
+    // const postMessage = await fetch(
+    //   "https://pinnit-backend.onrender.com/events",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       userMadeObject,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // ).then(() => {
+    //   setLoading("start");
+    // });
 
     console.log("postMessage: " + postMessage);
     console.log(newUseMade);
 
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
-    setLocationState("");
-    setDescState("");
-    setLinkState("");
-    setTitleState("");
-    setStartTime("");
-    setEndTime("");
-    setStartDate("");
-    setEndDate("");
-    setPage(0);
-    setTags([]);
-    setHost("");
-    setTypeOfEvent("");
+
+    sentBlank();
   };
 
   const createButtonChecker = () => {
@@ -276,12 +288,12 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   className="event-menu-radio"
                   required={true}
                 >
-                  <Radio value="official" label="Official UBC Events" />
-                  <Radio value="company" label="Career" />
-                  <Radio value="faculty" label="Faculty Events" />
-                  <Radio value="club" label="Clubs Events" />
-                  <Radio value="social" label="Social" />
-                  <Radio value="other" label="Other" />
+                  <Radio value="official" label="Official Event" />
+                  <Radio value="company" label="Career Event" />
+                  <Radio value="faculty" label="Faculty Event" />
+                  <Radio value="club" label="Club Event" />
+                  <Radio value="social" label="Social Event" />
+                  <Radio value="other" label="Other Event" />
                 </Radio.Group>
               </Flex>
             ),
@@ -292,7 +304,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                 align={"center"}
                 style={{ marginLeft: "1rem" }}
               >
-                <Text className="event-menu-text-for-inputs">Start Date</Text>
+                <Text className="event-menu-text-for-inputs">
+                  Start Date <span className="event-menu-red-ast">*</span>
+                </Text>
                 <DatePicker
                   slotProps={{
                     textField: {
@@ -305,7 +319,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   onChange={(newValue) => setStartDate(newValue)}
                 />
 
-                <Text className="event-menu-text-for-inputs">Start Time</Text>
+                <Text className="event-menu-text-for-inputs">
+                  Start Time <span className="event-menu-red-ast">*</span>
+                </Text>
                 <TimePicker
                   slotProps={{
                     textField: {
@@ -317,7 +333,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   onChange={(newValue) => setStartTime(newValue)}
                 />
 
-                <Text className="event-menu-text-for-inputs">End Time</Text>
+                <Text className="event-menu-text-for-inputs">
+                  End Time <span className="event-menu-red-ast">*</span>
+                </Text>
                 <TimePicker
                   slotProps={{
                     textField: {
@@ -460,16 +478,20 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
               className="eventmenu-submit-button"
               disabled={
                 !createButtonChecker()
-
-                // && loading == "loading"
+                // || loading == "loading"
               }
               type={"submit"}
               onClick={eventMenuSubmit}
             >
-              {loading === "loading" ? (
-                <Loader color="gray" size="0.8rem" />
+              CREATE
+              {loading == "loading" ? (
+                <Loader
+                  color="gray"
+                  size="0.6rem"
+                  style={{ marginLeft: "0.6rem", marginTop: "0.1rem" }}
+                />
               ) : (
-                <div>CREATE</div>
+                <div></div>
               )}
             </Button>
           </Flex>

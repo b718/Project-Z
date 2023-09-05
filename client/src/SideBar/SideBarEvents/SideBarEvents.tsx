@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBarEvents.css";
-import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
+import { MapContext } from "../../Map/Coordinates-BR/CoordinatesBR";
 import { Button, Center, Flex, Image, Text } from "@mantine/core";
 import L, { Point, icon } from "leaflet";
 import {
@@ -10,7 +10,8 @@ import {
   SideBarContext,
   SideBarMoveContext,
   UserMadeContext,
-} from "../Map/MapLeaflet";
+} from "../../Map/MapLeaflet";
+import SideBarMover from "./SideBarMover";
 
 const SideBarEvents = () => {
   const locateMePos = useContext(LocateMePosContext);
@@ -116,11 +117,9 @@ const SideBarEvents = () => {
                 </Flex>
                 <Flex
                   direction={"column"}
-                  className="side-bar-events-event-details side-bar-events-text-font"
+                  className="side-bar-events-event-details"
                 >
-                  <Text className="side-bar-events-title side-bar-events-text-font">
-                    {pin.title}{" "}
-                  </Text>
+                  <Text className="side-bar-events-title">{pin.title} </Text>
 
                   <Text className="side-bar-events-time-to">
                     {pin.startTime} to {pin.endTime}
@@ -128,12 +127,10 @@ const SideBarEvents = () => {
                   {/* <Text className="side-bar-events-time-to">
                     {pin.startDate} to {pin.endDate}
                   </Text> */}
-                  <Text className="side-bar-events-location side-bar-events-text-font">
+                  <Text className="side-bar-events-location">
                     {pin.location}
                   </Text>
-                  <Text className="side-bar-events-tags side-bar-events-text-font">
-                    {pin.host}
-                  </Text>
+                  <Text className="side-bar-events-tags">{pin.host}</Text>
                 </Flex>
               </Flex>
             );

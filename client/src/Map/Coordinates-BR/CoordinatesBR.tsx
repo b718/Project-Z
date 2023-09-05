@@ -59,7 +59,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
   const checkBoxArray = useContext(CheckBoxContext);
   const sideBarContext = useContext(SideBarContext);
-  const FilterText = useContext(FilterTextContext);
   const UserMade = useContext(UserMadeContext);
 
   useEffect(() => {
@@ -68,12 +67,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
         setTempLat([e.latlng.lat, e.latlng.lng]);
       });
     }
-    // else {
-    //   map.on("click", (e) => {
-    //     setTempLat([181, 91]);
-    //   });
-    // }
-  }, [map, sideBarContext.view]);
+  }, [sideBarContext.view]);
 
   useEffect(() => {
     //https://pinnit-backend.onrender.com/events

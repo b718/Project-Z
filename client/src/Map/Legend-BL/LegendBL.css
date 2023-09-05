@@ -1,3 +1,8 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
+
 .legendbl-div-for-click {
   background-color: black;
   color: white;
@@ -8,6 +13,7 @@
   left: 10px;
   font-weight: 700;
   padding: 10px;
+  font-family: AugerMB;
 }
 
 /* .legendbl-div-for-click b {

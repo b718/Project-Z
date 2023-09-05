@@ -111,6 +111,11 @@
   color: #0582c8;
   margin-top: 1rem;
 }
+
+.event-menu-red-ast {
+  font-family: Auger-Mono-Bold;
+  color: red;
+}
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

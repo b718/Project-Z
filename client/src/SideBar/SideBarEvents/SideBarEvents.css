@@ -1,6 +1,6 @@
 @font-face {
   font-family: AugerMB;
-  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+  src: url("../../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
 }
 .side-bar-events-km-text {
   margin-top: 0.2rem;
@@ -9,19 +9,28 @@
 
 .side-bar-events-title {
   text-align: left;
+  line-height: normal;
+  font-size: 1rem;
+  max-width: 10vw;
+  font-family: "Roboto", sans-serif;
 }
 
 .side-bar-events-location {
   text-align: left;
   font-size: 0.8rem;
   max-width: 10vw;
+  line-height: normal;
+  margin-top: 0.2rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .side-bar-events-tags {
   margin-top: 0.2rem;
   text-align: left;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   font-style: italic;
+  line-height: normal;
+  font-family: "Roboto", sans-serif;
 }
 
 .side-bar-events-main-flex {
@@ -45,30 +54,25 @@
   min-width: 10vw;
   max-width: 10vw;
   word-wrap: break-word;
+  font-family: "Roboto", sans-serif;
 }
 
 .side-bar-events-main-title {
   margin-top: 1rem;
   text-align: left;
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
 }
 
 .side-bar-events-main-flex-vertical:last-child {
   margin-bottom: 0.5rem;
 }
 
-.side-bar-events-text-font {
-  font-family: AugerMB;
-}
-
 .side-bar-events-time-to {
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
   text-align: left;
-  font-size: 0.7rem;
-}
-
-.side-bar-events-button-text {
-  font-family: AugerMB;
+  font-size: 0.8rem;
+  line-height: normal;
+  margin-top: 0.2rem;
 }
 
 .side-var-events-add-button-flex {
