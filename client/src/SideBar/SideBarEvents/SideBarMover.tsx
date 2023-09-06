@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import {
   MarkerCreationContext,
+  MoverContext,
   SideBarMoveContext,
 } from "../../Map/MapLeaflet";
 import { LatLng } from "leaflet";
@@ -15,6 +16,7 @@ const SideBarMover = () => {
   const map = useMap();
   const sideBarMoveContext = useContext(SideBarMoveContext);
   const markerArray = useContext(MarkerCreationContext);
+  const moverCount = useContext(MoverContext);
 
   const mover = () => {
     markerArray.markerArray.forEach((marker: any) => {
@@ -35,7 +37,7 @@ const SideBarMover = () => {
     // let x = [0, 0] as L.LatLngExpression;
 
     // sideBarMoveContext.sideBarMoveLocation(x);
-  }, [sideBarMoveContext.sideBarMoveLocation]);
+  }, [sideBarMoveContext.sideBarMoveLocation, moverCount.currentCount]);
   return <div></div>;
 };
 

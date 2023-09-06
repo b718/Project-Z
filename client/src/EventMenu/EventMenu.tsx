@@ -191,29 +191,45 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       description: descState,
       location: locationState,
       reference_link: linkState,
-      latlng: apiLat,
+      latlong: [apiLat[0], apiLat[1]],
       tags: [],
       start_datetime: convertToDateAPI(startDate, startTime),
       end_datetime: convertToDateAPI(startDate, endTime),
-      timezone: "-8:00",
+      timezone: "-7:00",
       host: host,
     };
 
-    // setLoading("loading");
-    // const postMessage = await fetch(
-    //   "https://pinnit-backend.onrender.com/events",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       userMadeObject,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // ).then(() => {
-    //   setLoading("start");
-    // });
+    // {
+    //   "title": "string",
+    //   "description": "string",
+    //   "location": "string",
+    //   "reference_link": "string",
+    //   "latlong": [
+    //     null,
+    //     null
+    //   ],
+    //   "tags": [],
+    //   "start_datetime": "string",
+    //   "end_datetime": "string",
+    //   "timezone": "-08:00",
+    //   "host": "string"
+    // }
+
+    setLoading("loading");
+    const postMessage = await fetch(
+      "https://pinnit-backend.onrender.com/events",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userMadeObject,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(() => {
+      setLoading("start");
+    });
 
     console.log("postMessage: " + postMessage);
     console.log(newUseMade);
@@ -474,12 +490,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             >
               NEXT
             </Button>
-            <Button
+          <Button
               className="eventmenu-submit-button"
-              disabled={
-                !createButtonChecker()
-                // || loading == "loading"
-              }
+              disabled={!createButtonChecker() || loading == "loading"}
               type={"submit"}
               onClick={eventMenuSubmit}
             >

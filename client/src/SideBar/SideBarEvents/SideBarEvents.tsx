@@ -7,6 +7,7 @@ import {
   CheckBoxContext,
   LocateMeContext,
   LocateMePosContext,
+  MoverContext,
   SideBarContext,
   SideBarMoveContext,
   UserMadeContext,
@@ -20,6 +21,7 @@ const SideBarEvents = () => {
   const sideBarMoveContext = useContext(SideBarMoveContext);
   const sideBarView = useContext(SideBarContext);
   const checkBoxArray = useContext(CheckBoxContext);
+  const moverContext = useContext(MoverContext);
 
   const calculateKM = (
     lat1: number,
@@ -91,6 +93,7 @@ const SideBarEvents = () => {
                 gap={"md"}
                 onClick={() => {
                   sideBarMoveContext.setSideBarMoveLocation(pin.lat);
+                  moverContext.setCurrentCount(moverContext.currentCount + 1);
                 }}
               >
                 <Flex

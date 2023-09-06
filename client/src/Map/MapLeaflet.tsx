@@ -145,6 +145,16 @@ export const MarkerCreationContext = createContext<markerCreationInterface>({
   setMarkerArray: () => {},
 });
 
+interface moverInterface {
+  currentCount: number;
+  setCurrentCount: Function;
+}
+
+export const MoverContext = createContext<moverInterface>({
+  currentCount: 0,
+  setCurrentCount: () => {},
+});
+
 const MapLeaflet = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
@@ -166,7 +176,7 @@ const MapLeaflet = () => {
   // useEffect(() => {
   //   console.log(markerArray);
   // }, [markerArray]);
-
+  const [currentCount, setCurrentCount] = useState(0);
   let image = otherMarker;
   const customIcon = new L.Icon({
     iconUrl: image,
@@ -183,63 +193,65 @@ const MapLeaflet = () => {
 
   return (
     <>
-      <MarkerCreationContext.Provider value={{ markerArray, setMarkerArray }}>
-        <SideBarMoveContext.Provider
-          value={{ sideBarMoveLocation, setSideBarMoveLocation }}
-        >
-          <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
-            <UserMadeContext.Provider value={{ userMade, setUserMade }}>
-              <LocateMePosContext.Provider
-                value={{ locateMePos, setLocateMePos }}
-              >
-                <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
-                  <FilterTextContext.Provider
-                    value={{ filterText, setFilterText }}
-                  >
-                    <FilterContext.Provider value={{ filter, setFilter }}>
-                      <SideBarContext.Provider value={{ view, setView }}>
-                        <SideBar />
+      <MoverContext.Provider value={{ currentCount, setCurrentCount }}>
+        <MarkerCreationContext.Provider value={{ markerArray, setMarkerArray }}>
+          <SideBarMoveContext.Provider
+            value={{ sideBarMoveLocation, setSideBarMoveLocation }}
+          >
+            <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
+              <UserMadeContext.Provider value={{ userMade, setUserMade }}>
+                <LocateMePosContext.Provider
+                  value={{ locateMePos, setLocateMePos }}
+                >
+                  <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+                    <FilterTextContext.Provider
+                      value={{ filterText, setFilterText }}
+                    >
+                      <FilterContext.Provider value={{ filter, setFilter }}>
+                        <SideBarContext.Provider value={{ view, setView }}>
+                          <SideBar />
 
-                        <div className="map-flex-center">
-                          <MapContainer
-                            center={[49.2606, -123.246]}
-                            zoom={16}
-                            scrollWheelZoom={true}
-                            className="map-main-container"
-                          >
-                            <TileLayer
-                              // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-
-                            <MarkerClusterGroup
-                              chunkedLoading
-                              iconCreateFunction={createClusterCustomIcon}
+                          <div className="map-flex-center">
+                            <MapContainer
+                              center={[49.2606, -123.246]}
+                              zoom={16}
+                              scrollWheelZoom={true}
+                              className="map-main-container"
                             >
-                              {/* <Coordinates icon={customIcon} /> */}
-                              <CoordinatesBR icon={customIcon} />
-                            </MarkerClusterGroup>
+                              <TileLayer
+                                // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              />
 
-                            {/* <EventMenu icon={customIcon} /> */}
-                            <div className="map-components-div">
-                              <SideBarMover />
-                              <LegendBL />
-                              <Filter />
-                              <GeoLocation />
-                              <LocateMeMapComponent />
-                              <FilterMapComponent />
-                            </div>
-                          </MapContainer>
-                        </div>
-                      </SideBarContext.Provider>
-                    </FilterContext.Provider>
-                  </FilterTextContext.Provider>
-                </LocateMeContext.Provider>
-              </LocateMePosContext.Provider>
-            </UserMadeContext.Provider>
-          </CheckBoxContext.Provider>
-        </SideBarMoveContext.Provider>
-      </MarkerCreationContext.Provider>
+                              <MarkerClusterGroup
+                                chunkedLoading
+                                iconCreateFunction={createClusterCustomIcon}
+                              >
+                                {/* <Coordinates icon={customIcon} /> */}
+                                <CoordinatesBR icon={customIcon} />
+                              </MarkerClusterGroup>
+
+                              {/* <EventMenu icon={customIcon} /> */}
+                              <div className="map-components-div">
+                                <SideBarMover />
+                                <LegendBL />
+                                <Filter />
+                                <GeoLocation />
+                                <LocateMeMapComponent />
+                                <FilterMapComponent />
+                              </div>
+                            </MapContainer>
+                          </div>
+                        </SideBarContext.Provider>
+                      </FilterContext.Provider>
+                    </FilterTextContext.Provider>
+                  </LocateMeContext.Provider>
+                </LocateMePosContext.Provider>
+              </UserMadeContext.Provider>
+            </CheckBoxContext.Provider>
+          </SideBarMoveContext.Provider>
+        </MarkerCreationContext.Provider>
+      </MoverContext.Provider>
     </>
   );
 };
