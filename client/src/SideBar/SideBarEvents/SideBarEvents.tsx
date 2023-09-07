@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./SideBarEvents.css";
 import { MapContext } from "../../Map/Coordinates-BR/CoordinatesBR";
 import { Button, Center, Flex, Image, Text } from "@mantine/core";
-import L, { Point, icon } from "leaflet";
 import {
   CheckBoxContext,
   LocateMeContext,
@@ -12,7 +11,6 @@ import {
   SideBarMoveContext,
   UserMadeContext,
 } from "../../Map/MapLeaflet";
-import SideBarMover from "./SideBarMover";
 
 const SideBarEvents = () => {
   const locateMePos = useContext(LocateMePosContext);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SideBar.css";
-import { Button, Flex, MultiSelect, Text } from "@mantine/core";
+import { Button, Flex, Image, MultiSelect, Text } from "@mantine/core";
 import {
   FilterContext,
   LocateMeContext,
@@ -9,6 +9,7 @@ import {
 
 import SideBarEvents from "./SideBarEvents/SideBarEvents";
 import Clock from "react-live-clock";
+import LogoNoBg from "../Images/logo-removebg.png";
 
 const SideBar = () => {
   //   const map = useMap();
@@ -41,6 +42,7 @@ const SideBar = () => {
       >
         <div className="side-bar-left-inner">
           <Flex direction={"column"} justify="center" align="center">
+            <Image src={LogoNoBg} width={150} fit={"contain"} />
             <Clock
               format={"dddd, MMMM Do"}
               ticking={true}
