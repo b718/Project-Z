@@ -157,7 +157,14 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       if (time.$M.toString().length == 1) {
         minute = `0${time.$M}`;
       }
-      return `${date.$y}-${month}-${day}T${time.$H}:${minute}:00`;
+
+      let hour = time.$H;
+      if (time.$H.toString().length == 1) {
+        hour = `0${time.$H}`;
+      }
+
+      console.log(`${date.$y}-${month}-${day}T${hour}:${minute}:00`);
+      return `${date.$y}-${month}-${day}T${hour}:${minute}:00`;
     };
 
     const convertToDate = (data: any) => {
@@ -185,17 +192,17 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     };
 
     const apiLat = lat as Array<number>;
-
+    console.log(lat, apiLat);
     let userMadeObject = {
       title: titleState,
       description: descState,
       location: locationState,
       reference_link: linkState,
       latlong: [apiLat[0], apiLat[1]],
-      tags: [],
+      tags: [typeOfEvent],
       start_datetime: convertToDateAPI(startDate, startTime),
       end_datetime: convertToDateAPI(startDate, endTime),
-      timezone: "-7:00",
+      timezone: "-07:00",
       host: host,
     };
 
@@ -217,22 +224,32 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     setLoading("loading");
     const postMessage = await fetch(
-      "https://pinnit-backend.onrender.com/events",
+      "https://pinnit-backend.onrender.com/events/",
       {
         method: "POST",
-        body: JSON.stringify({
-          userMadeObject,
-        }),
         headers: {
           "Content-Type": "application/json",
+          accept: "application/json",
         },
+        body: JSON.stringify({
+          title: titleState,
+          description: descState,
+          location: locationState,
+          reference_link: linkState,
+          latlong: [apiLat[0], apiLat[1]],
+          tags: [typeOfEvent],
+          start_datetime: convertToDateAPI(startDate, startTime),
+          end_datetime: convertToDateAPI(startDate, endTime),
+          timezone: "-07:00",
+          host: host,
+        }),
       }
-    ).then(() => {
+    ).then((response) => {
       setLoading("start");
+      console.log(response.json());
     });
 
-    console.log("postMessage: " + postMessage);
-    console.log(newUseMade);
+    // console.log(newUseMade);
 
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
@@ -490,7 +507,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
             >
               NEXT
             </Button>
-          <Button
+            <Button
               className="eventmenu-submit-button"
               disabled={!createButtonChecker() || loading == "loading"}
               type={"submit"}
