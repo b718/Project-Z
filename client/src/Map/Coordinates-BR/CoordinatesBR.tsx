@@ -85,11 +85,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
     UserMade.setUserMade(userMade);
   }, [userMade]);
 
-  useEffect(() => {
-    map.panTo(tempLat);
-    map.flyTo(tempLat, 16);
-  }, [tempLat]);
-
   var greenIcon = L.icon({
     iconUrl: GreenIcon,
     shadowUrl: ShadowIcon,
@@ -103,8 +98,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   return (
     <MapContext.Provider value={{ userMade, setUserMade }}>
       <>
-        {/* <div className="coordinatesbr-text-location">Click on Map!</div> */}
-
         <Marker
           position={[49.2606, -123.246]}
           icon={greenIcon}

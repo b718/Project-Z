@@ -32,9 +32,9 @@ const SideBarMover = () => {
         // console.log(marker[1]);
         marker[1].current.openPopup(marker[0]);
       }
-      map.panTo(sideBarMoveContext.sideBarMoveLocation);
-      map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
     });
+    map.panTo(sideBarMoveContext.sideBarMoveLocation);
+    map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
   };
   useEffect(() => {
     //time it out and then go back 1 zoom level.

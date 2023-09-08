@@ -300,12 +300,12 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     }
   }, [mouseIn]);
 
-  useEffect(() => {
-    console.log("start time");
-    console.log(startTime);
-    console.log("end time");
-    console.log(endTime);
-  }, [startTime, endTime]);
+  // useEffect(() => {
+  //   console.log("start time");
+  //   console.log(startTime);
+  //   console.log("end time");
+  //   console.log(endTime);
+  // }, [startTime, endTime]);
 
   return (
     <>

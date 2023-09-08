@@ -57,10 +57,11 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   let latlng = event.latlong as L.LatLngExpression;
 
   useEffect(() => {
-    markerArray.setMarkerArray(() => {
-      return [...markerArray.markerArray, [latlng, markerRef]];
-    });
-  }, [markerRef]);
+    markerArray.setMarkerArray(() => [
+      ...markerArray.markerArray,
+      [latlng, markerRef],
+    ]);
+  }, []);
 
   return (
     <div>
