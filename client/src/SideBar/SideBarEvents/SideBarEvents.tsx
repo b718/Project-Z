@@ -3,6 +3,7 @@ import "./SideBarEvents.css";
 import { MapContext } from "../../Map/Coordinates-BR/CoordinatesBR";
 import { Button, Center, Flex, Image, Text } from "@mantine/core";
 import {
+  ApiContext,
   CheckBoxContext,
   LocateMeContext,
   LocateMePosContext,
@@ -20,6 +21,7 @@ const SideBarEvents = () => {
   const sideBarView = useContext(SideBarContext);
   const checkBoxArray = useContext(CheckBoxContext);
   const moverContext = useContext(MoverContext);
+  const apiContext = useContext(ApiContext);
 
   const calculateKM = (
     lat1: number,
@@ -76,34 +78,40 @@ const SideBarEvents = () => {
         align={"center"}
         className="side-bar-events-main-flex-vertical"
       >
-        {userMadeContext.userMade
-          .filter((pin) => {
-            return checkBoxArray.checkBox.includes(pin.tags[0]);
-          })
-          .map((pin) => {
-            const PinLatLng: Array<number> = pin.lat as Array<number>;
-            const PersonLatLng: Array<number> =
-              locateMePos.locateMePos as Array<number>;
-            return (
-              <Flex
-                direction={"row"}
-                className="side-bar-events-main-flex"
-                gap={"md"}
-                onClick={() => {
-                  sideBarMoveContext.setSideBarMoveLocation(pin.lat);
-                  moverContext.setCurrentCount(moverContext.currentCount + 1);
-                }}
-              >
+        {
+          // userMadeContext.userMade
+
+          apiContext.useMadeApi
+            .filter((pin) => {
+              return checkBoxArray.checkBox.includes(pin.tags[0]);
+            })
+            .map((pin) => {
+              // const PinLatLng: Array<number> = pin.lat as Array<number>;
+              // const PersonLatLng: Array<number> =
+              //   locateMePos.locateMePos as Array<number>;
+
+              const latlng = pin.latlong as L.LatLngExpression;
+              return (
                 <Flex
-                  direction={"column"}
-                  className="side-bar-events-pin-color"
-                  align={"center"}
-                  justify={"center"}
+                  direction={"row"}
+                  className="side-bar-events-main-flex"
+                  gap={"md"}
+                  onClick={() => {
+                    console.log("latong" + pin.latlong);
+                    sideBarMoveContext.setSideBarMoveLocation(latlng);
+                    moverContext.setCurrentCount(moverContext.currentCount + 1);
+                  }}
                 >
-                  <Center>
-                    <Image src={pin.icon.options.iconUrl} width={30} />
-                  </Center>
-                  {/* <Text className="side-bar-events-km-text side-bar-events-text-font">
+                  <Flex
+                    direction={"column"}
+                    className="side-bar-events-pin-color"
+                    align={"center"}
+                    justify={"center"}
+                  >
+                    <Center>
+                      <Image src={pin.icon.iconUrl} width={30} />
+                    </Center>
+                    {/* <Text className="side-bar-events-km-text side-bar-events-text-font">
                     event: {pin.tags}
                   </Text>
                   <Text className="side-bar-events-km-text side-bar-events-text-font">
@@ -115,27 +123,28 @@ const SideBarEvents = () => {
                     )}
                     km away!
                   </Text> */}
-                </Flex>
-                <Flex
-                  direction={"column"}
-                  className="side-bar-events-event-details"
-                >
-                  <Text className="side-bar-events-title">{pin.title} </Text>
+                  </Flex>
+                  <Flex
+                    direction={"column"}
+                    className="side-bar-events-event-details"
+                  >
+                    <Text className="side-bar-events-title">{pin.title} </Text>
 
-                  <Text className="side-bar-events-time-to">
-                    {pin.startTime} to {pin.endTime}
-                  </Text>
-                  {/* <Text className="side-bar-events-time-to">
+                    {/* <Text className="side-bar-events-time-to">
+                      {pin.startTime} to {pin.endTime}
+                    </Text> */}
+                    {/* <Text className="side-bar-events-time-to">
                     {pin.startDate} to {pin.endDate}
                   </Text> */}
-                  <Text className="side-bar-events-location">
-                    {pin.location}
-                  </Text>
-                  <Text className="side-bar-events-tags">{pin.host}</Text>
+                    <Text className="side-bar-events-location">
+                      {pin.location}
+                    </Text>
+                    <Text className="side-bar-events-tags">{pin.host}</Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            );
-          })}
+              );
+            })
+        }
       </Flex>
     </>
   );

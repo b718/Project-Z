@@ -14,6 +14,7 @@ import GreenIcon from "../../Images/leaf-green.png";
 import ShadowIcon from "../../Images/leaf-shadow.png";
 
 import {
+  ApiContext,
   CheckBoxContext,
   FilterContext,
   FilterTextContext,
@@ -56,11 +57,10 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const map = useMap();
   const [tempLat, setTempLat] = useState<L.LatLngExpression>([0, 0]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
-
   const checkBoxArray = useContext(CheckBoxContext);
   const sideBarContext = useContext(SideBarContext);
   const UserMade = useContext(UserMadeContext);
-
+  const ApiMade = useContext(ApiContext);
   useEffect(() => {
     if (sideBarContext.view) {
       map.on("click", (e) => {
@@ -70,30 +70,13 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   }, [sideBarContext.view]);
 
   useEffect(() => {
-    //https://pinnit-backend.onrender.com/events
-    // [
-    //   {
-    //     "_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    //     "title": "string",
-    //     "description": "string",
-    //     "reference_link": "string",
-    //     "host": "string",
-    //     "latitude": 0,
-    //     "longitude": 0,
-    //     "tags": [
-    //       "string"
-    //     ],
-    //     "start_datetime": "2023-09-04T11:36:39.454Z",
-    //     "end_datetime": "2023-09-04T11:36:39.454Z"
-    //   }
-    // ]
     async function fetchEvents() {
       const response = await fetch(
         "https://pinnit-backend.onrender.com/events"
       );
       const currentProducts = await response.json();
       console.log(currentProducts);
-      UserMade.setUserMade(currentProducts);
+      ApiMade.setUserMadeApi(currentProducts);
     }
     fetchEvents();
   }, []);
@@ -149,14 +132,17 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
           <div></div>
         )}
 
-        {userMade
-          .filter((event: any) => {
-            return checkBoxArray.checkBox.includes(event.tags[0]);
-          })
-          .map((event: any, index: number) => {
-            console.log(event);
-            return <MarkerCreation event={event} index={index} />;
-          })}
+        {
+          // userMade
+          ApiMade.useMadeApi
+            .filter((event: any) => {
+              return checkBoxArray.checkBox.includes(event.tags[0]);
+            })
+            .map((event: any, index: number) => {
+              // console.log(event);
+              return <MarkerCreation event={event} index={index} />;
+            })
+        }
       </>
     </MapContext.Provider>
   );

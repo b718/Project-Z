@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import {
+  ApiContext,
   MarkerCreationContext,
   MoverContext,
   SideBarMoveContext,
@@ -17,16 +18,23 @@ const SideBarMover = () => {
   const sideBarMoveContext = useContext(SideBarMoveContext);
   const markerArray = useContext(MarkerCreationContext);
   const moverCount = useContext(MoverContext);
+  const apiMade = useContext(ApiContext);
 
   const mover = () => {
+    console.log("array");
+    console.log(markerArray.markerArray);
     markerArray.markerArray.forEach((marker: any) => {
-      console.log(marker[0], sideBarMoveContext.sideBarMoveLocation);
-      if (marker[0] == sideBarMoveContext.sideBarMoveLocation) {
+      // console.log(marker[0], sideBarMoveContext.sideBarMoveLocation);
+      // console.log(marker[1]);
+      let latlngexpression = sideBarMoveContext.sideBarMoveLocation;
+      let array = latlngexpression as Array<number>;
+      if (marker[0][0] == array[0] && marker[0][1] == array[1]) {
+        // console.log(marker[1]);
         marker[1].current.openPopup(marker[0]);
       }
+      map.panTo(sideBarMoveContext.sideBarMoveLocation);
+      map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
     });
-    map.panTo(sideBarMoveContext.sideBarMoveLocation);
-    map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
   };
   useEffect(() => {
     //time it out and then go back 1 zoom level.

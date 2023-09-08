@@ -19,7 +19,6 @@ const GeoLocation = () => {
   useEffect(() => {
     if (locateMe.locateMe) {
       map.locate().on("locationfound", function (e) {
-        console.log(e.latlng);
         setPosition(e.latlng);
         locateMePos.setLocateMePos([e.latlng.lat, e.latlng.lng]);
         map.flyTo(e.latlng, map.getZoom());

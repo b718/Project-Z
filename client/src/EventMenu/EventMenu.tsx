@@ -12,7 +12,7 @@ import L, { Point, icon } from "leaflet";
 import React, { useContext, useEffect, useState } from "react";
 import { useMap, Marker, Popup } from "react-leaflet";
 import "./EventMenu.css";
-import { IconTextContext, SideBarContext } from "../Map/MapLeaflet";
+import { ApiContext, IconTextContext, SideBarContext } from "../Map/MapLeaflet";
 import { MapContext } from "../Map/Coordinates-BR/CoordinatesBR";
 import otherMarker from "../Images/pin-other-new.png";
 import careerMarker from "../Images/pin-career-new.png";
@@ -45,12 +45,32 @@ interface eventInterface {
   tags: string[];
   icon: L.Icon;
 }
+
+interface eventInterfaceApi {
+  latlong: number[];
+  title: string;
+  description: string;
+  location: string;
+  start_datetime: string;
+  end_datetime: string;
+  timezone: string;
+  tags: string[];
+  host: string;
+  reference_link: string;
+  icon: {
+    iconUrl: string;
+    iconSize: number[];
+  };
+}
+
 const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   icon,
   lat,
 }) => {
   const map = useMap();
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
+  const [userApiMade, setUserApiMade] = useState<eventInterfaceApi[]>([]);
+
   const [locationState, setLocationState] = useState<string>("");
   const [titleState, setTitleState] = useState<string>("");
   const [descState, setDescState] = useState<string>("");
@@ -75,6 +95,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   // const [userIcon, setUsericon] = useState<L.Icon>();
   const currentView = useContext(SideBarContext);
   const coordinatesMap = useContext(MapContext);
+  const ApiMade = useContext(ApiContext);
 
   let image = otherMarker;
   let customIcon = new L.Icon({
@@ -193,7 +214,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     const apiLat = lat as Array<number>;
     console.log(lat, apiLat);
-    let userMadeObject = {
+
+    let apiObject = {
       title: titleState,
       description: descState,
       location: locationState,
@@ -204,24 +226,11 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       end_datetime: convertToDateAPI(startDate, endTime),
       timezone: "-07:00",
       host: host,
+      icon: {
+        iconUrl: customIcon.options.iconUrl,
+        iconSize: [20, 25],
+      },
     };
-
-    // {
-    //   "title": "string",
-    //   "description": "string",
-    //   "location": "string",
-    //   "reference_link": "string",
-    //   "latlong": [
-    //     null,
-    //     null
-    //   ],
-    //   "tags": [],
-    //   "start_datetime": "string",
-    //   "end_datetime": "string",
-    //   "timezone": "-08:00",
-    //   "host": "string"
-    // }
-
     setLoading("loading");
     const postMessage = await fetch(
       "https://pinnit-backend.onrender.com/events/",
@@ -242,6 +251,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
           end_datetime: convertToDateAPI(startDate, endTime),
           timezone: "-07:00",
           host: host,
+          icon: {
+            iconUrl: customIcon.options.iconUrl,
+            iconSize: [20, 25],
+          },
         }),
       }
     ).then((response) => {
@@ -249,11 +262,13 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       console.log(response.json());
     });
 
-    // console.log(newUseMade);
+    // console.log(newUseMade);s
 
     setUserMade((userMade) => [...userMade, newUseMade]);
     coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
 
+    setUserApiMade((apiMade) => [...apiMade, apiObject]);
+    ApiMade.setUserMadeApi(() => [...ApiMade.useMadeApi, apiObject]);
     sentBlank();
   };
 

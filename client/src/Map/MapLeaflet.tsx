@@ -155,6 +155,31 @@ export const MoverContext = createContext<moverInterface>({
   setCurrentCount: () => {},
 });
 
+interface eventInterfaceApi {
+  latlong: number[];
+  title: string;
+  description: string;
+  location: string;
+  start_datetime: string;
+  end_datetime: string;
+  timezone: string;
+  tags: string[];
+  host: string;
+  icon: {
+    iconUrl: string;
+    iconSize: number[];
+  };
+}
+
+interface apiContextInterface {
+  useMadeApi: eventInterfaceApi[];
+  setUserMadeApi: Function;
+}
+export const ApiContext = createContext<apiContextInterface>({
+  useMadeApi: [],
+  setUserMadeApi: () => {},
+});
+
 const MapLeaflet = () => {
   const [view, setView] = useState<boolean>(false);
   const [filter, setFilter] = useState(false);
@@ -172,10 +197,8 @@ const MapLeaflet = () => {
     "other",
     "social",
   ]);
+  const [useMadeApi, setUserMadeApi] = useState<eventInterfaceApi[]>([]);
   const [markerArray, setMarkerArray] = useState<markerArrayInterface[]>([]);
-  // useEffect(() => {
-  //   console.log(markerArray);
-  // }, [markerArray]);
   const [currentCount, setCurrentCount] = useState(0);
   let image = otherMarker;
   const customIcon = new L.Icon({
@@ -193,65 +216,69 @@ const MapLeaflet = () => {
 
   return (
     <>
-      <MoverContext.Provider value={{ currentCount, setCurrentCount }}>
-        <MarkerCreationContext.Provider value={{ markerArray, setMarkerArray }}>
-          <SideBarMoveContext.Provider
-            value={{ sideBarMoveLocation, setSideBarMoveLocation }}
+      <ApiContext.Provider value={{ useMadeApi, setUserMadeApi }}>
+        <MoverContext.Provider value={{ currentCount, setCurrentCount }}>
+          <MarkerCreationContext.Provider
+            value={{ markerArray, setMarkerArray }}
           >
-            <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
-              <UserMadeContext.Provider value={{ userMade, setUserMade }}>
-                <LocateMePosContext.Provider
-                  value={{ locateMePos, setLocateMePos }}
-                >
-                  <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
-                    <FilterTextContext.Provider
-                      value={{ filterText, setFilterText }}
-                    >
-                      <FilterContext.Provider value={{ filter, setFilter }}>
-                        <SideBarContext.Provider value={{ view, setView }}>
-                          <SideBar />
+            <SideBarMoveContext.Provider
+              value={{ sideBarMoveLocation, setSideBarMoveLocation }}
+            >
+              <CheckBoxContext.Provider value={{ checkBox, setCheckBox }}>
+                <UserMadeContext.Provider value={{ userMade, setUserMade }}>
+                  <LocateMePosContext.Provider
+                    value={{ locateMePos, setLocateMePos }}
+                  >
+                    <LocateMeContext.Provider value={{ locateMe, setLocateMe }}>
+                      <FilterTextContext.Provider
+                        value={{ filterText, setFilterText }}
+                      >
+                        <FilterContext.Provider value={{ filter, setFilter }}>
+                          <SideBarContext.Provider value={{ view, setView }}>
+                            <SideBar />
 
-                          <div className="map-flex-center">
-                            <MapContainer
-                              center={[49.2606, -123.246]}
-                              zoom={16}
-                              scrollWheelZoom={true}
-                              className="map-main-container"
-                            >
-                              <TileLayer
-                                // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                              />
-
-                              <MarkerClusterGroup
-                                chunkedLoading
-                                iconCreateFunction={createClusterCustomIcon}
+                            <div className="map-flex-center">
+                              <MapContainer
+                                center={[49.2606, -123.246]}
+                                zoom={16}
+                                scrollWheelZoom={true}
+                                className="map-main-container"
                               >
-                                {/* <Coordinates icon={customIcon} /> */}
-                                <CoordinatesBR icon={customIcon} />
-                              </MarkerClusterGroup>
+                                <TileLayer
+                                  // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
 
-                              {/* <EventMenu icon={customIcon} /> */}
-                              <div className="map-components-div">
-                                <SideBarMover />
-                                <LegendBL />
-                                <Filter />
-                                <GeoLocation />
-                                <LocateMeMapComponent />
-                                <FilterMapComponent />
-                              </div>
-                            </MapContainer>
-                          </div>
-                        </SideBarContext.Provider>
-                      </FilterContext.Provider>
-                    </FilterTextContext.Provider>
-                  </LocateMeContext.Provider>
-                </LocateMePosContext.Provider>
-              </UserMadeContext.Provider>
-            </CheckBoxContext.Provider>
-          </SideBarMoveContext.Provider>
-        </MarkerCreationContext.Provider>
-      </MoverContext.Provider>
+                                <MarkerClusterGroup
+                                  chunkedLoading
+                                  iconCreateFunction={createClusterCustomIcon}
+                                >
+                                  {/* <Coordinates icon={customIcon} /> */}
+                                  <CoordinatesBR icon={customIcon} />
+                                </MarkerClusterGroup>
+
+                                {/* <EventMenu icon={customIcon} /> */}
+                                <div className="map-components-div">
+                                  <SideBarMover />
+                                  <LegendBL />
+                                  <Filter />
+                                  <GeoLocation />
+                                  <LocateMeMapComponent />
+                                  <FilterMapComponent />
+                                </div>
+                              </MapContainer>
+                            </div>
+                          </SideBarContext.Provider>
+                        </FilterContext.Provider>
+                      </FilterTextContext.Provider>
+                    </LocateMeContext.Provider>
+                  </LocateMePosContext.Provider>
+                </UserMadeContext.Provider>
+              </CheckBoxContext.Provider>
+            </SideBarMoveContext.Provider>
+          </MarkerCreationContext.Provider>
+        </MoverContext.Provider>
+      </ApiContext.Provider>
     </>
   );
 };

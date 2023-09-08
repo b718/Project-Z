@@ -1,8 +1,8 @@
 import { Flex, Text } from "@mantine/core";
-import L from "leaflet";
+import L, { PointExpression } from "leaflet";
 import React, { useContext, useEffect, useRef } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import { MarkerCreationContext } from "../MapLeaflet";
+import { ApiContext, MarkerCreationContext } from "../MapLeaflet";
 
 interface eventInterface {
   lat: L.LatLngExpression;
@@ -19,8 +19,25 @@ interface eventInterface {
   icon: L.Icon;
 }
 
+interface eventInterfaceApi {
+  latlong: number[];
+  title: string;
+  description: string;
+  location: string;
+  start_datetime: string;
+  end_datetime: string;
+  timezone: string;
+  tags: string[];
+  host: string;
+  reference_link: string;
+  icon: {
+    iconUrl: string;
+    iconSize: number[];
+  };
+}
+
 interface markerCreationInterface {
-  event: eventInterface;
+  event: eventInterfaceApi;
   index: number;
 }
 const MarkerCreation: React.FC<markerCreationInterface> = ({
@@ -30,10 +47,18 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   const map = useMap();
   const markerRef = useRef<any>();
   const markerArray = useContext(MarkerCreationContext);
+  const apiContext = useContext(ApiContext);
+
+  let customIcon = new L.Icon({
+    iconUrl: event.icon.iconUrl,
+    iconSize: event.icon.iconSize as PointExpression,
+  });
+
+  let latlng = event.latlong as L.LatLngExpression;
 
   useEffect(() => {
     markerArray.setMarkerArray(() => {
-      return [...markerArray.markerArray, [event.lat, markerRef]];
+      return [...markerArray.markerArray, [latlng, markerRef]];
     });
   }, [markerRef]);
 
@@ -42,8 +67,8 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
       {" "}
       <Marker
         key={index}
-        position={event.lat}
-        icon={event.icon}
+        position={event.latlong as L.LatLngExpression}
+        icon={customIcon}
         ref={markerRef}
         eventHandlers={{
           click(e) {
@@ -62,16 +87,16 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
           >
             <Text className="coordinates-br-title">{event.title}</Text>
             <Text className="coordinates-br-location">{event.location}</Text>
-            <Text className="coordinates-br-text">{event.desc}</Text>
+            <Text className="coordinates-br-text">{event.description}</Text>
 
-            {event.link.length > 0 ? (
+            {event.reference_link.length > 0 ? (
               <a
                 className="coordinates-br-a"
                 target="_blank"
-                href={`${event.link}`}
+                href={`${event.reference_link}`}
                 // Link
               >
-                {event.link}
+                {event.reference_link}
               </a>
             ) : (
               <Text className="coordinates-br-a">No Link</Text>
