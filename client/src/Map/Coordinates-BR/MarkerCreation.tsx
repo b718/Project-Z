@@ -61,7 +61,8 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
       ...markerArray.markerArray,
       [latlng, markerRef],
     ]);
-  }, []);
+    console.log(markerArray.markerArray);
+  }, [apiContext.useMadeApi]);
 
   return (
     <div>
