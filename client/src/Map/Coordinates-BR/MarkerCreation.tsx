@@ -2,7 +2,7 @@ import { Flex, Text } from "@mantine/core";
 import L, { PointExpression } from "leaflet";
 import React, { useContext, useEffect, useRef } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import { ApiContext, MarkerCreationContext } from "../MapLeaflet";
+import { MarkerCreationContext } from "../MapLeaflet";
 
 interface eventInterface {
   lat: L.LatLngExpression;
@@ -47,7 +47,6 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   const map = useMap();
   const markerRef = useRef<any>();
   const markerArray = useContext(MarkerCreationContext);
-  const apiContext = useContext(ApiContext);
 
   let customIcon = new L.Icon({
     iconUrl: event.icon.iconUrl,
@@ -57,12 +56,9 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   let latlng = event.latlong as L.LatLngExpression;
 
   useEffect(() => {
-    markerArray.setMarkerArray(() => [
-      ...markerArray.markerArray,
-      [latlng, markerRef],
-    ]);
-    console.log(markerArray.markerArray);
-  }, [apiContext.useMadeApi]);
+    markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
+    // console.log(markerArray.markerArray);
+  }, []);
 
   return (
     <div>

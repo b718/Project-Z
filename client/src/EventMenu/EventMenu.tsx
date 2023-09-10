@@ -264,8 +264,8 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     // console.log(newUseMade);s
 
-    setUserMade((userMade) => [...userMade, newUseMade]);
-    coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
+    // setUserMade((userMade) => [...userMade, newUseMade]);
+    // coordinatesMap.setUserMade(() => [...coordinatesMap.userMade, newUseMade]);
 
     setUserApiMade((apiMade) => [...apiMade, apiObject]);
     ApiMade.setUserMadeApi(() => [...ApiMade.useMadeApi, apiObject]);

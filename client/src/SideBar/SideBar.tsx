@@ -42,7 +42,7 @@ const SideBar = () => {
       >
         <div className="side-bar-left-inner">
           <Flex direction={"column"} justify="center" align="center">
-            <Image src={LogoNoBg} width={150} fit={"contain"} />
+            <Image src={LogoNoBg} width={180} fit={"contain"} />
             <Clock
               format={"dddd, MMMM Do"}
               ticking={true}

@@ -55,7 +55,9 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   icon,
 }) => {
   const map = useMap();
-  const [tempLat, setTempLat] = useState<L.LatLngExpression>([0, 0]);
+  const [tempLat, setTempLat] = useState<L.LatLngExpression>([
+    49.2606, -123.246,
+  ]);
   const [userMade, setUserMade] = useState<eventInterface[]>([]);
   const checkBoxArray = useContext(CheckBoxContext);
   const sideBarContext = useContext(SideBarContext);
@@ -70,12 +72,17 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   }, [sideBarContext.view]);
 
   useEffect(() => {
+    map.panTo(tempLat);
+    map.flyTo(tempLat, 16);
+  }, [tempLat]);
+
+  useEffect(() => {
     async function fetchEvents() {
       const response = await fetch(
         "https://pinnit-backend.onrender.com/events"
       );
       const currentProducts = await response.json();
-      console.log(currentProducts);
+      // console.log(currentProducts);
       ApiMade.setUserMadeApi(currentProducts);
     }
     fetchEvents();
