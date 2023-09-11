@@ -100,7 +100,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   let image = otherMarker;
   let customIcon = new L.Icon({
     iconUrl: image,
-    iconSize: [20, 25],
+    iconSize: [25, 30],
   });
 
   const sentBlank = () => {

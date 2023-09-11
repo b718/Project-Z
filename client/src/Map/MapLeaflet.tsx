@@ -203,7 +203,7 @@ const MapLeaflet = () => {
   let image = otherMarker;
   const customIcon = new L.Icon({
     iconUrl: image,
-    iconSize: [20, 25],
+    iconSize: [25, 30],
   });
 
   const createClusterCustomIcon = function (cluster: MarkerCluster) {
