@@ -164,24 +164,29 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     const convertToDateAPI = (date: any, time: any) => {
       //YYYY-MM-DDTHH:MM:SS
-      console.log(time, date);
+      // console.log("time");
+      // console.log(time);
+
+      // console.log("date");
+      // console.log(date);
+
       if (time === "" || time === null || time === undefined) {
         return "1999-09-01T22:08:00";
       }
 
-      let month = date.$M;
+      let month = date.$M + 1;
       if (date.$M.toString().length == 1) {
-        month = `0${date.$M}`;
+        month = `0${date.$M + 1}`;
       }
 
-      let day = date.$;
-      if (date.$M.toString().length == 1) {
-        day = `0${time.$M}`;
+      let day = date.$D;
+      if (date.$D.toString().length == 1) {
+        day = `0${time.$D}`;
       }
 
-      let minute = time.$M;
-      if (time.$M.toString().length == 1) {
-        minute = `0${time.$M}`;
+      let minute = time.$m;
+      if (time.$m.toString().length == 1) {
+        minute = `0${time.$m}`;
       }
 
       let hour = time.$H;
@@ -189,7 +194,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
         hour = `0${time.$H}`;
       }
 
-      console.log(`${date.$y}-${month}-${day}T${hour}:${minute}:00`);
+      // console.log(`${date.$y}-${month}-${day}T${hour}:${minute}:00`);
       return `${date.$y}-${month}-${day}T${hour}:${minute}:00`;
     };
 
