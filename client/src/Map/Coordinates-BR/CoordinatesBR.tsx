@@ -82,7 +82,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
         "https://pinnit-backend.onrender.com/events"
       );
       const currentProducts = await response.json();
-      // console.log(currentProducts);
+      console.log(currentProducts);
       ApiMade.setUserMadeApi(currentProducts);
     }
     fetchEvents();
