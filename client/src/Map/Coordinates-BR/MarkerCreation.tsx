@@ -78,7 +78,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
         eventHandlers={{
           click(e) {
             map.panTo(e.target.getLatLng());
-            map.flyTo(e.target.getLatLng(), 18);
+            // map.flyTo(e.target.getLatLng(), 18);
           },
         }}
       >
