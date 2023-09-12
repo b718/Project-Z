@@ -53,6 +53,31 @@ const SideBarEvents = () => {
   //     console.log(userMadeContext.userMade);
   //   }, [userMadeContext, locateMePos]);
 
+  function convertTo12HourTime(dateTimeString: string): string {
+    if (dateTimeString == "1999-09-01T22:08:00") {
+      return "N/A";
+    }
+
+    const date = new Date(dateTimeString);
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return "Invalid date";
+    }
+
+    // Create options for formatting
+    const options: Intl.DateTimeFormatOptions = {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    // Format the date to 12-hour time
+    const formattedTime = date.toLocaleTimeString([], options);
+
+    return formattedTime;
+  }
+
   async function fetchEvents() {
     const response = await fetch("https://pinnit-backend.onrender.com/events");
     const currentProducts = await response.json();
@@ -154,9 +179,10 @@ const SideBarEvents = () => {
                   >
                     <Text className="side-bar-events-title">{pin.title} </Text>
 
-                    {/* <Text className="side-bar-events-time-to">
-                      {pin.startTime} to {pin.endTime}
-                    </Text> */}
+                    <Text className="side-bar-events-time-to">
+                      {convertTo12HourTime(pin.start_datetime)} to{" "}
+                      {convertTo12HourTime(pin.end_datetime)}
+                    </Text>
                     {/* <Text className="side-bar-events-time-to">
                     {pin.startDate} to {pin.endDate}
                   </Text> */}

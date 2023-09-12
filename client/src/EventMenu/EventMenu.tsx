@@ -77,7 +77,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
   const [linkState, setLinkState] = useState<string>("");
 
   const [startTime, setStartTime] = useState<string | null | undefined>("");
-  const [endTime, setEndTime] = useState<string | null | undefined>("");
+  const [endTime, setEndTime] = useState<string | null | undefined>(null);
 
   const [startDate, setStartDate] = useState<number | "" | null | undefined>(
     ""
@@ -164,8 +164,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     const convertToDateAPI = (date: any, time: any) => {
       //YYYY-MM-DDTHH:MM:SS
-      if (!time) {
-        return "YYYY-MM-DDTHH:MM:SS";
+      console.log(time, date);
+      if (time === "" || time === null || time === undefined) {
+        return "1999-09-01T22:08:00";
       }
 
       let month = date.$M;
@@ -199,22 +200,22 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       //Mon Sep 04 2023
     };
 
-    let newUseMade: eventInterface = {
-      lat: lat as L.LatLngExpression,
-      location: locationState,
-      desc: descState,
-      title: titleState,
-      link: linkState,
-      startTime: convertToTwelve(startTime),
-      endTime: convertToTwelve(endTime),
-      startDate: convertToDate(startDate),
-      endDate: "convertToDate(endDate)",
-      startDateAPI: convertToDateAPI(startDate, startTime),
-      endDateAPI: "convertToDateAPI(endDate, endTime)",
-      tags: [typeOfEvent],
-      host: host,
-      icon: customIcon,
-    };
+    // let newUseMade: eventInterface = {
+    //   lat: lat as L.LatLngExpression,
+    //   location: locationState,
+    //   desc: descState,
+    //   title: titleState,
+    //   link: linkState,
+    //   startTime: convertToTwelve(startTime),
+    //   endTime: convertToTwelve(endTime),
+    //   startDate: convertToDate(startDate),
+    //   endDate: "convertToDate(endDate)",
+    //   startDateAPI: convertToDateAPI(startDate, startTime),
+    //   endDateAPI: "convertToDateAPI(endDate, endTime)",
+    //   tags: [typeOfEvent],
+    //   host: host,
+    //   icon: customIcon,
+    // };
 
     const apiLat = lat as Array<number>;
     // console.log(lat, apiLat);
@@ -235,6 +236,9 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
         iconSize: [25, 30],
       },
     };
+
+    console.log("end time");
+    console.log(endTime);
 
     setLoading("loading");
     const postMessage = await fetch(
