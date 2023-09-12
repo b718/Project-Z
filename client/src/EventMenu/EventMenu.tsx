@@ -164,6 +164,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
 
     const convertToDateAPI = (date: any, time: any) => {
       //YYYY-MM-DDTHH:MM:SS
+      if (!time) {
+        return "YYYY-MM-DDTHH:MM:SS";
+      }
+
       let month = date.$M;
       if (date.$M.toString().length == 1) {
         month = `0${date.$M}`;
@@ -213,7 +217,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
     };
 
     const apiLat = lat as Array<number>;
-    console.log(lat, apiLat);
+    // console.log(lat, apiLat);
 
     let apiObject = {
       title: titleState,
@@ -228,9 +232,10 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       host: host,
       icon: {
         iconUrl: customIcon.options.iconUrl,
-        iconSize: [20, 25],
+        iconSize: [25, 30],
       },
     };
+
     setLoading("loading");
     const postMessage = await fetch(
       "https://pinnit-backend.onrender.com/events/",
@@ -253,7 +258,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
           host: host,
           icon: {
             iconUrl: customIcon.options.iconUrl,
-            iconSize: [20, 25],
+            iconSize: [25, 30],
           },
         }),
       }
@@ -381,9 +386,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   onChange={(newValue) => setStartTime(newValue)}
                 />
 
-                <Text className="event-menu-text-for-inputs">
-                  End Time <span className="event-menu-red-ast">*</span>
-                </Text>
+                <Text className="event-menu-text-for-inputs">End Time</Text>
                 <TimePicker
                   slotProps={{
                     textField: {
