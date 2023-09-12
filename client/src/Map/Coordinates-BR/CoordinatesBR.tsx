@@ -73,7 +73,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
   useEffect(() => {
     map.panTo(tempLat);
-    map.flyTo(tempLat, 16);
+    // map.flyTo(tempLat, 16);
   }, [tempLat]);
 
   useEffect(() => {
