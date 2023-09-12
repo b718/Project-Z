@@ -252,6 +252,7 @@ const MapLeaflet = () => {
                                 <MarkerClusterGroup
                                   chunkedLoading
                                   iconCreateFunction={createClusterCustomIcon}
+                                  removeOutsideVisibleBounds={false}
                                 >
                                   {/* <Coordinates icon={customIcon} /> */}
                                   <CoordinatesBR icon={customIcon} />
