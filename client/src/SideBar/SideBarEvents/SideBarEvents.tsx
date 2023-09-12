@@ -53,6 +53,13 @@ const SideBarEvents = () => {
   //     console.log(userMadeContext.userMade);
   //   }, [userMadeContext, locateMePos]);
 
+  async function fetchEvents() {
+    const response = await fetch("https://pinnit-backend.onrender.com/events");
+    const currentProducts = await response.json();
+    console.log(currentProducts);
+    apiContext.setUserMadeApi(currentProducts);
+  }
+
   return (
     <>
       <Text className="side-bar-events-main-title">Upcoming Events</Text>
@@ -72,6 +79,23 @@ const SideBarEvents = () => {
           Add: {sideBarView.view ? "On" : "Off"}
         </Text>
       </Flex>
+
+      <Flex
+        justify={"center"}
+        align={"center"}
+        gap={"lg"}
+        className="side-var-events-add-button-flex"
+      >
+        <Button
+          onClick={() => {
+            fetchEvents();
+          }}
+        ></Button>
+        <Text className="side-bar-events-button-text" fz={"xs"}>
+          Refresh
+        </Text>
+      </Flex>
+
       <Flex
         direction={"column"}
         justify={"center"}
