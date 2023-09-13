@@ -74,7 +74,6 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
         key={index}
         position={event.latlong as L.LatLngExpression}
         icon={customIcon}
-        ref={markerRef}
         eventHandlers={{
           click(e) {
             map.panTo(e.target.getLatLng());
@@ -83,7 +82,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
         }}
       >
         {" "}
-        <Popup offset={L.point(0, -20)}>
+        <Popup offset={L.point(0, -20)} ref={markerRef}>
           <Flex
             direction={"column"}
             justify={"center"}

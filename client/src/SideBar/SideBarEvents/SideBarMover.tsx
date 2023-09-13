@@ -24,19 +24,13 @@ const SideBarMover = () => {
     // console.log(markerArray.markerArray);
     // console.log(sideBarMoveContext.sideBarMoveLocation);
     markerArray.markerArray.forEach((marker: any) => {
-      // console.log(marker[0], sideBarMoveContext.sideBarMoveLocation);
-      // console.log(marker[1]);
       let latlngexpression = sideBarMoveContext.sideBarMoveLocation;
-      console.log(marker[1]);
       let array = latlngexpression as Array<number>;
       if (marker[0][0] == array[0] && marker[0][1] == array[1]) {
         // console.log(marker[1]);
-        // console.log("inside");
-        // console.log(marker[0]);
-        let lng = marker[0] as L.LatLng;
-        marker[1].current.openPopup(lng);
+        map.openPopup(marker[1].current);
         map.panTo(sideBarMoveContext.sideBarMoveLocation);
-        // map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
+        map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
       }
     });
   };

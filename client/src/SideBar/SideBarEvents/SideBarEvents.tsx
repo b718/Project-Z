@@ -146,7 +146,7 @@ const SideBarEvents = () => {
                   className="side-bar-events-main-flex"
                   gap={"md"}
                   onClick={() => {
-                    console.log("latong" + pin.latlong);
+                    // console.log("latong" + pin.latlong);
                     sideBarMoveContext.setSideBarMoveLocation(latlng);
                     moverContext.setCurrentCount(moverContext.currentCount + 1);
                   }}
