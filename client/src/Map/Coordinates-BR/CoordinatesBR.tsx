@@ -88,8 +88,8 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
       const currentProducts = await response.json();
       ApiMade.setUserMadeApi(currentProducts);
-      ApiMade.setUserMadeApi(currentProducts);
     }
+    fetchEvents();
     fetchEvents();
   }, []);
 
