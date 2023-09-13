@@ -206,6 +206,17 @@ const MapLeaflet = () => {
     iconSize: [25, 30],
   });
 
+  useEffect(() => {
+    async function fetchEvents() {
+      const response = await fetch(
+        "https://pinnit-backend.onrender.com/events"
+      );
+      const currentProducts = await response.json();
+      setUserMadeApi(currentProducts);
+    }
+    fetchEvents();
+  }, []);
+
   const createClusterCustomIcon = function (cluster: MarkerCluster) {
     return L.divIcon({
       html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,

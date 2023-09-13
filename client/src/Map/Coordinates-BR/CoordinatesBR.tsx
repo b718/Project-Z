@@ -76,19 +76,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
     // map.flyTo(tempLat, 16);
   }, [tempLat]);
 
-  useEffect(() => {
-    async function fetchEvents() {
-      const response = await fetch(
-        "https://pinnit-backend.onrender.com/events"
-      );
-      const currentProducts = await response.json();
-      console.log(currentProducts);
-      ApiMade.setUserMadeApi(currentProducts);
-    }
-    fetchEvents();
-    fetchEvents();
-  }, []);
-
   // useEffect(() => {
   //   UserMade.setUserMade(userMade);
   // }, [userMade]);
