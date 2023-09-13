@@ -59,7 +59,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   useEffect(() => {
     markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
     // console.log(markerArray.markerArray);
-  }, [markerRef]);
+  }, []);
 
   // useEffect(() => {
   //   L.DomEvent.disableClickPropagation(

@@ -81,7 +81,6 @@ const SideBarEvents = () => {
   async function fetchEvents() {
     const response = await fetch("https://pinnit-backend.onrender.com/events");
     const currentProducts = await response.json();
-    console.log(currentProducts);
     apiContext.setUserMadeApi(currentProducts);
   }
 

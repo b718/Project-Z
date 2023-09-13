@@ -86,11 +86,12 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
       ApiMade.setUserMadeApi(currentProducts);
     }
     fetchEvents();
+    fetchEvents();
   }, []);
 
-  useEffect(() => {
-    UserMade.setUserMade(userMade);
-  }, [userMade]);
+  // useEffect(() => {
+  //   UserMade.setUserMade(userMade);
+  // }, [userMade]);
 
   var greenIcon = L.icon({
     iconUrl: GreenIcon,
