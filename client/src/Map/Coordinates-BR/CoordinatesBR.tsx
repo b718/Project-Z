@@ -80,6 +80,19 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   //   UserMade.setUserMade(userMade);
   // }, [userMade]);
 
+  useEffect(() => {
+    async function fetchEvents() {
+      const response = await fetch(
+        "https://pinnit-backend.onrender.com/events"
+      );
+
+      const currentProducts = await response.json();
+      ApiMade.setUserMadeApi(currentProducts);
+      ApiMade.setUserMadeApi(currentProducts);
+    }
+    fetchEvents();
+  }, []);
+
   var greenIcon = L.icon({
     iconUrl: GreenIcon,
     shadowUrl: ShadowIcon,
