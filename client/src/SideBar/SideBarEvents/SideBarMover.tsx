@@ -21,7 +21,7 @@ const SideBarMover = () => {
 
   const mover = () => {
     // console.log("array");
-    // console.log(markerArray.markerArray);
+    console.log(markerArray.markerArray);
     // console.log(sideBarMoveContext.sideBarMoveLocation);
     markerArray.markerArray.forEach((marker: any) => {
       let latlngexpression = sideBarMoveContext.sideBarMoveLocation;
