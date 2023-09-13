@@ -47,7 +47,6 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   const map = useMap();
   const markerRef = useRef<any>();
   const markerArray = useContext(MarkerCreationContext);
-  const [mouseIn, setMouseIn] = useState<boolean>(false);
 
   let customIcon = new L.Icon({
     iconUrl: event.icon.iconUrl,
@@ -60,12 +59,6 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
     markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
     // console.log(markerArray.markerArray);
   }, []);
-
-  // useEffect(() => {
-  //   L.DomEvent.disableClickPropagation(
-  //     document.querySelector("marker-creation-marker")!
-  //   );
-  // }, []);
 
   return (
     <div>
