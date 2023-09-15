@@ -60,7 +60,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
     console.log(markerRef);
     markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
     // console.log(markerArray.markerArray);
-  }, []);
+  }, [markerRef]);
 
   return (
     <div>

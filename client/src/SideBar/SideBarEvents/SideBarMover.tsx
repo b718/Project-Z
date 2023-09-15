@@ -20,9 +20,6 @@ const SideBarMover = () => {
   const moverCount = useContext(MoverContext);
 
   const mover = () => {
-    // console.log("array");
-    console.log(markerArray.markerArray);
-    // console.log(sideBarMoveContext.sideBarMoveLocation);
     markerArray.markerArray.forEach((marker: any) => {
       let latlngexpression = sideBarMoveContext.sideBarMoveLocation;
       let array = latlngexpression as Array<number>;
