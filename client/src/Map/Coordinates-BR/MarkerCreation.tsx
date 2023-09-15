@@ -45,7 +45,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   index,
 }) => {
   const map = useMap();
-  const markerRef = useRef<any>(null);
+  const markerRef = useRef<L.Popup>(null);
   const markerArray = useContext(MarkerCreationContext);
 
   let customIcon = new L.Icon({
