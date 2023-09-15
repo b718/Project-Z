@@ -45,7 +45,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   index,
 }) => {
   const map = useMap();
-  const markerRef = useRef<any>();
+  const markerRef = useRef<any>(null);
   const markerArray = useContext(MarkerCreationContext);
 
   let customIcon = new L.Icon({
@@ -60,7 +60,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
     console.log(markerRef);
     markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
     // console.log(markerArray.markerArray);
-  }, [markerRef]);
+  }, []);
 
   return (
     <div>
