@@ -34,6 +34,8 @@ const SideBarMover = () => {
       }
     });
   };
+
+  //asdas
   useEffect(() => {
     //time it out and then go back 1 zoom level.
     // map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
