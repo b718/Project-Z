@@ -27,7 +27,7 @@ const SideBarMover = () => {
       console.log(marker[1]);
       if (marker[0][0] == array[0] && marker[0][1] == array[1]) {
         // console.log(marker[1]);
-        map.openPopup(popUp);
+        popUp.openOn(map);
         map.panTo(sideBarMoveContext.sideBarMoveLocation);
         map.flyTo(sideBarMoveContext.sideBarMoveLocation, 18);
       }
