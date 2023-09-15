@@ -91,6 +91,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
     }
 
     fetchEvents();
+    fetchEvents();
   }, []);
 
   var greenIcon = L.icon({
