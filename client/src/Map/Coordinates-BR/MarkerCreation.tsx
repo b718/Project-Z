@@ -56,8 +56,8 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   let latlng = event.latlong as L.LatLngExpression;
 
   useEffect(() => {
-    console.log(event.title);
-    console.log(markerRef);
+    // console.log(event.title);
+    // console.log(markerRef);
     markerArray.setMarkerArray((prev: any) => [...prev, [latlng, markerRef]]);
     // console.log(markerArray.markerArray);
   }, []);
@@ -73,6 +73,12 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
           click(e) {
             map.panTo(e.target.getLatLng());
             // map.flyTo(e.target.getLatLng(), 18);
+          },
+          mouseover(e) {
+            map.openPopup(markerRef.current!);
+          },
+          mouseout(e) {
+            map.closePopup(markerRef.current!);
           },
         }}
       >
