@@ -136,14 +136,10 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
 
         {
           // userMade
-          ApiMade.useMadeApi
-            .filter((event: any) => {
-              return checkBoxArray.checkBox.includes(event.tags[0]);
-            })
-            .map((event: any, index: number) => {
-              // console.log(event);
-              return <MarkerCreation event={event} index={index} />;
-            })
+          ApiMade.useMadeApi.map((event: any, index: number) => {
+            // console.log(ApiMade.useMadeApi.length);
+            return <MarkerCreation event={event} index={index} />;
+          })
         }
       </>
     </MapContext.Provider>

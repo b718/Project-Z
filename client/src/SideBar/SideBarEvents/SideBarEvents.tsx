@@ -133,7 +133,7 @@ const SideBarEvents = () => {
             .filter((pin) => {
               return checkBoxArray.checkBox.includes(pin.tags[0]);
             })
-            .map((pin) => {
+            .map((pin, index) => {
               // const PinLatLng: Array<number> = pin.lat as Array<number>;
               // const PersonLatLng: Array<number> =
               //   locateMePos.locateMePos as Array<number>;
@@ -141,6 +141,7 @@ const SideBarEvents = () => {
               const latlng = pin.latlong as L.LatLngExpression;
               return (
                 <Flex
+                  key={index}
                   direction={"row"}
                   className="side-bar-events-main-flex"
                   gap={"md"}

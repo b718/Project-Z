@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { Flex, Text } from "@mantine/core";
 import L, { PointExpression } from "leaflet";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import { MarkerCreationContext } from "../MapLeaflet";
+import { CheckBoxContext, MarkerCreationContext } from "../MapLeaflet";
 
 interface eventInterface {
   lat: L.LatLngExpression;
@@ -47,6 +48,7 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
   const map = useMap();
   const markerRef = useRef<L.Popup>(null);
   const markerArray = useContext(MarkerCreationContext);
+  const checkBoxArray = useContext(CheckBoxContext);
 
   let customIcon = new L.Icon({
     iconUrl: event.icon.iconUrl,
@@ -69,18 +71,21 @@ const MarkerCreation: React.FC<markerCreationInterface> = ({
         key={index}
         position={event.latlong as L.LatLngExpression}
         icon={customIcon}
-        eventHandlers={{
-          click(e) {
-            map.panTo(e.target.getLatLng());
-            // map.flyTo(e.target.getLatLng(), 18);
-          },
-          mouseover(e) {
-            map.openPopup(markerRef.current!);
-          },
-          mouseout(e) {
-            map.closePopup(markerRef.current!);
-          },
-        }}
+        eventHandlers={
+          {
+            // click(e) {
+            //   map.panTo(e.target.getLatLng());
+            //   // map.flyTo(e.target.getLatLng());
+            // },
+            // mouseover(e) {
+            //   // map.openPopup(markerRef.current!);
+            //   map.panTo(e.target.getLatLng());
+            // },
+            // mouseout(e) {
+            //   map.closePopup(markerRef.current!);
+            // },
+          }
+        }
       >
         {" "}
         <Popup offset={L.point(0, -20)} ref={markerRef}>
