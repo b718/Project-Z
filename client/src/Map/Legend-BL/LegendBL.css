@@ -13,7 +13,12 @@
   left: 10px;
   font-weight: 700;
   padding: 10px;
-  font-family: AugerMB;
+  font-family: "Roboto", sans-serif;
+}
+
+.legend-bl-text-ig {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
 }
 
 /* .legendbl-div-for-click b {
