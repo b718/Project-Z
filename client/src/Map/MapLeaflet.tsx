@@ -214,6 +214,21 @@ const MapLeaflet = () => {
     });
   };
 
+  useEffect(() => {
+    async function fetchEvents() {
+      const response = await fetch(
+        "https://pinnit-backend.onrender.com/events"
+      );
+
+      const currentProducts = await response.json();
+      // setMarkerArray([]);
+      setUserMadeApi(currentProducts);
+    }
+
+    fetchEvents();
+    fetchEvents();
+  }, []);
+
   return (
     <>
       <ApiContext.Provider value={{ useMadeApi, setUserMadeApi }}>

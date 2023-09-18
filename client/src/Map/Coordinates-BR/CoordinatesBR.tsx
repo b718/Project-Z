@@ -18,6 +18,7 @@ import {
   CheckBoxContext,
   FilterContext,
   FilterTextContext,
+  MarkerCreationContext,
   SideBarContext,
   UserMadeContext,
 } from "../MapLeaflet";
@@ -63,6 +64,8 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   const sideBarContext = useContext(SideBarContext);
   const UserMade = useContext(UserMadeContext);
   const ApiMade = useContext(ApiContext);
+  const markerArray = useContext(MarkerCreationContext);
+
   useEffect(() => {
     if (sideBarContext.view) {
       map.on("click", (e) => {
@@ -79,20 +82,6 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
   // useEffect(() => {
   //   UserMade.setUserMade(userMade);
   // }, [userMade]);
-
-  useEffect(() => {
-    async function fetchEvents() {
-      const response = await fetch(
-        "https://pinnit-backend.onrender.com/events"
-      );
-
-      const currentProducts = await response.json();
-      ApiMade.setUserMadeApi(currentProducts);
-    }
-
-    fetchEvents();
-    fetchEvents();
-  }, []);
 
   var greenIcon = L.icon({
     iconUrl: GreenIcon,
@@ -137,7 +126,7 @@ const CoordinatesBR: React.FunctionComponent<coordinatesBRInterface> = ({
         {
           // userMade
           ApiMade.useMadeApi.map((event: any, index: number) => {
-            // console.log(ApiMade.useMadeApi.length);
+            console.log(ApiMade.useMadeApi.length);
             return <MarkerCreation event={event} index={index} />;
           })
         }
