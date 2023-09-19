@@ -87,7 +87,7 @@ const SideBarEvents = () => {
   return (
     <>
       <Text className="side-bar-events-main-title">Upcoming Events</Text>
-      {/* <Flex
+      <Flex
         justify={"center"}
         align={"center"}
         gap={"md"}
@@ -118,7 +118,7 @@ const SideBarEvents = () => {
         <Text className="side-bar-events-button-text" fz={"xs"}>
           Refresh
         </Text>
-      </Flex> */}
+      </Flex>
 
       <Flex
         direction={"column"}
