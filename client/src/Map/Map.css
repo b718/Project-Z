@@ -33,3 +33,42 @@
   text-transform: capitalize;
   font-family: AugerMB;
 }
+/*Max-width is basically saying 500px, if youre in that this will happen*/
+@media all {
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (min-width: 200px) {
+    .map-main-container {
+      position: relative;
+      height: 100vh;
+      max-width: 100vw;
+      margin: 0 auto;
+      /* max-width: fit-content;
+      margin: 0 auto; */
+    }
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 700px) {
+    .map-main-container {
+      position: relative;
+      height: 100vh;
+      max-width: 80vw;
+      margin: 0 auto;
+      margin-left: 20vw;
+      /* max-width: fit-content;
+      margin: 0 auto; */
+    }
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+  }
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+  }
+}

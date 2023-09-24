@@ -11,6 +11,7 @@
   --other-color: #9220ed;
   --faculty-color: #3be71e;
 }
+
 .filter-main-input {
   position: absolute;
   z-index: 999;

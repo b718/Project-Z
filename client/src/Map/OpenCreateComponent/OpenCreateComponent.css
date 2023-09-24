@@ -1,0 +1,31 @@
+.mobile-open-map-component,
+.mobile-open-map-component-active {
+  position: absolute;
+  z-index: 999;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  font-size: 22px;
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  /* background-image: url("../../Images/locate_me_button_two.jpg");
+  background-size: contain, cover;
+  background-repeat: no-repeat; */
+  left: 0;
+  top: 160px;
+}
+
+.mobile-open-map-component-active {
+  background-color: #a9a7a7;
+}
+.mobile-open-map-component:hover,
+.mobile-open-map-component-active:hover {
+  background-color: #dcdada;
+}
