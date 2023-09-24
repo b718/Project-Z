@@ -31,7 +31,7 @@ const OpenCreateComponent = () => {
       }`}
       onClick={() => {
         mobileOpen.setMobileOpen(!mobileOpen.mobileOpen);
-        sideBarView.setView(!sideBarView.view);
+        sideBarView.setView(false);
       }}
       onMouseEnter={() => {
         setMouseIn(true);
