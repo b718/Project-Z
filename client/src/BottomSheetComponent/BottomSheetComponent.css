@@ -1,0 +1,61 @@
+@font-face {
+  font-family: AugerMB;
+  src: url("../../public/Fonts-Two/Auger\ Mono\ Webfont/augermono-bold.woff2");
+}
+
+.bottom-sheet-component {
+  position: absolute;
+  z-index: 999;
+  background-color: black;
+  margin-top: 64vh;
+  opacity: 0.8;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border-radius: 12px;
+  overflow-y: scroll;
+  max-height: 40vh;
+  color: white;
+}
+
+.bottom-sheet-component-events-main-flex-vertical {
+}
+
+.bottom-sheet-component-events-main-flex-vertical:last-child {
+  margin-bottom: 3rem;
+}
+
+.bottom-sheet-component-events-main-flex {
+  min-width: 91vw;
+  max-width: 91vw;
+  border: 1px solid gray;
+  border-radius: 12px;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  margin-top: 0.3rem;
+  cursor: pointer;
+}
+
+.bottom-sheet-component-events-pin-color {
+  min-width: 30vw;
+}
+
+.bottom-sheet-component-event-details {
+  min-width: 70vw;
+}
+
+.bottom-sheet-component-event-details {
+  min-width: 65vw;
+  max-width: 65vw;
+  word-wrap: break-word;
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+}
+
+.bottom-sheet-component-title {
+  line-height: normal;
+  font-size: 1rem;
+  max-width: 50vw;
+  font-family: "Roboto", sans-serif;
+}
+
+.bottom-sheet-component-events-main-flex:hover {
+  border: 1px solid #1267b2;
+}

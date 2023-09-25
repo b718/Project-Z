@@ -86,7 +86,7 @@ const MobileCreateMenu = () => {
             </Text>
           </Flex>
 
-          <Flex
+          {/* <Flex
             direction={"column"}
             justify={"center"}
             align={"center"}
@@ -143,7 +143,7 @@ const MobileCreateMenu = () => {
                   </Flex>
                 );
               })}
-          </Flex>
+          </Flex> */}
         </div>
       ) : (
         <div></div>

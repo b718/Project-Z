@@ -28,6 +28,7 @@ import FilterMapComponent from "./FilterMapComponent/FilterMapComponent";
 import OpenCreateComponent from "./OpenCreateComponent/OpenCreateComponent";
 import useWindowDimensions from "../Components/useWindowsDimensions";
 import MobileCreateMenu from "../MobileCreateMenu/MobileCreateMenu";
+import BottomSheetComponent from "../BottomSheetComponent/BottomSheetComponent";
 
 interface SideBarContext {
   view: boolean;
@@ -308,6 +309,12 @@ const MapLeaflet = () => {
                                       <OpenCreateComponent />
                                     )}
                                   </div>
+
+                                  {width > 700 ? (
+                                    <div></div>
+                                  ) : (
+                                    <BottomSheetComponent />
+                                  )}
                                 </MapContainer>
                               </div>
                             </SideBarContext.Provider>
