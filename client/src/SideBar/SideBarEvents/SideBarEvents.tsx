@@ -128,7 +128,6 @@ const SideBarEvents = () => {
       >
         {
           // userMadeContext.userMade
-
           apiContext.useMadeApi
             .filter((pin) => {
               return checkBoxArray.checkBox.includes(pin.tags[0]);
