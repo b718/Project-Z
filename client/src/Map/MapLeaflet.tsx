@@ -271,7 +271,7 @@ const MapLeaflet = () => {
                         >
                           <FilterContext.Provider value={{ filter, setFilter }}>
                             <SideBarContext.Provider value={{ view, setView }}>
-                              <SideBar />
+                              {width > 700 ? <SideBar /> : <div></div>}
 
                               <div className="map-flex-center">
                                 <MapContainer
