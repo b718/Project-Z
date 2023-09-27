@@ -65,7 +65,7 @@ const BottomSheetComponent = () => {
   return (
     <div>
       <div
-        className="bottom-sheet-component"
+        // className="bottom-sheet-component"
         onMouseEnter={() => {
           setMouseIn(true);
         }}

@@ -7,13 +7,13 @@
   position: absolute;
   z-index: 999;
   background-color: transparent;
-  margin-top: 64vh;
+  /* margin-top: 64vh;
   opacity: 0.8;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: 12px;
   overflow-y: scroll;
   max-height: 40svh;
-  color: white;
+  color: white; */
 }
 
 .bottom-sheet-component-events-main-flex-vertical {
