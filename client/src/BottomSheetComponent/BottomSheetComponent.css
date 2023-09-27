@@ -7,6 +7,8 @@
   position: absolute;
   z-index: 999;
   background-color: transparent;
+  overflow-y: scroll;
+
   /* margin-top: 64vh;
   opacity: 0.8;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -14,9 +16,6 @@
   overflow-y: scroll;
   max-height: 40svh;
   color: white; */
-}
-
-.bottom-sheet-component-events-main-flex-vertical {
 }
 
 .bottom-sheet-component-events-main-flex-vertical:last-child {
