@@ -65,13 +65,13 @@ const BottomSheetComponent = () => {
   return (
     <div>
       <div
-        className="bottom-sheet-component"
-        onMouseEnter={() => {
-          setMouseIn(true);
-        }}
-        onMouseLeave={() => {
-          setMouseIn(false);
-        }}
+      // className="bottom-sheet-component"
+      // onMouseEnter={() => {
+      //   setMouseIn(true);
+      // }}
+      // onMouseLeave={() => {
+      //   setMouseIn(false);
+      // }}
       >
         {/* <Flex
           direction={"column"}
