@@ -310,8 +310,8 @@ const MapLeaflet = () => {
                                     )}
                                   </div>
 
-                                  {width > 700 ? (
-                                    <div></div>
+                                  {width > 700 && useMadeApi.length > 0 ? (
+                                    <div style={{ display: "none" }}></div>
                                   ) : (
                                     <BottomSheetComponent />
                                   )}

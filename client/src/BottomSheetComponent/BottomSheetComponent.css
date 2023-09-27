@@ -38,12 +38,7 @@
 }
 
 .bottom-sheet-component-event-details {
-  min-width: 70vw;
-}
-
-.bottom-sheet-component-event-details {
-  min-width: 65vw;
-  max-width: 65vw;
+  max-width: fit-content;
   word-wrap: break-word;
   font-family: "Roboto", sans-serif;
   text-align: left;
@@ -58,4 +53,14 @@
 
 .bottom-sheet-component-events-main-flex:hover {
   border: 1px solid #1267b2;
+}
+
+.bottom-sheet-component-time-to,
+.bottom-sheet-component-location,
+.bottom-sheet-component-tags {
+  max-width: fit-content;
+}
+
+.react-modal-sheet-header {
+  height: 20px;
 }
