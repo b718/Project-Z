@@ -6,7 +6,7 @@
 .bottom-sheet-component {
   position: absolute;
   z-index: 999;
-  background-color: black;
+  background-color: transparent;
   margin-top: 64vh;
   opacity: 0.8;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
