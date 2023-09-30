@@ -138,7 +138,7 @@ const BottomSheetComponent = () => {
         >
           <Sheet.Container>
             <Sheet.Header />
-            <Sheet.Content>
+            <Sheet.Content style={{ paddingBottom: ref.current?.y }}>
               <Sheet.Scroller>
                 <Flex
                   direction={"column"}
