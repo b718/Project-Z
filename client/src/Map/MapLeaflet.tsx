@@ -187,7 +187,7 @@ export const ApiContext = createContext<apiContextInterface>({
 });
 
 interface mobileOpenEventMenu {
-  mobileOpen: Boolean;
+  mobileOpen: boolean;
   setMobileOpen: Function;
 }
 

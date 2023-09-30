@@ -3,6 +3,7 @@ import { useMap } from "react-leaflet";
 import {
   ApiContext,
   CheckBoxContext,
+  MobileOpenContext,
   MoverContext,
   SideBarMoveContext,
 } from "../Map/MapLeaflet";
@@ -10,6 +11,7 @@ import { Center, Flex, Image, Text } from "@mantine/core";
 import "./BottomSheetComponent.css";
 import L from "leaflet";
 import Sheet, { SheetRef } from "react-modal-sheet";
+import MobileCreateMenu from "../MobileCreateMenu/MobileCreateMenu";
 
 const BottomSheetComponent = () => {
   const apiContext = useContext(ApiContext);
@@ -20,6 +22,8 @@ const BottomSheetComponent = () => {
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const [isOpen, setOpen] = useState(true);
   const [opener, setOpener] = useState(false);
+  const mobileOpen = useContext(MobileOpenContext);
+
   const ref = useRef<SheetRef>();
 
   const querySelectorString =
@@ -190,7 +194,7 @@ const BottomSheetComponent = () => {
           </Flex>
         </BottomSheet> */}
         <Sheet
-          isOpen={isOpen}
+          isOpen={mobileOpen.mobileOpen}
           onClose={() => {}}
           snapPoints={[600, 400, 100, 1]}
           initialSnap={2}
