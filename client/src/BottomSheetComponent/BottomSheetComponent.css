@@ -19,7 +19,8 @@
 }
 
 .bottom-sheet-component-events-main-flex-vertical:last-child {
-  margin-bottom: 0rem;
+  /* margin-bottom: 0rem; */
+  padding-bottom: 1rem;
 }
 
 .bottom-sheet-component-events-main-flex {
