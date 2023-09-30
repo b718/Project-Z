@@ -11,8 +11,6 @@ import "./BottomSheetComponent.css";
 import L from "leaflet";
 import Sheet, { SheetRef } from "react-modal-sheet";
 
-// import BottomSheet from "@gorhom/bottom-sheet";
-
 const BottomSheetComponent = () => {
   const apiContext = useContext(ApiContext);
   const checkBoxArray = useContext(CheckBoxContext);
@@ -21,6 +19,7 @@ const BottomSheetComponent = () => {
   const map = useMap();
   const [mouseIn, setMouseIn] = useState<boolean>(false);
   const [isOpen, setOpen] = useState(true);
+  const [opener, setOpener] = useState(false);
   const ref = useRef<SheetRef>();
 
   const querySelectorString =
@@ -129,10 +128,70 @@ const BottomSheetComponent = () => {
               );
             })}
         </Flex> */}
+        {/* <button onClick={() => setOpener(true)}>Open</button>
+        <BottomSheet open={opener}>
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align={"center"}
+            className="bottom-sheet-component-events-main-flex-vertical"
+          >
+            {apiContext.useMadeApi
+              .filter((pin) => {
+                return checkBoxArray.checkBox.includes(pin.tags[0]);
+              })
+              .map((pin, index) => {
+                const latlng = pin.latlong as L.LatLngExpression;
+                return (
+                  <Flex
+                    key={index}
+                    direction={"row"}
+                    className="bottom-sheet-component-events-main-flex"
+                    gap={"md"}
+                    onClick={() => {
+                      sideBarMoveContext.setSideBarMoveLocation(latlng);
+                      moverContext.setCurrentCount(
+                        moverContext.currentCount + 1
+                      );
+                    }}
+                  >
+                    <Flex
+                      direction={"column"}
+                      className="bottom-sheet-component-events-pin-color"
+                      align={"center"}
+                      justify={"center"}
+                    >
+                      <Center>
+                        <Image src={pin.icon.iconUrl} width={30} />
+                      </Center>
+                    </Flex>
+                    <Flex
+                      direction={"column"}
+                      className="bottom-sheet-component-event-details"
+                    >
+                      <Text className="bottom-sheet-component-title">
+                        {pin.title}{" "}
+                      </Text>
+                      <Text className="bottom-sheet-component-time-to">
+                        {convertTo12HourTime(pin.start_datetime)} to{" "}
+                        {convertTo12HourTime(pin.end_datetime)}
+                      </Text>
+
+                      <Text className="bottom-sheet-component-location">
+                        {pin.location}
+                      </Text>
+                      <Text className="bottom-sheet-component-tags">
+                        {pin.host}
+                      </Text>
+                    </Flex>
+                  </Flex>
+                );
+              })}
+          </Flex>
+        </BottomSheet> */}
         <Sheet
           isOpen={isOpen}
           onClose={() => {}}
-          drag={true}
           snapPoints={[600, 400, 100, 1]}
           initialSnap={2}
         >
