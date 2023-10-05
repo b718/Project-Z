@@ -94,14 +94,14 @@ const SideBarEvents = () => {
         className="side-var-events-add-button-flex"
       >
         {" "}
-        <Button
+        {/* <Button
           onClick={() => {
             sideBarView.setView(!sideBarView.view);
           }}
         ></Button>
         <Text className="side-bar-events-button-text" fz={"xs"}>
           Add: {sideBarView.view ? "On" : "Off"}
-        </Text>
+        </Text> */}
       </Flex>
 
       <Flex
