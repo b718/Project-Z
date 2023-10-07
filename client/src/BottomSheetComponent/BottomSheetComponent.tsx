@@ -197,7 +197,7 @@ const BottomSheetComponent = () => {
           isOpen={mobileOpen.mobileOpen}
           onClose={() => {}}
           snapPoints={[600, 400, 100, 1]}
-          initialSnap={0}
+          initialSnap={2}
         >
           <Sheet.Container>
             <Sheet.Header />
