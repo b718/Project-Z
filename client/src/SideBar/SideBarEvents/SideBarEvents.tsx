@@ -103,7 +103,7 @@ const SideBarEvents = () => {
           Add: {sideBarView.view ? "On" : "Off"}
         </Text> */}
       </Flex>
-      {/* 
+
       <Flex
         justify={"center"}
         align={"center"}
@@ -118,7 +118,7 @@ const SideBarEvents = () => {
         <Text className="side-bar-events-button-text" fz={"xs"}>
           Refresh
         </Text>
-      </Flex> */}
+      </Flex>
 
       <Flex
         direction={"column"}
