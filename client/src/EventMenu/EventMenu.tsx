@@ -181,7 +181,7 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       }
 
       let day = date.$D;
-      if (day.toString.length == 1) {
+      if (day.toString().length == 1) {
         day = `0${time.$D}`;
       }
 
