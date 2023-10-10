@@ -170,17 +170,18 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
       // console.log("date");
       // console.log(date);
 
+      console.log(date, time);
       if (time === "" || time === null || time === undefined) {
         return "1999-09-01T22:08:00";
       }
 
       let month = date.$M + 1;
-      if (date.$M.toString().length == 1) {
+      if (month.toString().length == 1) {
         month = `0${date.$M + 1}`;
       }
 
       let day = date.$D;
-      if (date.$D.toString().length == 1) {
+      if (day.toString.length == 1) {
         day = `0${time.$D}`;
       }
 

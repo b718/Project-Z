@@ -54,11 +54,13 @@ const SideBarEvents = () => {
   //   }, [userMadeContext, locateMePos]);
 
   function convertTo12HourTime(dateTimeString: string): string {
+    console.log(dateTimeString);
     if (dateTimeString == "1999-09-01T22:08:00") {
       return "N/A";
     }
 
     const date = new Date(dateTimeString);
+    console.log(date);
 
     // Check if the date is valid
     if (isNaN(date.getTime())) {
@@ -74,6 +76,7 @@ const SideBarEvents = () => {
 
     // Format the date to 12-hour time
     const formattedTime = date.toLocaleTimeString([], options);
+    console.log(formattedTime);
 
     return formattedTime;
   }
@@ -94,14 +97,14 @@ const SideBarEvents = () => {
         className="side-var-events-add-button-flex"
       >
         {" "}
-        <Button
+        {/* <Button
           onClick={() => {
             sideBarView.setView(!sideBarView.view);
           }}
         ></Button>
         <Text className="side-bar-events-button-text" fz={"xs"}>
           Add: {sideBarView.view ? "On" : "Off"}
-        </Text>
+        </Text> */}
       </Flex>
 
       {/* <Flex
