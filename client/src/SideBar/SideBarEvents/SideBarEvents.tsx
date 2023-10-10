@@ -104,7 +104,7 @@ const SideBarEvents = () => {
         </Text> */}
       </Flex>
 
-      <Flex
+      {/* <Flex
         justify={"center"}
         align={"center"}
         gap={"lg"}
@@ -118,7 +118,7 @@ const SideBarEvents = () => {
         <Text className="side-bar-events-button-text" fz={"xs"}>
           Refresh
         </Text>
-      </Flex>
+      </Flex> */}
 
       <Flex
         direction={"column"}

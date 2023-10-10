@@ -61,6 +61,13 @@ const Filter = () => {
             onChange={(event) => setText(event.currentTarget.value)}
           ></TextInput> */}
 
+          {/* Social Events & Parties
+Arts & Performances
+Cultural & International Community
+Sports & Fitness
+Academic & Professional Development
+Additional */}
+
           <Checkbox.Group
             value={value}
             onChange={setValue}
@@ -69,32 +76,32 @@ const Filter = () => {
           >
             <Checkbox
               value="official"
-              label="UBC"
+              label="Culture & Community"
               className="filter-check-box-official"
             />
             <Checkbox
               value="company"
-              label="Career"
+              label="Academic & Professional"
               className="filter-check-box-company"
             />
             <Checkbox
               value="faculty"
-              label="Faculty"
+              label="Sports & Fitness"
               className="filter-check-box-faculty"
             />
             <Checkbox
               value="club"
-              label="Clubs"
+              label="Arts & Performances"
               className="filter-check-box-club"
             />
             <Checkbox
               value="social"
-              label="Social"
+              label="Social Events"
               className="filter-check-box-social"
             />
             <Checkbox
               value="other"
-              label="Other"
+              label="Additional"
               className="filter-check-box-other"
             />
           </Checkbox.Group>
