@@ -351,12 +351,12 @@ const EventMenu: React.FunctionComponent<eventMenuInterface> = ({
                   className="event-menu-radio"
                   required={true}
                 >
-                  <Radio value="official" label="Official Event" />
-                  <Radio value="company" label="Career Event" />
-                  <Radio value="faculty" label="Faculty Event" />
-                  <Radio value="club" label="Club Event" />
-                  <Radio value="social" label="Social Event" />
-                  <Radio value="other" label="Other Event" />
+                  <Radio value="official" label="Culture & Community" />
+                  <Radio value="company" label="Academic & Professional" />
+                  <Radio value="faculty" label="Sports & Fitness" />
+                  <Radio value="club" label="Arts & Performances" />
+                  <Radio value="social" label="Social" />
+                  <Radio value="other" label="Additional" />
                 </Radio.Group>
               </Flex>
             ),
