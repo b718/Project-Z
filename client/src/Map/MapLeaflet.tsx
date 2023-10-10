@@ -299,7 +299,7 @@ const MapLeaflet = () => {
                                     <SideBarMover />
                                     <LegendBL />
                                     <Filter />
-                                    <MobileCreateMenu />
+                                    {/* <MobileCreateMenu /> */}
                                     <GeoLocation />
                                     <LocateMeMapComponent />
                                     <FilterMapComponent />

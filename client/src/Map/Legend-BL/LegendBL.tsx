@@ -9,11 +9,11 @@ const LegendBL = () => {
   return (
     <div className="legendbl-div-for-click">
       <Flex justify={"center"} align={"center"}>
-        <a href="https://www.instagram.com/pinnitubc/" target="_blank">
+        <a href="https://www.instagram.com/pinnit_ubc/" target="_blank">
           <Image src={igLogo} width={"20px"}></Image>
         </a>
         <Text className="legend-bl-text-ig" style={{ marginLeft: "0.3rem" }}>
-          Follow Us @pinnitubc!
+          Follow Us @pinnit_ubc!
         </Text>
       </Flex>
     </div>
