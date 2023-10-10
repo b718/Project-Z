@@ -96,7 +96,7 @@ Additional */}
             />
             <Checkbox
               value="social"
-              label="Social Events"
+              label="Social"
               className="filter-check-box-social"
             />
             <Checkbox
