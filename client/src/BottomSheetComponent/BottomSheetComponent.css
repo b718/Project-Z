@@ -58,7 +58,7 @@
 .bottom-sheet-component-time-to,
 .bottom-sheet-component-location,
 .bottom-sheet-component-tags {
-  max-width: fit-content;
+  max-width: 50vw;
 }
 
 .react-modal-sheet-header {
