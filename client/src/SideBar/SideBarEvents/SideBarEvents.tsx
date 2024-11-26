@@ -90,7 +90,6 @@ const SideBarEvents = () => {
   return (
     <>
       <Text className="side-bar-events-main-title">Upcoming Events</Text>
-      <Text>Testing AWS</Text>
       <Flex
         justify={"center"}
         align={"center"}
